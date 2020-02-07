@@ -9,6 +9,8 @@
     <audio class="stem_music" id="stem_music_3" src="static/audio/compareSize/stem_music_3.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem_music" id="stem_music_4" src="static/audio/compareSize/stem_music_4.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem_music" id="stem_music_5" src="static/audio/compareSize/stem_music_5.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_6" src="static/audio/compareSize/stem_music_5.mp3">您的浏览器不支持 audio 标签。</audio>
+
     <img
       class="music-img"
       @click="broadcast()"
@@ -177,6 +179,8 @@ export default {
   },
   mounted() {
     let _this = this;
+    let small_star = document.getElementById('small_star')
+    let big_star = document.getElementById('big_star')
     let bg_music = document.getElementById("bg_music");
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
@@ -203,6 +207,12 @@ export default {
         _this.playAudio('complete')
       }else{
         _this.currentItem = _this.gameList[_this.currentIndex];
+        if(_this.currentItem.type == 'drag'){
+          small_star.style.top = '0px'
+          small_star.style.left = '0px'
+          big_star.style.top = '0px'
+          big_star.style.left = '0px'
+        }
         console.log(_this.currentIndex)
         console.log(_this.currentItem)
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
@@ -306,7 +316,7 @@ export default {
           _this.currentItem.isBigRight = true;
           _this.canChoose = true
         }else{
-          _this.currentItem.isSmallRight = true;
+          _this.currentItem.isSmallRight = false;
           moveDiv.style.left = '0px'
           moveDiv.style.top = '0px'
           _this.playAudio('please_think')
