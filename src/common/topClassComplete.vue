@@ -1,6 +1,6 @@
 <template>
     <div class="finish-wrapper">
-        <img class="finish-img" src="static/images/common/success.gif" alt="">
+        <img class="finish-img" src="static/images/common/top_success.gif" alt="">
         <div class="oprate-wrapper">
             <span class="complete-btn" @click="goBack()">完成</span>
             <span class="restart-btn" @click="initiate()">重做</span>
@@ -32,14 +32,18 @@ export default {
         height: 100%;
         display: block;
         margin: 0 auto;
-        background: #f09b88;
+        background-image: url('../../static/images/common/top_complete_bg.png');
+        background-size: 100% 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         .finish-img{
             display: block;
-            width: 60%;
-            margin: 0 auto;
+            width: 30%;
+            margin: 0 auto 30px;
         }
         .oprate-wrapper{
-            margin-top: -5%;
             .complete-btn{
                 display: inline-block;
                 width: 80px;

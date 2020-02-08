@@ -15,6 +15,15 @@ import regular from '@/components/regular/regular'
 import ringCounting from '@/components/ringCounting/ringCounting'
 import splitFive from '@/components/splitFive/splitFive'
 
+//大班
+import cylinder from '@/components/cylinder/cylinder'
+import oddEvenNumber from '@/components/oddEvenNumber/oddEvenNumber'
+import levelClassify from '@/components/levelClassify/levelClassify'
+import adjoinNumber from '@/components/adjoinNumber/adjoinNumber'
+import twoDimensionClassify from '@/components/twoDimensionClassify/twoDimensionClassify'
+
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -103,5 +112,46 @@ export default new Router({
         keepAlive: false
       }
     },
+    {
+      path: '/cylinder',
+      name: 'cylinder',
+      component: cylinder,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/oddEvenNumber',
+      name: 'oddEvenNumber',
+      component: oddEvenNumber,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/levelClassify',
+      name: 'levelClassify',
+      component: levelClassify,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/adjoinNumber',
+      name: 'adjoinNumber',
+      component: adjoinNumber,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/twoDimensionClassify',
+      name: 'twoDimensionClassify',
+      component: twoDimensionClassify,
+      meta: {
+        keepAlive: false
+      }
+    },
+
   ]
 })

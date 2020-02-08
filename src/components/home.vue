@@ -1,8 +1,8 @@
 <template>
     <div class="home-container">
-      <button class="homeBtn bottom-btn" @click="toOtherPage('/compareSize')">小班</button>
+      <button class="homeBtn bottom-btn" @click="toOtherPage('/bottomClassMenu')">小班</button>
       <button class="homeBtn middle-btn" @click="toOtherPage('/middleClassMenu')">中班</button>
-      <button class="homeBtn top-btn" @click="sorry()">大班</button>  
+      <button class="homeBtn top-btn" @click="toOtherPage('/topClassMenu')">大班</button>  
     </div>
 </template>
 

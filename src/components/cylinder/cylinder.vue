@@ -1,15 +1,14 @@
 <template>
     <div class="middle-class-menu-container" >
-        <audio id="bg_music" loop="loop" src="static/audio/trapezoid/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="right_music" src="static/audio/trapezoid/right.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="finish_five" src="static/audio/trapezoid/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="please_think" src="static/audio/trapezoid/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_trapezoid" src="static/audio/trapezoid/select_trapezoid.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_cicle" src="static/audio/trapezoid/select_cicle.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_rect" src="static/audio/trapezoid/select_rect.mp3">您的浏览器不支持 audio 标签。</audio>
+        <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
+        <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
+        <audio id="finish_five" src="static/audio/common/top_finish_five.m4a">您的浏览器不支持 audio 标签。</audio>
+        <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
+        <audio id="select_globe" src="static/audio/cylinder/select_globe.m4a">您的浏览器不支持 audio 标签。</audio>
+        <audio id="select_cylinder" src="static/audio/cylinder/select_cylinder.m4a">您的浏览器不支持 audio 标签。</audio>
 
-        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/trapezoid/music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/trapezoid/music_active.gif">
+        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/top_music.png"> 
+        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/top_music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
         <div class="game-list" v-if="!isFinish">
             <div class="game-item">
@@ -18,25 +17,29 @@
                     <img class="game-title-img" src="static/images/trapezoid/cloud.png" alt="">
                 </div>
                 <div class="choose-item-wrapper">
-                    <div class="choose-item left-item" @click="choose('left', currentItem)">
-                        <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg" alt="">
+                    <div class="item-wrapper">
+                        <div class="choose-item left-item" @click="choose('left', currentItem)">
+                            <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg" alt="">
+                        </div>
                         <img v-if="currentItem.isRight && currentItem.rightChoice == 'left'" class="right-img" src="static/images/trapezoid/right.png" alt="">
-                    </div>
-                    <div class="choose-item right-item" @click="choose('right', currentItem)">
-                        <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg" alt="">
+                    </div> 
+                    <div class="item-wrapper">
+                        <div class="choose-item right-item" @click="choose('right', currentItem)">
+                            <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg" alt="">
+                        </div>
                         <img v-if="currentItem.isRight && currentItem.rightChoice == 'right'" class="right-img" src="static/images/trapezoid/right.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
-        <red-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
-        </red-complete>
+        <top-class-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
+        </top-class-complete>
     </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import redComplete from "@/common/redComplete";
+import topClassComplete from "@/common/topClassComplete";
 export default {
   name: 'home',
   data(){
@@ -48,65 +51,56 @@ export default {
         canChoose: false,
         gameList: [
             {
-                title: '请选出梯形',
-                leftImg: 'static/images/trapezoid/rectangle1.png',
-                rightImg: 'static/images/trapezoid/trapezoid1.png',
-                rightChoice: 'right',
-                isRight: false,
-                isWrong: false,
-                audioType: 'select_trapezoid'
-            },
-            {
-                title: '请选出长方形',
-                leftImg: 'static/images/trapezoid/triangle.png',
-                rightImg: 'static/images/trapezoid/rectangle2.png',
-                rightChoice: 'right',
-                isRight: false,
-                isWrong: false,
-                audioType: 'select_rect'
-            },
-            {
-                title: '请选出圆形',
-                leftImg: 'static/images/trapezoid/circle.png',
-                rightImg: 'static/images/trapezoid/ball.png',
+                title: '请选出球体',
+                leftImg: 'static/images/cylinder/ball.png',
+                rightImg: 'static/images/cylinder/battery.png',
                 rightChoice: 'left',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_cicle'
+                audioType: 'select_globe'
             },
             {
-                title: '请选出梯形',
-                leftImg: 'static/images/trapezoid/trapezoid2.png',
-                rightImg: 'static/images/trapezoid/parallelogram.png',
+                title: '请选出圆柱体',
+                leftImg: 'static/images/cylinder/stockForm.png',
+                rightImg: 'static/images/cylinder/pinpangball.png',
                 rightChoice: 'left',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_trapezoid'
+                audioType: 'select_cylinder'
             },
             {
-                title: '请选出梯形',
-                leftImg: 'static/images/trapezoid/box.png',
-                rightImg: 'static/images/trapezoid/trapezoid5.png',
+                title: '请选出球体',
+                leftImg: 'static/images/cylinder/circle.png',
+                rightImg: 'static/images/cylinder/football.png',
                 rightChoice: 'right',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_trapezoid'
+                audioType: 'select_globe'
+            },
+            {
+                title: '请选出圆柱体',
+                leftImg: 'static/images/cylinder/bucket.png',
+                rightImg: 'static/images/cylinder/watermalen.png',
+                rightChoice: 'left',
+                isRight: false,
+                isWrong: false,
+                audioType: 'select_cylinder'
+            },
+            {
+                title: '请选出球体',
+                leftImg: 'static/images/cylinder/milkPot.png',
+                rightImg: 'static/images/cylinder/basketball.png',
+                rightChoice: 'right',
+                isRight: false,
+                isWrong: false,
+                audioType: 'select_globe'
             },
         ]
     }
   },
   components: {
       commonHeader,
-      redComplete
-  },
-  created(){
-      let _this = this;
-        _this.isFinish = false;
-        _this.currentIndex = 0;
-        for(let i = 0, len = _this.gameList.length; i < len; i++){
-            _this.gameList[i].isRight = false;
-        }
-        _this.currentItem = _this.gameList[_this.currentIndex];
+      topClassComplete
   },
   mounted(){
       let _this = this;
@@ -116,26 +110,19 @@ export default {
         let right_music = document.getElementById('right_music');
         let finish_five = document.getElementById('finish_five');
         let please_think = document.getElementById('please_think');
-        let select_trapezoid = document.getElementById('select_trapezoid');
-        let select_cicle = document.getElementById('select_cicle');
-        let select_rect = document.getElementById('select_rect');
+        let select_globe = document.getElementById('select_globe');
+        let select_cylinder = document.getElementById('select_cylinder');
         bg_music.addEventListener("canplaythrough",function(){
             bg_music.play();
         });
-        select_trapezoid.addEventListener("canplaythrough",function(){
-            select_trapezoid.play();
+        select_globe.addEventListener("canplaythrough",function(){
+            select_globe.play();
         });
-
-        //每次题目mp3后播放北京音乐
-        select_trapezoid.addEventListener("ended", function(){
+        select_globe.addEventListener("ended", function(){
             _this.musicActive = false;
             _this.canChoose = true;
         })
-        select_cicle.addEventListener("ended", function(){
-            _this.musicActive = false;
-            _this.canChoose = true;
-        })
-        select_rect.addEventListener("ended", function(){
+        select_cylinder.addEventListener("ended", function(){
             _this.musicActive = false;
             _this.canChoose = true;
         })
@@ -157,6 +144,7 @@ export default {
         please_think.addEventListener("ended", function(){
             _this.canChoose = true;
         })
+        _this.initiate()
       })
   },
   beforeDestroy(){
@@ -289,18 +277,24 @@ export default {
         }
         .choose-item-wrapper{
             height: 70%;
-            .choose-item{
+            .item-wrapper{
                 display: inline-block;
-                padding: 6% 0;
+                
                 box-sizing: border-box;
                 margin: 0 30px;
                 width: 20%;
-                height: 79%;
+                vertical-align: top;
+                .right-img{
+                    width: 50%;
+                }
+            }
+            .choose-item{
+                padding: 15% 0;
                 background-image: url('../../../static/images/trapezoid/border.png');
                 background-size: 100% 100%;
-                vertical-align: middle;
+                
                 .choice-img{
-                    width: 50%;
+                    width: 60%;
                 }
                 .shake-animation{
                     animation-name: shaky-slow;
@@ -311,9 +305,7 @@ export default {
                     animation-delay: 0s;			// 动画延时时间
                     animation-play-state: running;		// 动画执行状态，一般没必要parse
                 }
-                .right-img{
-                    width: 50%;
-                }
+                
             }
         }
     }
