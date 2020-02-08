@@ -137,7 +137,6 @@ export default {
     .menu-item{
       width: 100%;
       height: 200px;
-      border: 1px solid #fff;
       border-radius: 30px;
     }
 }
