@@ -318,7 +318,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.less";
+@import "../../../static/css/common.css";
 .regular-container{
     position: relative;
     height: 100%;

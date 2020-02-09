@@ -204,7 +204,6 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import '../../../static/css/doudong.css';
 @headerHeight: 30px;
 @bodyHeight: calc("100%"-40px);
 .middle-class-menu-container{

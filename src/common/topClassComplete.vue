@@ -56,7 +56,7 @@ export default {
                 display: inline-block;
                 width: 80px;
                 height: 40px;
-                background: #47b1f0;
+                background: red;
                 border-radius: 5px;
                 line-height: 40px;
                 margin-left: 70px;

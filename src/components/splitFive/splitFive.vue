@@ -337,7 +337,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.less";
+@import "../../../static/css/common.css";
 .split-five-container{
   height: 100%;
   .body{

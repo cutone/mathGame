@@ -1,16 +1,16 @@
-// 小黄人样式
+/* 小黄人样式 */
 .music-img {
     position: absolute;
     top: 30px;
     left: 20px;
     width: 100px;
 }
-//自适应flex
+/* 自适应flex */
 .flex-wrapper{
     display: flex;
     justify-content: space-around;
 }
-//透明度0
+/* 透明度0 */
 .hidden{
     opacity: 0;
 }

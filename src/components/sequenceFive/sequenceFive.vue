@@ -313,7 +313,7 @@ export default {
 
 <style scoped lang="less">
 @import "../../../static/css/doudong.css";
-@import "../../../static/css/common.less";
+@import "../../../static/css/common.css";
 .sequence-five-container {
   height: 100%;
   .game-title {

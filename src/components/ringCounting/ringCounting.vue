@@ -61,9 +61,9 @@ export default {
         answerList: [7,8,9]
       },{
         isRight: false,
-        img: 'static/images/ringCounting/flower_purple.png',
-        answer: 7,
-        answerList: [6,7,8]
+        img: 'static/images/ringCounting/flower_blue.png',
+        answer: 5,
+        answerList: [5,6,7]
       },{
         isRight: false,
         img: 'static/images/ringCounting/flower_red.png',
@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.less";
+@import "../../../static/css/common.css";
 .ring-counting-container{
   height: 100%;
   .body{
@@ -188,8 +188,10 @@ export default {
         margin: 0 auto;
         display: flex;
         align-items: center;
+        overflow: hidden;
         .question-img{
-          width: 100%;
+          width: 80%;
+          margin: 0 auto;
         }
       }
       .flex-wrapper{

@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-
+import '../static/css/doudong.css';
+import '../static/css/common.css';
 Vue.config.productionTip = false
 
 //引入手势插件

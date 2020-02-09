@@ -36,7 +36,10 @@ export default new Router({
     {
       path: '/bottomClassMenu',
       name: 'bottomClassMenu',
-      component: bottomClassMenu
+      component: bottomClassMenu,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/middleClassMenu',
@@ -49,7 +52,10 @@ export default new Router({
     {
       path: '/topClassMenu',
       name: 'topClassMenu',
-      component: topClassMenu
+      component: topClassMenu,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/maxFive',
