@@ -21,35 +21,49 @@ export default {
     let _this = this
     return {
       currentIndex: 1,
-      menuList:[{
-        title: '认识5以内的整数',
-        url: '/maxFive',
-        img: 'static/images/middleClassMenu/maxFive.png'
-      },{
-        title: '认识梯形',
-        url: '/trapezoid',
-        img: 'static/images/middleClassMenu/trapezoid.png'
-      },{
-        title: '学习五以内的序数（一）',
-        url: '/sequenceFive',
-        img: 'static/images/middleClassMenu/sequence_five_1.png',
-      }, {
-        title: '学习10以内的序数',
-        url: '/sequenceTen',
-        img: 'static/images/middleClassMenu/sequence_ten.png',
-      },{
-        title: '按规律排序（三）',
-        url: '/regular',
-        img: 'static/images/middleClassMenu/regular.png',
-      },{
-        title: '环形计数',
-        url: '/ringCounting',
-        img: 'static/images/middleClassMenu/ring_counting.png',
-      },{
-        title: '学习5以内数的组成与分解',
-        url: '/splitFive',
-        img: 'static/images/middleClassMenu/split_five.png',
-      }],
+      menuList:[
+        //上学期
+        {
+          title: '认识长方形',
+          url: '/rectangle',
+          img: 'static/images/middleClassMenu/rectangle.png'
+        },
+        {
+          title: '认识椭圆形',
+          url: '/oval',
+          img: 'static/images/middleClassMenu/oval.png'
+        },
+        //下学期
+        {
+          title: '认识5以内的整数',
+          url: '/maxFive',
+          img: 'static/images/middleClassMenu/maxFive.png'
+        },{
+          title: '认识梯形',
+          url: '/trapezoid',
+          img: 'static/images/middleClassMenu/trapezoid.png'
+        },{
+          title: '学习五以内的序数（一）',
+          url: '/sequenceFive',
+          img: 'static/images/middleClassMenu/sequence_five_1.png',
+        }, {
+          title: '学习10以内的序数',
+          url: '/sequenceTen',
+          img: 'static/images/middleClassMenu/sequence_ten.png',
+        },{
+          title: '按规律排序（三）',
+          url: '/regular',
+          img: 'static/images/middleClassMenu/regular.png',
+        },{
+          title: '环形计数',
+          url: '/ringCounting',
+          img: 'static/images/middleClassMenu/ring_counting.png',
+        },{
+          title: '学习5以内数的组成与分解',
+          url: '/splitFive',
+          img: 'static/images/middleClassMenu/split_five.png',
+        }
+      ],
       swiperOption:{
         effect: 'coverflow',
         coverflowEffect: {

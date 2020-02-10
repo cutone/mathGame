@@ -14,6 +14,11 @@ import sequenceTen from '@/components/sequenceTen/sequenceTen'
 import regular from '@/components/regular/regular'
 import ringCounting from '@/components/ringCounting/ringCounting'
 import splitFive from '@/components/splitFive/splitFive'
+import rectangle from '@/components/rectangle/rectangle'
+import oval from '@/components/oval/oval'
+import compareNeighborsFive from '@/components/compareNeighborsFive/compareNeighborsFive'
+
+
 
 //大班
 import cylinder from '@/components/cylinder/cylinder'
@@ -158,6 +163,29 @@ export default new Router({
         keepAlive: false
       }
     },
-
+    {
+      path: '/rectangle',
+      name: 'rectangle',
+      component: rectangle,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/oval',
+      name: 'oval',
+      component: oval,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/compareNeighborsFive',
+      name: 'compareNeighborsFive',
+      component: compareNeighborsFive,
+      meta: {
+        keepAlive: false
+      }
+    },
   ]
 })

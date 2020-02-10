@@ -4,12 +4,12 @@
     <audio id="right_music" src="static/audio/compareSize/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/compareSize/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_1" src="static/audio/compareSize/stem_music_1.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_2" src="static/audio/compareSize/stem_music_2.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_3" src="static/audio/compareSize/stem_music_3.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_4" src="static/audio/compareSize/stem_music_4.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_5" src="static/audio/compareSize/stem_music_5.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio class="stem_music" id="stem_music_6" src="static/audio/compareSize/stem_music_5.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_1" src="static/audio/compareSize/stem_music_1.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_2" src="static/audio/compareSize/stem_music_2.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_3" src="static/audio/compareSize/stem_music_3.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_4" src="static/audio/compareSize/stem_music_4.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_5" src="static/audio/compareSize/stem_music_5.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio class="stem_music" id="stem_music_6" src="static/audio/compareSize/stem_music_5.wav">您的浏览器不支持 audio 标签。</audio>
 
     <img
       class="music-img"
