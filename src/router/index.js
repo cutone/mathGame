@@ -30,7 +30,7 @@ import levelClassify from '@/components/levelClassify/levelClassify'
 import adjoinNumber from '@/components/adjoinNumber/adjoinNumber'
 import twoDimensionClassify from '@/components/twoDimensionClassify/twoDimensionClassify'
 
-
+import regular4 from '@/components/regular/regular4'
 
 Vue.use(Router)
 
@@ -202,6 +202,14 @@ export default new Router({
       path: '/sixToTen',
       name: 'sixToTen',
       component: sixToTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/regular4',
+      name: 'regular4',
+      component: regular4,
       meta: {
         keepAlive: false
       }

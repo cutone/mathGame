@@ -36,7 +36,7 @@
         </div>
         <div class="plate-wrapper">
           <img class="plate-item" id="left_plate" :src="'static/images/splitFive/'+currentItem.leftPlate+'.png'" alt="">
-          <img :class="!currentItem.isRight?'right-img':'right-img-opacity'" src="static/images/common/right.png"/>
+          <img :class="currentItem.isRight?'right-img':'right-img-opacity'" src="static/images/common/right.png"/>
           <img class="plate-item" id="right_plate" :src="'static/images/splitFive/'+currentItem.rightPlate+'.png'" alt="">
         </div>
       </div>

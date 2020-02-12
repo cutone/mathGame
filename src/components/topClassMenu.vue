@@ -41,6 +41,10 @@ export default {
         title: '二维分类',
         url: '/twoDimensionClassify',
         img: 'static/images/topClassMenu/twoDimensionClassify.png'
+      },{
+        title: '按规律排序（四）',
+        url: '/regular4',
+        img: 'static/images/topClassMenu/regular4.png'
       }],
       swiperOption:{
         effect: 'coverflow',
