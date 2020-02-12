@@ -62,6 +62,11 @@ export default {
           title: '学习5以内数的组成与分解',
           url: '/splitFive',
           img: 'static/images/middleClassMenu/split_five.png',
+        },
+        {
+          title: '学习6--10',
+          url: '/sixToTen',
+          img: 'static/images/middleClassMenu/sixToTen.png',
         }
       ],
       swiperOption:{

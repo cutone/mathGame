@@ -25,6 +25,10 @@ export default {
         title: '比较物体的大小',
         url: '/compareSize',
         img: 'static/images/bottomClassMenu/compareSize.png'
+      },{
+        title: '1和许多',
+        url: '/oneAndMany',
+        img: 'static/images/bottomClassMenu/oneAndMany.png'
       }],
       swiperOption:{
         effect: 'coverflow',

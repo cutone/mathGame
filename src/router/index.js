@@ -8,6 +8,8 @@ import topClassMenu from '@/components/topClassMenu'
 import trapezoid from '@/components/trapezoid/trapezoid'
 //小班
 import compareSize from '@/components/compareSize/compareSize'
+import oneAndMany from '@/components/oneAndMany/oneAndMany'
+
 //中班
 import sequenceFive from '@/components/sequenceFive/sequenceFive'
 import sequenceTen from '@/components/sequenceTen/sequenceTen'
@@ -17,6 +19,7 @@ import splitFive from '@/components/splitFive/splitFive'
 import rectangle from '@/components/rectangle/rectangle'
 import oval from '@/components/oval/oval'
 import compareNeighborsFive from '@/components/compareNeighborsFive/compareNeighborsFive'
+import sixToTen from '@/components/sixToTen/sixToTen'
 
 
 
@@ -187,5 +190,22 @@ export default new Router({
         keepAlive: false
       }
     },
+    {
+      path: '/oneAndMany',
+      name: 'oneAndMany',
+      component: oneAndMany,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/sixToTen',
+      name: 'sixToTen',
+      component: sixToTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    
   ]
 })

@@ -1,10 +1,11 @@
 <template>
-  <div class="hello">
+  <div class="one-and-many-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music" class="stem-music" src="static/audio/common/stem_music.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="select_one" class="stem-music" src="static/audio/common/select_one.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="select_many" class="stem-music" src="static/audio/common/select_many.wav">您的浏览器不支持 audio 标签。</audio>
     <img
       class="music-img"
       @click="broadcast()"
@@ -53,7 +54,7 @@ export default {
     let please_think = document.getElementById("please_think");
     let stemMusicList = document.getElementsByClassName("stem-music");
     for(let i = 0, len = stemMusicList.length; i < len; i++){
-      eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
+      eval("let"+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
       stemMusicList[i].addEventListener("ended", function() {
         _this.canChoose = true;
         _this.musicActive = false;
@@ -119,8 +120,15 @@ export default {
 
 <style scoped lang='less'>
 @import "../../../static/css/common.css";
-.body{
-  height: 100%;
+.one-and-many-container{
+    height: 100%;
+    background-image: url('../../../static/images/oneAndMany/background.jpg');
+    background-size: 100% 100%;
 
+    .body{
+        height: 100%;
+
+    }
 }
+
 </style>
