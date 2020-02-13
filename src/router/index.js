@@ -29,8 +29,8 @@ import oddEvenNumber from '@/components/oddEvenNumber/oddEvenNumber'
 import levelClassify from '@/components/levelClassify/levelClassify'
 import adjoinNumber from '@/components/adjoinNumber/adjoinNumber'
 import twoDimensionClassify from '@/components/twoDimensionClassify/twoDimensionClassify'
-
 import regular4 from '@/components/regular/regular4'
+import numberInLife from '@/components/numberInLife/numberInLife'
 
 Vue.use(Router)
 
@@ -210,6 +210,14 @@ export default new Router({
       path: '/regular4',
       name: 'regular4',
       component: regular4,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/numberInLife',
+      name: 'numberInLife',
+      component: numberInLife,
       meta: {
         keepAlive: false
       }

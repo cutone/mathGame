@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="hello-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
@@ -119,8 +119,11 @@ export default {
 
 <style scoped lang='less'>
 @import "../../../static/css/common.css";
-.body{
+.hello-container{
   height: 100%;
+  .body{
+    height: 100%;
 
+  }
 }
 </style>

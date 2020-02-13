@@ -22,6 +22,10 @@ export default {
     return {
       currentIndex: 1,
       menuList:[{
+        title: '生活中的数字',
+        url: '/numberInLife',
+        img: 'static/images/topClassMenu/numberInLife.png'
+      },{
         title: '认识圆柱体和球体',
         url: '/cylinder',
         img: 'static/images/topClassMenu/cylinder.png'
