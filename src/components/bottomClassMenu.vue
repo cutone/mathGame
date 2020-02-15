@@ -29,6 +29,10 @@ export default {
         title: '1和许多',
         url: '/oneAndMany',
         img: 'static/images/bottomClassMenu/oneAndMany.png'
+      },{
+        title: '比较两个数相不相等',
+        url: '/compareNumber',
+        img: 'static/images/bottomClassMenu/compareNumber.png'
       }],
       swiperOption:{
         effect: 'coverflow',

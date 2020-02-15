@@ -26,6 +26,10 @@ export default {
         url: '/numberInLife',
         img: 'static/images/topClassMenu/numberInLife.png'
       },{
+        title: '10以内的序数',
+        url: '/numberWithinTen',
+        img: 'static/images/topClassMenu/numberWithinTen.png'
+      },{
         title: '认识圆柱体和球体',
         url: '/cylinder',
         img: 'static/images/topClassMenu/cylinder.png'

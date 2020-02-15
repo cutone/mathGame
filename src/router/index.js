@@ -9,6 +9,7 @@ import trapezoid from '@/components/trapezoid/trapezoid'
 //小班
 import compareSize from '@/components/compareSize/compareSize'
 import oneAndMany from '@/components/oneAndMany/oneAndMany'
+import compareNumber from '@/components/compareNumber/compareNumber'
 
 //中班
 import sequenceFive from '@/components/sequenceFive/sequenceFive'
@@ -31,6 +32,7 @@ import adjoinNumber from '@/components/adjoinNumber/adjoinNumber'
 import twoDimensionClassify from '@/components/twoDimensionClassify/twoDimensionClassify'
 import regular4 from '@/components/regular/regular4'
 import numberInLife from '@/components/numberInLife/numberInLife'
+import numberWithinTen from '@/components/numberWithinTen/numberWithinTen'
 
 Vue.use(Router)
 
@@ -222,6 +224,21 @@ export default new Router({
         keepAlive: false
       }
     },
-    
+    {
+      path: '/numberWithinTen',
+      name: 'numberWithinTen',
+      component: numberWithinTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/compareNumber',
+      name: 'compareNumber',
+      component: compareNumber,
+      meta: {
+        keepAlive: false
+      }
+    },
   ]
 })
