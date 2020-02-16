@@ -33,6 +33,10 @@ export default {
         title: '比较两个数相不相等',
         url: '/compareNumber',
         img: 'static/images/bottomClassMenu/compareNumber.png'
+      },{
+        title: '区分前后',
+        url: '/beforeAndAfter',
+        img: 'static/images/bottomClassMenu/beforeAndAfter.png'
       }],
       swiperOption:{
         effect: 'coverflow',
