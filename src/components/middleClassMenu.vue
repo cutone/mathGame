@@ -33,6 +33,21 @@ export default {
           url: '/oval',
           img: 'static/images/middleClassMenu/oval.png'
         },
+        {
+          title: '比较5以内的相邻两数',
+          url: '/compareNumberWithinFive',
+          img: 'static/images/middleClassMenu/compareNumberWithinFive.png'
+        },
+        {
+          title: '按规律排序（二）',
+          url: '/regular2',
+          img: 'static/images/middleClassMenu/regular2.png'
+        },
+        {
+          title: '7以内数的守恒',
+          url: '/numbersWithinSeven',
+          img: 'static/images/middleClassMenu/numbersWithinSeven.png'
+        },
         //下学期
         {
           title: '认识5以内的整数',

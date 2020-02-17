@@ -21,7 +21,9 @@ import rectangle from '@/components/rectangle/rectangle'
 import oval from '@/components/oval/oval'
 import compareNeighborsFive from '@/components/compareNeighborsFive/compareNeighborsFive'
 import sixToTen from '@/components/sixToTen/sixToTen'
-
+import compareNumberWithinFive from '@/components/compareNumberWithinFive/compareNumberWithinFive'
+import regular2 from '@/components/regular2/regular2'
+import numbersWithinSeven from '@/components/numbersWithinSeven/numbersWithinSeven'
 
 
 //大班
@@ -236,6 +238,30 @@ export default new Router({
       path: '/compareNumber',
       name: 'compareNumber',
       component: compareNumber,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/compareNumberWithinFive',
+      name: 'compareNumberWithinFive',
+      component: compareNumberWithinFive,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/regular2',
+      name: 'regular2',
+      component: regular2,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/numbersWithinSeven',
+      name: 'numbersWithinSeven',
+      component: numbersWithinSeven,
       meta: {
         keepAlive: false
       }
