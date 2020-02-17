@@ -1,14 +1,14 @@
 <template>
   <div class="before-and-after-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_1" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_1.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_2" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_2.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_3" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_3.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_4" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_4.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_5" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_5.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music_1" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_1.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music_2" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_2.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music_3" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_3.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music_4" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_4.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music_5" class="stem-music" src="static/audio/beforeAndAfter/beforeAndAfter_5.wav">您的浏览器不支持 audio 标签。</audio>
     <img
       class="music-img"
       @click="broadcast()"
@@ -27,16 +27,16 @@
 
       <img 
         class="animal-item"
-        @touchmove="touchMove('animal-'+ (currentIndex+1))" 
-        @touchstart="down('animal-'+ (currentIndex+1))"
-        @touchend="check('animal-'+ (currentIndex+1))" 
-        :id="'animal-'+ (currentIndex+1)"
-        :src="'static/images/beforeAndAfter/animal-'+ (currentIndex+1) + '.png'" 
+        @touchmove="touchMove('currentAnimal')" 
+        @touchstart="down('currentAnimal')"
+        @touchend="check('currentAnimal')" 
+        id="currentAnimal"
+        :src="'static/images/beforeAndAfter/' + currentItem.animal+ '.png'" 
         alt="">
 
       <div class="redline-wrap">
         <img class="redline" id="left_redline" src='static/images/beforeAndAfter/redline.png' alt="">
-        <img class="minnie-img"  src='static/images/beforeAndAfter/minnie-1.png' alt="">
+        <img class="minnie-img" src='static/images/beforeAndAfter/minnie-1.png' alt="">
         <img class="redline" id="right_redline" src='static/images/beforeAndAfter/redline.png' alt="">
       </div>
 
@@ -49,6 +49,7 @@
 <script>
 import commonHeader from "@/common/commonHeader";
 import commonComplete from "@/common/commonComplete";
+import {getElementToPageLeft, getElementToPageTop} from '@/common/js/common'
 export default {
   name: 'HelloWorld',
   data () {
@@ -61,30 +62,35 @@ export default {
       isFinish: false,
       gameList: [
         {
+          animal: 'animal-1',
           isRight: false,
           index: 1,
           leftRedline: true,
           rightRedline: false
         },
         {
+          animal: 'animal-2',
           isRight: false,
           index: 2,
           leftRedline: false,
           rightRedline: true
         },
         {
+          animal: 'animal-3',
           isRight: false,
           index: 3,
           leftRedline: false,
           rightRedline: true
         },
         {
+          animal: 'animal-4',
           isRight: false,
           index: 4,
           leftRedline: true,
           rightRedline: false
         },
         {
+          animal: 'animal-5',
           isRight: false,
           index: 5,
           leftRedline: false,
@@ -103,33 +109,41 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
+    let currentAnimal = document.getElementById("currentAnimal");
     let stemMusicList = document.getElementsByClassName("stem-music");
     for(let i = 0, len = stemMusicList.length; i < len; i++){
       eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
       stemMusicList[i].addEventListener("ended", function() {
-        _this.canChoose = true;
+        _this.canDrag = true;
         _this.musicActive = false;
       });
     }
     bg_music.addEventListener("canplaythrough", function() {
       bg_music.play();
     });
-
-    // stem_music.addEventListener("canplaythrough", function() {
-    //   stem_music.play();
-    // });
+    //播放第一个题目要求
+    stem_music_1.addEventListener("canplaythrough", function() {
+      stem_music_1.play();
+    });
     right_music.addEventListener("ended", function() {
       if(_this.currentIndex == _this.gameList.length){
         _this.isFinish = true;
         _this.playAudio('complete')
       }else{
+        //切换到下一题
         _this.currentItem = _this.gameList[_this.currentIndex];
-        // _this.playAudio('stem_music');
+        //重置被拖动元素的定位
+        currentAnimal.style.right = '6.5%'
+        currentAnimal.style.bottom = '7.5%'
+        currentAnimal.style.left = 'auto';
+        currentAnimal.style.top = 'auto';
+        //播放下一题的音频
+        _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
       }
     });
     please_think.addEventListener("ended", function() {
-      _this.canChoose = true
+      _this.canDrag = true
     })
     _this.initiate();
   },
@@ -189,7 +203,7 @@ export default {
     broadcast() {
       let _this = this;
       _this.musicActive = true;
-      _this.canChoose = false;
+      _this.canDrag = false;
       _this.playAudio('stem_music_'+(_this.currentIndex+1));
     },
     //返回上一级
@@ -202,13 +216,12 @@ export default {
       _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
-      _this.canChoose = false;
+      _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
         _this.gameList[i].isWrong = false;
       }
-      _this.playAudio('stem_music_'+(_this.currentIndex+1));
     },
     check(){
       let _this = this;
@@ -227,65 +240,41 @@ export default {
       let moveDiv = event.target;
       let leftPlateDiv = document.getElementById('left_redline');
       let rightPlateDiv = document.getElementById('right_redline');
-      //左盘的四边
-      let leftPlateDivLeft = leftPlateDiv.offsetLeft;
+      //左线框的四边
+      let leftPlateDivLeft = getElementToPageLeft(leftPlateDiv);
       let leftPlateDivRight = leftPlateDivLeft + leftPlateDiv.clientWidth;
-      let leftPlateDivTop = leftPlateDiv.offsetTop;
+      let leftPlateDivTop = getElementToPageTop(leftPlateDiv);
       let leftPlateDivBottom = leftPlateDivTop + leftPlateDiv.clientHeight;
-      //右盘的四边
+      //又线框的四边
       let rightPlateDivLeft = rightPlateDiv.offsetLeft;
       let rightPlateDivRight = rightPlateDivLeft + rightPlateDiv.clientWidth;
       let rightPlateDivTop = rightPlateDiv.offsetTop;
       let rightPlateDivBottom = rightPlateDivTop + rightPlateDiv.clientHeight;
-      // console.log(mouseX,mouseY)
-      // console.log('盘子',leftPlateDivLeft,leftPlateDivRight,leftPlateDivTop,leftPlateDivBottom )
-      //左边盘子
+      console.log(mouseX,mouseY)
+      console.log('线框',leftPlateDivLeft,leftPlateDivRight,leftPlateDivTop,leftPlateDivBottom )
+      //左边线框
       if(mouseX > leftPlateDivLeft && mouseX < leftPlateDivRight && mouseY > leftPlateDivTop && mouseY < leftPlateDivBottom){
-        let index = _this.currentItem.leftContainerList.indexOf(moveDiv)
-        if(index == -1){
-          if(_this.currentItem.leftCurrentNumber < _this.currentItem.leftPlate){
-            _this.currentItem.leftCurrentNumber++
-            _this.currentItem.leftContainerList.push(moveDiv);
+          if(_this.currentItem.leftRedline){
+            _this.currentIndex++;
+            _this.playAudio('right_music')
           }else{
             moveDiv.style.left = '0px';
             moveDiv.style.top = '0px';
             _this.canDrag = false;
             _this.playAudio('please_think')
           }
-        }
-      }else{
-        let index = _this.currentItem.leftContainerList.indexOf(moveDiv)
-        if(index != -1){
-          _this.currentItem.leftCurrentNumber--
-          _this.currentItem.leftContainerList.splice(index, 1)
-        }
       }
       //右边盘子有没有装满
       if(mouseX > rightPlateDivLeft && mouseX < rightPlateDivRight && mouseY > rightPlateDivTop && mouseY < rightPlateDivBottom){
-        let index = _this.currentItem.rightContainerList.indexOf(moveDiv)
-        if(index == -1){
-          if(_this.currentItem.rightCurrentNumber < _this.currentItem.rightPlate){
-            _this.currentItem.rightCurrentNumber++
-            _this.currentItem.rightContainerList.push(moveDiv);
+          if(_this.currentItem.rightRedline){
+            _this.currentIndex++;
+            _this.playAudio('right_music')
           }else{
             moveDiv.style.left = '0px';
             moveDiv.style.top = '0px';
             _this.canDrag = false;
             _this.playAudio('please_think');
           }
-        }
-      }else{
-        let index = _this.currentItem.rightContainerList.indexOf(moveDiv)
-        if(index != -1){
-          _this.currentItem.rightCurrentNumber--
-          _this.currentItem.rightContainerList.splice(index, 1)
-        }
-      }
-      if(_this.currentItem.leftCurrentNumber == _this.currentItem.leftPlate && _this.currentItem.rightCurrentNumber == _this.currentItem.rightPlate){
-        _this.currentItem.isRight = true;
-        _this.currentIndex++;
-        _this.playAudio('right_music');
-        _this.canDrag = false;
       }
     }
   }
