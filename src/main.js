@@ -14,7 +14,7 @@ import AlloyFingerVue from '../static/js/alloy-finger/alloy_finger.vue'
 import AgreeSDK from '../static/js/AgreeSDK.js'
 
 //引入swiper插件
-import 'swiper/css/swiper.min.css'
+import '../static/js/swiper/swiper.min.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 Vue.use(VueAwesomeSwiper)
 

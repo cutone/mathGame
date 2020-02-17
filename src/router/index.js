@@ -10,6 +10,7 @@ import trapezoid from '@/components/trapezoid/trapezoid'
 import compareSize from '@/components/compareSize/compareSize'
 import oneAndMany from '@/components/oneAndMany/oneAndMany'
 import compareNumber from '@/components/compareNumber/compareNumber'
+import beforeAndAfter from '@/components/beforeAndAfter/beforeAndAfter'
 
 //中班
 import sequenceFive from '@/components/sequenceFive/sequenceFive'
@@ -266,5 +267,13 @@ export default new Router({
         keepAlive: false
       }
     },
+    {
+      path: '/beforeAndAfter',
+      name: 'beforeAndAfter',
+      component: beforeAndAfter,
+      meta: {
+        keepAlive: false
+      }
+    }
   ]
 })
