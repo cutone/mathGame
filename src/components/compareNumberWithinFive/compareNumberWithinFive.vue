@@ -331,10 +331,6 @@ export default {
 					let basketDivBottom = basketDivTop + basketList[i].clientHeight;
 					// console.log(mouseX,mouseY)
 					// console.log('盘子',basketDivLeft,basketDivRight,basketDivTop,basketDivBottom )
-					console.log(
-						"篮子" + i,
-						_this.currentItem.basketList[i].currentList.length
-					);
 					if (
 						mouseX > basketDivLeft &&
 						mouseX < basketDivRight &&
