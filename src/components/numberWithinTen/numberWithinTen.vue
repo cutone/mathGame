@@ -1,23 +1,25 @@
 <template>
   <div class="number-within-ten-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
     <common-header :game-list="[]" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
         <div class="target-wrapper"> 
-            <div class="target-item-wrapper" v-for="(item, index) in gameList" :key="index" :style="{'top':item.top,'left':item.left}">
-                <img :src="item.img" alt="">
-                <div class="target-ele" :title="index+1">
-                    <span :class="item.isRight?'show-content':'opacity-content'">{{item.need}}</span>
-                </div>
+            <div class="target-item-wrapper" :class="draging?'border-style':''" :title="index+1" v-for="(item, index) in gameList" :key="index" :style="{'top':item.top,'left':item.left}">
+                <img class="animal-img" :src="item.img" alt="">
+                <img 
+                    v-if="item.isRight"
+                    :src="'static/images/numberWithinTen/'+(index+1)+'.png'"
+                    class="showOrder" 
+                />
             </div>
         </div>
         <div class="drag-container">
             <div class="drag-item-wrapper" v-for="(item, index) in answerList" :key="index">
                 <img 
-                    :src="'static/images/numberWithinTen/'+(index+1)+'.png'"
+                    :src="'static/images/numberWithinTen/'+item.img+'.png'"
                     class="drag-item" 
                     :id="'item'+index"
                     @touchmove="touchMove('item'+index)" 
@@ -40,6 +42,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+        draging: false,
         position: {
             x: 0,
             y: 0
@@ -52,37 +55,37 @@ export default {
           img: 'static/images/numberWithinTen/lion.png',
           isRight: false,
             top: '71%',
-            left: '11%'
+            left: '7%'
       },{
           img: 'static/images/numberWithinTen/rabbit.png',
           isRight: false,
-          top: '53%',
-          left: '26%'
+          top: '57%',
+          left: '22%'
       },{
           img: 'static/images/numberWithinTen/yellow_person.png',
           isRight: false,
-          top: '58%',
-          left: '41%'
+          top: '60%',
+          left: '37%'
       },{
           img: 'static/images/numberWithinTen/tiger.png',
           isRight: false,
-          top: '51%',
-          left: '54%'
+          top: '55%',
+          left: '50%'
       },{
           img: 'static/images/numberWithinTen/horse.png',
           isRight: false,
-          top: '46%',
-          left: '66%'
+          top: '54%',
+          left: '62%'
       },{
           img: 'static/images/numberWithinTen/dog2.png',
           isRight: false,
-          top: '9%',
+          top: '33%',
           left: '67%'
       },{
           img: 'static/images/numberWithinTen/fox.png',
           isRight: false,
-          top: '28%',
-          left: '67%'
+          top: '11%',
+          left: '64%'
       }],
       oriAnswerList: [
             {img: '1',isRight: false},
@@ -113,6 +116,9 @@ export default {
     please_think.addEventListener("ended", function() {
       _this.canDrag = true
     })
+    right_music.addEventListener("ended", function() {
+        _this.isFinish = true;
+    })
     _this.initiate();
   },
   methods: {
@@ -141,6 +147,7 @@ export default {
     //检查是否正确
     check(item){
         let _this = this;
+        this.draging = false;
         if(!_this.canDrag){
             return;
         }
@@ -154,23 +161,27 @@ export default {
         let moveDiv = event.target;
         let mouseX = event.changedTouches[0].pageX
         let mouseY = event.changedTouches[0].pageY
-        let targetList = document.getElementsByClassName('target-ele')
+        console.log(mouseX,mouseY)
+        let targetList = document.getElementsByClassName('target-item-wrapper');
+        console.log(targetList)
         for(let i=0, len=targetList.length; i < targetList.length; i++){
-            let targetLeft = targetList[i].x;
+            let targetLeft = targetList[i].offsetLeft;
             let targetRight = targetLeft + targetList[i].clientWidth;
-            let targetTop = targetList[i].y;
+            let targetTop = targetList[i].offsetTop+30;
             let targetBottom = targetTop + targetList[i].clientHeight;
-            console.log(i+1)
-            console.log(mouseX,mouseY)
+            console.log(i)
             console.log(targetLeft,targetRight,targetTop,targetBottom)
             if(mouseX > targetLeft && mouseX < targetRight && mouseY > targetTop && mouseY < targetBottom){
+                console.log(item)
+                console.log(targetList[i].title,item.img)
                 if(targetList[i].title == item.img){
                     _this.gameList[i].isRight = true;
-                    moveDiv.style.display = 'none';
+                    moveDiv.style.display = 'none'
                 }else{
+                    console.log('错了')
                     _this.canDrag = false;
                     moveDiv.style.top = '0px';
-                    moveDiv.style.left = '0px';
+                    moveDiv.style.left = '10px';
                     _this.playAudio('please_think')
                 }
             }
@@ -180,11 +191,11 @@ export default {
                 return
             }
         }
-        _this.isFinish = true;
-        _this.playAudio('complete')
+        _this.playAudio('right_music')
     },
     //鼠标按下触发
     down(el){
+        this.draging = true;
         let moveDiv = document.getElementById(el);
         this.flags = true;
         var touch;
@@ -197,6 +208,7 @@ export default {
         this.position.y = touch.clientY;
         this.dx = moveDiv.offsetLeft;
         this.dy = moveDiv.offsetTop;
+
     },
     //拖动事件
     touchMove(el){
@@ -244,6 +256,8 @@ export default {
         background-position: 0 150%;
         .target-item-wrapper{
             position: absolute;
+            width: 10%;
+            box-sizing: border-box;
             .target-ele{
                 position: absolute;
                 width: 10vw;
@@ -251,11 +265,21 @@ export default {
                 background: red;
                 right: 100%;
             }
-            img{
-                position: absolute;
-                width: 100px;
+            .animal-img{
+                width: 100%;
             }
+            .showOrder{
+                position: absolute;
+                z-index: 999;
+                left: 0;
+                top: 10px;
+                width: 60%;
+            }
+            
         }
+        .border-style{
+                border: 1px dotted #e9a175;
+            }
         .drag-container{
             display: flex;
             flex-direction: column;

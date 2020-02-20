@@ -21,7 +21,14 @@ export default {
     let _this = this
     return {
       currentIndex: 1,
-      menuList:[{
+      menuList:[
+        //上学期
+      {
+        title: '以自身为中心区分左右',
+        url: '/leftAndRight',
+        img: 'static/images/topClassMenu/leftAndRight.png'
+      },
+      {
         title: '生活中的数字',
         url: '/numberInLife',
         img: 'static/images/topClassMenu/numberInLife.png'

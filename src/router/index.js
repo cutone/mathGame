@@ -36,7 +36,8 @@ import twoDimensionClassify from '@/components/twoDimensionClassify/twoDimension
 import regular4 from '@/components/regular/regular4'
 import numberInLife from '@/components/numberInLife/numberInLife'
 import numberWithinTen from '@/components/numberWithinTen/numberWithinTen'
-
+import leftAndRight from '@/components/leftAndRight/leftAndRight'
+import selfMadeQuestion from '@/components/selfMadeQuestion/selfMadeQuestion'
 Vue.use(Router)
 
 export default new Router({
@@ -274,6 +275,14 @@ export default new Router({
       meta: {
         keepAlive: false
       }
-    }
+    },
+    {
+      path: '/leftAndRight',
+      name: 'leftAndRight',
+      component: leftAndRight,
+      meta: {
+        keepAlive: false
+      }
+    },
   ]
 })

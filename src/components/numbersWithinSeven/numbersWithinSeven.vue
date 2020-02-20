@@ -194,47 +194,6 @@ export default {
         }
       _this.playAudio("stem_music_" + (_this.currentIndex + 1));
     },
-    addCanvasListener() {
-      let _this = this;
-      console.log();
-      let table_wrapper = document.getElementById("table_wrapper");
-      //开始绘制
-      _this.canvas.addEventListener(
-        "touchstart",
-        function(e) {
-          _this.ctx.clearRect(0, 0, _this.canvas.width, _this.canvas.height);
-          _this.beginX = e.changedTouches[0].pageX;
-          _this.beginY = e.changedTouches[0].pageY;
-          _this.ctx.beginPath();
-          _this.ctx.moveTo(
-            e.changedTouches[0].pageX - table_wrapper.offsetLeft,
-            e.changedTouches[0].pageY - table_wrapper.offsetTop - 30
-          );
-        }.bind(_this),
-        false
-      );
-      //绘制中
-      _this.canvas.addEventListener(
-        "touchmove",
-        function(e) {}.bind(this),
-        false
-      );
-      //结束绘制
-      _this.canvas.addEventListener(
-        "touchend",
-        function(e) {
-          _this.ctx.lineTo(
-            e.changedTouches[0].pageX - table_wrapper.offsetLeft,
-            e.changedTouches[0].pageY - table_wrapper.offsetTop - 30
-          );
-          _this.endX = e.changedTouches[0].pageX;
-          _this.endY = e.changedTouches[0].pageY;
-          _this.ctx.stroke();
-          _this.ctx.closePath();
-        }.bind(_this),
-        false
-      );
-    },
     //鼠标按下触发
     down(el) {
       let moveDiv = document.getElementById(el);
