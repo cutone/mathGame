@@ -64,37 +64,27 @@ export default {
         {
           animal: 'animal-1',
           isRight: false,
-          index: 1,
-          leftRedline: true,
-          rightRedline: false
+          direction: 'left'
         },
         {
           animal: 'animal-2',
           isRight: false,
-          index: 2,
-          leftRedline: false,
-          rightRedline: true
+          direction: 'right'
         },
         {
           animal: 'animal-3',
           isRight: false,
-          index: 3,
-          leftRedline: false,
-          rightRedline: true
+          direction: 'right'
         },
         {
           animal: 'animal-4',
           isRight: false,
-          index: 4,
-          leftRedline: true,
-          rightRedline: false
+          direction: 'left'
         },
         {
           animal: 'animal-5',
           isRight: false,
-          index: 5,
-          leftRedline: false,
-          rightRedline: true
+          direction: 'right'
         }
       ],
     }
@@ -133,10 +123,10 @@ export default {
         //切换到下一题
         _this.currentItem = _this.gameList[_this.currentIndex];
         //重置被拖动元素的定位
-        currentAnimal.style.right = '6.5%'
-        currentAnimal.style.bottom = '7.5%'
-        currentAnimal.style.left = 'auto';
-        currentAnimal.style.top = 'auto';
+        currentAnimal.style.right = 'auto'
+        currentAnimal.style.bottom = 'auto'
+        currentAnimal.style.left = '79%';
+        currentAnimal.style.top = '62%';
         //播放下一题的音频
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
@@ -197,7 +187,6 @@ export default {
       let audioBtn = document.getElementById(id);
       audioBtn.currentTime = 0;
       audioBtn.play();
-      console.log(111);
     },
     //播放当前题目
     broadcast() {
@@ -245,36 +234,44 @@ export default {
       let leftPlateDivRight = leftPlateDivLeft + leftPlateDiv.clientWidth;
       let leftPlateDivTop = getElementToPageTop(leftPlateDiv);
       let leftPlateDivBottom = leftPlateDivTop + leftPlateDiv.clientHeight;
-      //又线框的四边
-      let rightPlateDivLeft = rightPlateDiv.offsetLeft;
+      //右线框的四边
+      let rightPlateDivLeft = getElementToPageLeft(rightPlateDiv);
       let rightPlateDivRight = rightPlateDivLeft + rightPlateDiv.clientWidth;
-      let rightPlateDivTop = rightPlateDiv.offsetTop;
+      let rightPlateDivTop = getElementToPageTop(rightPlateDiv);
       let rightPlateDivBottom = rightPlateDivTop + rightPlateDiv.clientHeight;
       console.log(mouseX,mouseY)
-      console.log('线框',leftPlateDivLeft,leftPlateDivRight,leftPlateDivTop,leftPlateDivBottom )
-      //左边线框
+      console.log('左线框',leftPlateDivLeft,leftPlateDivRight,leftPlateDivTop,leftPlateDivBottom )
+      console.log('右线框',rightPlateDivLeft,rightPlateDivRight,rightPlateDivTop,rightPlateDivBottom )
+      //左边线框检验
       if(mouseX > leftPlateDivLeft && mouseX < leftPlateDivRight && mouseY > leftPlateDivTop && mouseY < leftPlateDivBottom){
-          if(_this.currentItem.leftRedline){
-            _this.currentIndex++;
+          if(_this.currentItem.direction == 'left'){
+            _this.currentIndex++
             _this.playAudio('right_music')
           }else{
-            moveDiv.style.left = '0px';
-            moveDiv.style.top = '0px';
+            console.log(222);
+            moveDiv.style.left = '79%';
+            moveDiv.style.top = '62%';
             _this.canDrag = false;
             _this.playAudio('please_think')
           }
       }
-      //右边盘子有没有装满
-      if(mouseX > rightPlateDivLeft && mouseX < rightPlateDivRight && mouseY > rightPlateDivTop && mouseY < rightPlateDivBottom){
-          if(_this.currentItem.rightRedline){
+      //右边线框检验
+      else if(mouseX > rightPlateDivLeft && mouseX < rightPlateDivRight && mouseY > rightPlateDivTop && mouseY < rightPlateDivBottom){
+          if(_this.currentItem.direction == 'right'){
             _this.currentIndex++;
             _this.playAudio('right_music')
           }else{
-            moveDiv.style.left = '0px';
-            moveDiv.style.top = '0px';
+            moveDiv.style.left = '79%';
+            moveDiv.style.top = '62%';
             _this.canDrag = false;
             _this.playAudio('please_think');
           }
+      }
+      else {
+        moveDiv.style.left = '79%';
+        moveDiv.style.top = '62%';
+        _this.canDrag = false;
+        _this.playAudio('please_think');
       }
     }
   }
@@ -321,8 +318,8 @@ export default {
       display: block;
       width: 14.5%;
       position: absolute;
-      bottom: 7.5%;
-      right: 6.5%;
+      top: 62%;
+      left: 79%;
       z-index: 2;
     }
   }
