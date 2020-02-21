@@ -17,7 +17,7 @@
             @touchstart="down(item.img)"
             @touchend="check(item)"  
             :id="item.img" 
-            :src="'static/images/selfMadeQuestion/'+item.img+'.png'" />
+            :src="'static/images/learnZero/'+item.img+'.png'" />
         </div>
       </div>
       <div class="right-container">
@@ -26,7 +26,7 @@
                 <img
                     class="game-img light-img"
                     v-show="item.isRight"
-                    :src="'static/images/selfMadeQuestion/'+item.need+'.png'"
+                    :src="'static/images/learnZero/'+item.need+'.png'"
                 />
           </div> 
           <img
@@ -34,7 +34,7 @@
             :data-target="item.target"
             :id="item.img"
             :key="index"
-            :src="'static/images/selfMadeQuestion/'+item.img+'.png'"
+            :src="'static/images/learnZero/'+item.img+'.png'"
           />
         </div>
       </div>
@@ -48,7 +48,7 @@ import commonHeader from "@/common/commonHeader";
 import topClassComplete from "@/common/topClassComplete";
 import { getElementToPageLeft, getElementToPageTop, disOrderArr } from "@/common/js/common";
 export default {
-  name: "selfMadeQuestion",
+  name: "learnZero",
   data() {
     return {
         position: {x: 0, y:0},
@@ -56,16 +56,18 @@ export default {
       currentItem: {
         rightNumber: 0,
         answerList: [
-          { img: "answer_1", target: "question_1"},
-          { img: "answer_2", target: "question_2"},
-          { img: "answer_3", target: "question_3"},
-          { img: "answer_4", target: "question_4"}
+            { img: "number_0", target: "flower_0"},
+          { img: "number_1", target: "flower_1"},
+          { img: "number_2", target: "flower_2"},
+          { img: "number_3", target: "flower_3"},
+          { img: "number_4", target: "flower_4"},
         ],
         questionList: [
-          { img: "question_1", need: "answer_1", isRight: false },
-          { img: "question_2", need: "answer_2", isRight: false },
-          { img: "question_3", need: "answer_3", isRight: false },
-          { img: "question_4", need: "answer_4", isRight: false }
+          { img: "flower_0", need: "number_0", isRight: false },
+          { img: "flower_1", need: "number_1", isRight: false },
+          { img: "flower_2", need: "number_2", isRight: false },
+          { img: "flower_3", need: "number_3", isRight: false },
+          { img: "flower_4", need: "number_4", isRight: false }
         ]
       },
       musicActive: true,
@@ -161,7 +163,7 @@ export default {
                 moveDiv.style.display = 'none';
                 _this.currentItem.questionList[i].isRight = true;
                 _this.currentItem.rightNumber++;
-                if (_this.currentItem.rightNumber == 4) {
+                if (_this.currentItem.rightNumber == 5) {
                   _this.canDrag = false;
                   _this.playAudio("right_music");
                 }
@@ -289,7 +291,6 @@ export default {
       align-items: center;
       height: 20%;
       img {
-        width: 30%;
         height: 100%;
       }
       .light-img{
@@ -301,7 +302,7 @@ export default {
             align-items: center;
             justify-content: center;
           border: 1px dotted #69473d;
-          height: 10vw;
+          height: 7vw;
             width: 30%;
             border-radius: 10px;
             overflow: hidden;

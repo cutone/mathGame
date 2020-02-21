@@ -38,6 +38,7 @@ import numberInLife from '@/components/numberInLife/numberInLife'
 import numberWithinTen from '@/components/numberWithinTen/numberWithinTen'
 import leftAndRight from '@/components/leftAndRight/leftAndRight'
 import selfMadeQuestion from '@/components/selfMadeQuestion/selfMadeQuestion'
+import learnZero from '@/components/learnZero/learnZero'
 Vue.use(Router)
 
 export default new Router({
@@ -280,6 +281,22 @@ export default new Router({
       path: '/leftAndRight',
       name: 'leftAndRight',
       component: leftAndRight,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/selfMadeQuestion',
+      name: 'selfMadeQuestion',
+      component: selfMadeQuestion,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/learnZero',
+      name: 'learnZero',
+      component: learnZero,
       meta: {
         keepAlive: false
       }

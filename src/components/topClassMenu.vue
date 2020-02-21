@@ -23,12 +23,19 @@ export default {
       currentIndex: 1,
       menuList:[
         //上学期
-      {
-        title: '以自身为中心区分左右',
-        url: '/leftAndRight',
-        img: 'static/images/topClassMenu/leftAndRight.png'
-      },
-      {
+        {
+        title: '二维分类',
+        url: '/twoDimensionClassify',
+        img: 'static/images/topClassMenu/twoDimensionClassify.png'
+      },{
+        title: '10以内的相邻数',
+        url: '/adjoinNumber',
+        img: 'static/images/topClassMenu/adjoinNumber.png'
+      },{
+        title: '认识单数和双数',
+        url: '/oddEvenNumber',
+        img: 'static/images/topClassMenu/oddEvenNumber.png'
+      },{
         title: '生活中的数字',
         url: '/numberInLife',
         img: 'static/images/topClassMenu/numberInLife.png'
@@ -37,29 +44,33 @@ export default {
         url: '/numberWithinTen',
         img: 'static/images/topClassMenu/numberWithinTen.png'
       },{
+        title: '以自身为中心区分左右',
+        url: '/leftAndRight',
+        img: 'static/images/topClassMenu/leftAndRight.png'
+      },
+      //下学期
+      {
+        title: '层级分类',
+        url: '/levelClassify',
+        img: 'static/images/topClassMenu/levelClassify.png'
+      },
+      {
+        title: '学习自编应用题',
+        url: '/selfMadeQuestion',
+        img: 'static/images/topClassMenu/selfMadeQuestion.png'
+      },
+      {
         title: '认识圆柱体和球体',
         url: '/cylinder',
         img: 'static/images/topClassMenu/cylinder.png'
       },{
-        title: '认识单数和双数',
-        url: '/oddEvenNumber',
-        img: 'static/images/topClassMenu/oddEvenNumber.png'
-      },{
-        title: '层级分类',
-        url: '/levelClassify',
-        img: 'static/images/topClassMenu/levelClassify.png'
-      },{
-        title: '相邻数',
-        url: '/adjoinNumber',
-        img: 'static/images/topClassMenu/adjoinNumber.png'
-      },{
-        title: '二维分类',
-        url: '/twoDimensionClassify',
-        img: 'static/images/topClassMenu/twoDimensionClassify.png'
-      },{
         title: '按规律排序（四）',
         url: '/regular4',
         img: 'static/images/topClassMenu/regular4.png'
+      },{
+        title: '认识‘0’',
+        url: '/learnZero',
+        img: 'static/images/topClassMenu/learnZero.png'
       }],
       swiperOption:{
         effect: 'coverflow',
