@@ -71,6 +71,10 @@ export default {
         title: '认识‘0’',
         url: '/learnZero',
         img: 'static/images/topClassMenu/learnZero.png'
+      },{
+        title: '10以内的加减法',
+        url: '/addAndSubWithinTen',
+        img: 'static/images/topClassMenu/addAndSubWithinTen.png'
       }],
       swiperOption:{
         effect: 'coverflow',

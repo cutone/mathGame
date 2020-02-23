@@ -25,6 +25,7 @@ import sixToTen from '@/components/sixToTen/sixToTen'
 import compareNumberWithinFive from '@/components/compareNumberWithinFive/compareNumberWithinFive'
 import regular2 from '@/components/regular2/regular2'
 import numbersWithinSeven from '@/components/numbersWithinSeven/numbersWithinSeven'
+import sequenceFive2 from '@/components/sequenceFive2/sequenceFive2'
 
 
 //大班
@@ -39,6 +40,8 @@ import numberWithinTen from '@/components/numberWithinTen/numberWithinTen'
 import leftAndRight from '@/components/leftAndRight/leftAndRight'
 import selfMadeQuestion from '@/components/selfMadeQuestion/selfMadeQuestion'
 import learnZero from '@/components/learnZero/learnZero'
+import addAndSubWithinTen from '@/components/addAndSubWithinTen/addAndSubWithinTen'
+
 Vue.use(Router)
 
 export default new Router({
@@ -297,6 +300,22 @@ export default new Router({
       path: '/learnZero',
       name: 'learnZero',
       component: learnZero,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/addAndSubWithinTen',
+      name: 'addAndSubWithinTen',
+      component: addAndSubWithinTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/sequenceFive2',
+      name: 'sequenceFive2',
+      component: sequenceFive2,
       meta: {
         keepAlive: false
       }

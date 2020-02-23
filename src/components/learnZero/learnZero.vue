@@ -278,7 +278,7 @@ export default {
         }
     }
     .right-container{
-        width: 79%;
+        width: 70%;
         height: 100%;
         display: flex;
       flex-direction: column;
@@ -292,6 +292,7 @@ export default {
       height: 20%;
       img {
         height: 100%;
+        width: 17%;
       }
       .light-img{
           width: 80%;
