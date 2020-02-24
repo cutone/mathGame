@@ -1,6 +1,6 @@
 <template>
   <div class="top-and-bottom-container">
-    <audio id="bg_music" loop="loop" src="static/audio/common/1bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
