@@ -11,6 +11,7 @@ import compareSize from '@/components/compareSize/compareSize'
 import oneAndMany from '@/components/oneAndMany/oneAndMany'
 import compareNumber from '@/components/compareNumber/compareNumber'
 import beforeAndAfter from '@/components/beforeAndAfter/beforeAndAfter'
+import topAndBottom from '@/components/topAndBottom/topAndBottom'
 
 //中班
 import sequenceFive from '@/components/sequenceFive/sequenceFive'
@@ -337,5 +338,13 @@ export default new Router({
         keepAlive: false
       }
     },
+    {
+      path: '/topAndBottom',
+      name: 'topAndBottom',
+      component: topAndBottom,
+      meta: {
+        keepAlive: false
+      }
+    }
   ]
 })

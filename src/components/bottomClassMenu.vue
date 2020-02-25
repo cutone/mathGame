@@ -37,6 +37,10 @@ export default {
         title: '区分前后',
         url: '/beforeAndAfter',
         img: 'static/images/bottomClassMenu/beforeAndAfter.png'
+      },{
+        title: '区分上下',
+        url: '/beforeAndAfter',
+        img: 'static/images/bottomClassMenu/topAndBottom.png'
       }],
       swiperOption:{
         effect: 'coverflow',
