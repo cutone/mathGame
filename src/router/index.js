@@ -41,7 +41,8 @@ import leftAndRight from '@/components/leftAndRight/leftAndRight'
 import selfMadeQuestion from '@/components/selfMadeQuestion/selfMadeQuestion'
 import learnZero from '@/components/learnZero/learnZero'
 import addAndSubWithinTen from '@/components/addAndSubWithinTen/addAndSubWithinTen'
-
+import selfSubQuestionWithinTen from '@/components/selfSubQuestionWithinTen/selfSubQuestionWithinTen'
+import multiAngleClassification from '@/components/multiAngleClassification/multiAngleClassification'
 Vue.use(Router)
 
 export default new Router({
@@ -316,6 +317,22 @@ export default new Router({
       path: '/sequenceFive2',
       name: 'sequenceFive2',
       component: sequenceFive2,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/selfSubQuestionWithinTen',
+      name: 'selfSubQuestionWithinTen',
+      component: selfSubQuestionWithinTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/multiAngleClassification',
+      name: 'multiAngleClassification',
+      component: multiAngleClassification,
       meta: {
         keepAlive: false
       }

@@ -55,6 +55,12 @@ export default {
         img: 'static/images/topClassMenu/levelClassify.png'
       },
       {
+        title: '层级分类',
+        url: '/selfSubQuestionWithinTen',
+        img: 'static/images/topClassMenu/selfSubQuestionWithinTen.png'
+      },
+      
+      {
         title: '学习自编应用题',
         url: '/selfMadeQuestion',
         img: 'static/images/topClassMenu/selfMadeQuestion.png'
@@ -75,6 +81,10 @@ export default {
         title: '10以内的加减法',
         url: '/addAndSubWithinTen',
         img: 'static/images/topClassMenu/addAndSubWithinTen.png'
+      },{
+        title: '多角度分类',
+        url: '/multiAngleClassification',
+        img: 'static/images/topClassMenu/multiAngleClassification.png'
       }],
       swiperOption:{
         effect: 'coverflow',
