@@ -100,7 +100,13 @@ export default {
         title: '认识正方体与长方体',
         url: '/cube',
         img: 'static/images/topClassMenu/cube.png'
-      },],
+      },
+      {
+        title: '学习二等分',
+        url: '/bisect',
+        img: 'static/images/topClassMenu/bisect.png'
+      },
+      ],
       swiperOption:{
         effect: 'coverflow',
         coverflowEffect: {

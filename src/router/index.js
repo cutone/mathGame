@@ -46,7 +46,7 @@ import selfSubQuestionWithinTen from '@/components/selfSubQuestionWithinTen/self
 import multiAngleClassification from '@/components/multiAngleClassification/multiAngleClassification'
 import nineAndTen from '@/components/nineAndTen/nineAndTen'
 import cube from '@/components/cube/cube'
-
+import bisect from '@/components/bisect/bisect'
 
 Vue.use(Router)
 
@@ -366,5 +366,14 @@ export default new Router({
         keepAlive: false
       }
     },
+    {
+      path: '/bisect',
+      name: 'bisect',
+      component: bisect,
+      meta: {
+        keepAlive: false
+      }
+    },
+    
   ]
 })
