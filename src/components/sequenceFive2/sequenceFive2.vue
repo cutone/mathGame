@@ -21,10 +21,11 @@
         <div class="animal-img-wrapper">
             <img class="animal-img"
                 :class="showHow?'show-how':''"
-                @touchmove="touchMove('animal')"
-                @touchstart="down('animal')"
+                @touchmove="touchMove(currentItem.animal)"
+                @touchstart="down(currentItem.animal)"
                 @touchend="check()"  
-                id="animal"
+                :id="currentItem.animal"
+                ref="animal"
                 :src="'static/images/sequenceFive2/'+currentItem.animal" alt="">
         </div>
         <img class="sian-img" :src="'static/images/sequenceFive2/'+currentItem.sign" alt="">
@@ -38,7 +39,7 @@
             <img class="number-img" src="static/images/sequenceFive2/1.png" alt="">
         </div>
         <div class="house-wrapper">
-            <div class="row-number-wrapper">
+            <div class="row-number-wrapper" :class="isStart?'hide':''">
                 <img class="number-img" src="static/images/sequenceFive2/1.png" alt="">
                 <img class="number-img number-2" src="static/images/sequenceFive2/2.png" alt="">
             </div>
@@ -59,14 +60,15 @@
         </div>
         
     </div>
-    <common-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
-    </common-complete>
+    <red-complete v-if="isFinish" @goBack="goBack" @initiate="restart">
+    </red-complete>
   </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import commonComplete from "@/common/commonComplete";
+import redComplete from "@/common/redComplete";
+import { getElementToPageTop ,getElementToPageLeft} from '@/common/js/common'
 export default {
   name: 'sequenceFive',
   data () {
@@ -113,7 +115,7 @@ export default {
   },
   components: {
     commonHeader,
-    commonComplete
+    redComplete
   },
   mounted() {
     let _this = this;
@@ -122,8 +124,8 @@ export default {
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
     let stemMusicList = document.getElementsByClassName("stem-music");
-    let animalImg = document.getElementById("animal");
     let window_2 = document.getElementById("window_2");
+    let animalImg = document.getElementById(_this.currentItem.animal);
     let windowLeft = window_2.offsetLeft;
     let windowTop = window_2.offsetTop;
     for(let i = 0, len = stemMusicList.length; i < len; i++){
@@ -140,20 +142,35 @@ export default {
     });
 
     stem_music.addEventListener("canplaythrough", function() {
-      stem_music.play();
-    //   animalImg.style.left = windowLeft - window_2.offsetParent.offsetLeft + 'px';
-    //     animalImg.style.top = windowTop - window_2.offsetParent.offsetTop + 'px';
+      stem_music.play();      
       _this.showHow = true;
+      let animalImg = document.getElementById(_this.currentItem.animal);
+       setTimeout(()=>{
+            animalImg.style.left = (window_2.offsetLeft) - (animalImg.offsetParent.offsetLeft) + 'px';
+           animalImg.style.top = (window_2.offsetTop) - (animalImg.offsetParent.offsetTop) + 'px';
+       },5000)
     });
+    stem_music.addEventListener("ended", function() {
+        _this.isStart = true;
+        _this.showHow = false;
+        animalImg.style.top = '0px';
+        animalImg.style.left = '0px';
+    })
     right_music.addEventListener("ended", function() {
+        let animalImg = document.getElementById(_this.currentItem.animal);
       if(_this.currentIndex == _this.gameList.length){
         _this.isFinish = true;
         _this.playAudio('complete')
       }else{
-          animalImg.style.left = '0px';
-          animalImg.style.top = '0px';
-        _this.currentItem = _this.gameList[_this.currentIndex];
-        _this.musicActive = true;
+          console.log('下一题')
+          console.log(animalImg)
+          
+          console.log(animalImg)
+           _this.currentItem = _this.gameList[_this.currentIndex];
+              animalImg.style.left = '0px';
+            animalImg.style.top = '0px';
+            console.log(_this.$refs)
+        _this.$forceUpdate()
       }
     });
     please_think.addEventListener("ended", function() {
@@ -186,12 +203,23 @@ export default {
       _this.isFinish = false;
       _this.canDrag = false;
       _this.isStart=false;
+      _this.showHow = true;
       _this.musicActive = true;
-      for (let i = 0, len = _this.gameList.length; i < len; i++) {
-        _this.gameList[i].isRight = false;
-        _this.gameList[i].isWrong = false;
-      }
-      _this.playAudio('stem_music');
+      _this.currentItem  = {
+        animal: 'dog.jpg',
+        sign: 'sign_1.png'
+        }
+    },
+    //重新开始
+    restart(){
+        let _this = this;
+        _this.currentIndex = 0;
+        _this.isFinish = false;
+        _this.canDrag = true;
+        _this.isStart=true;
+        _this.showHow = false;
+        _this.musicActive = true;
+        _this.currentItem  = _this.gameList[_this.currentIndex];
     },
     check(item) {
       let _this = this;
@@ -223,7 +251,7 @@ export default {
             ) {
               if (_this.currentItem.target == LightList[i].id) {
                 console.log("对了");
-                _this.currentItem.rightNumber++;
+                _this.currentIndex++;
                 _this.playAudio("right_music");
               } else {
                 console.log("错了");
@@ -303,8 +331,8 @@ export default {
 @import "../../../static/css/common.css";
 @keyframes move {
   0% {
-    left: 0px;
-    bottom: 0px;
+    left: auto;
+    bottom: auto;
   }
   100%{
     left: 100px;
@@ -313,6 +341,9 @@ export default {
 }
 .sequence-five-container{
   height: 100%;
+  .hide{
+      visibility: hidden;
+  }
   .body{
       position: relative;
       background-image: url('../../../static/images/common/background.png');
@@ -323,15 +354,20 @@ export default {
         .animal-img-wrapper{
             position: relative;
             display: inline-block;
-            width: 10%;
+            width: 7%;
+            height: 15vh;
             vertical-align: bottom;
             .animal-img{
                 position: absolute;
-                width: 100%;                
+                left: 0px;
+                top: 0px;
+                width: 100%; 
+                height: 100%;               
             }
             .show-how{
-                animation-fill-mode:forwards;
-                transition: move 5s linear;
+                // animation-fill-mode: forwards;
+                // transition: move 5s linear;
+                transition: all 7s linear;
             }
         }
     
@@ -339,7 +375,7 @@ export default {
         width: 10%;
         vertical-align: bottom;
         display: inline-block;
-        margin-left: 20px;
+        margin-left: 10px;
     }
     .arrow-wrapper{
         width: 10%;
@@ -380,7 +416,7 @@ export default {
     }
     .house-wrapper{
         display: inline-block;
-        width: 30%;
+        width: 35%;
         height: 100%;
         background-image: url('../../../static/images/sequenceFive2/house.png');
         background-size: 100% 100%;
@@ -405,7 +441,7 @@ export default {
         }
         .window-img{
             width: 20%;
-            height: 17vh;
+            height: 15vh;
         }
     }
   }

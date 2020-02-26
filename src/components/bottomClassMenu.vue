@@ -39,7 +39,7 @@ export default {
         img: 'static/images/bottomClassMenu/beforeAndAfter.png'
       },{
         title: '区分上下',
-        url: '/beforeAndAfter',
+        url: '/topAndBottom',
         img: 'static/images/bottomClassMenu/topAndBottom.png'
       }],
       swiperOption:{

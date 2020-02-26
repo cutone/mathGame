@@ -42,10 +42,10 @@
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
-      <div class="compare-number-within-five-wrapper" v-if="currentItem.type=='basketFlower'">
+      <div class="compare-number-within-five-wrapper">
         <div class="top-container">
           <img class="corner" src="static/images/compareNumberWithinFive/corner.png" alt />
-          <div class="flower-wrapper flex-wrapper">
+          <div class="flower-wrapper flex-wrapper" id="box">
             <div class="flower-item-wrapper" v-for="item in currentItem.flowerNumber" :key="item">
               <img
                 class="flower-item"
@@ -53,7 +53,7 @@
                 @touchstart="down('flower'+item)"
                 @touchend="check(item)"
                 :id="'flower'+item"
-                :src="'static/images/compareNumberWithinFive/flower.png'"
+                src="static/images/compareNumberWithinFive/flower.png"
                 alt
               />
             </div>
@@ -61,43 +61,23 @@
         </div>
         <div class="bottom-container">
           <div class="basket-wrapper">
-            <img
-              v-for="(item, index) in currentItem.basketList"
-              :key="index"
-              class="basket-item"
-              id="left_basket"
-              :src="'static/images/compareNumberWithinFive/'+item.img+'.png'"
-              alt
-            />
-          </div>
-        </div>
-      </div>
-      <div class="compare-number-within-five-wrapper" v-if="currentItem.type=='butterflyFlower'">
-        <div class="top-container fourth-top-wrapper">
-          <img class="corner" src="static/images/compareNumberWithinFive/corner.png" alt />
-          <div class="butterfly-wrapper flex-wrapper">
-            <div class="butterfly-item-wrapper" v-for="item in 2" :key="item">
+            <div v-for="(item, index) in currentItem.basketList"
+                @touchmove="touchMove('extra_flower')"
+                @touchstart="down('extra_flower')"
+                @touchend="check()"
+                :key="index" class="basket-item-wrapper">
               <img
-                class="butterfly-item"
-                @touchmove="touchMove('butterfly'+item)"
-                @touchstart="down('butterfly'+item)"
-                @touchend="check(item)"
-                :id="'butterfly'+item"
-                :src="'static/images/compareNumberWithinFive/butterfly.png'"
+                class="basket-item"
+                id="left_basket"
+                :src="'static/images/compareNumberWithinFive/'+item.img+'.png'"
                 alt
               />
+              <img 
+                id="extra_flower"
+                v-if="(currentIndex>2)&&index==1" 
+                src="static/images/compareNumberWithinFive/flower.png" alt="">
             </div>
           </div>
-        </div>
-        <div class="bottom-container">
-					<div class="flower_butterfly_wrapper">
-						<img
-							class="flower_wrapper"
-							src="static/images/compareNumberWithinFive/flower_wrapper.png"
-							alt
-						/>
-						<img class="butterfly-item" :style="{'top': item.top, 'left': item.left}" src="static/images/compareNumberWithinFive/butterfly.png" v-for="(item, index) in currentItem.butterflyList" :key="index" alt="">
-					</div>
         </div>
       </div>
     </div>
@@ -121,7 +101,7 @@ export default {
       isFinish: false,
       gameList: [
         {
-          type: "basketFlower",
+          type: "boxToBasket",
           basketList: [
             { img: "basket1", currentList: [], need: 1 },
             { img: "basket2", currentList: [], need: 1 },
@@ -131,7 +111,7 @@ export default {
           flowerNumber: 5
         },
         {
-          type: "basketFlower",
+          type: "boxToBasket",
           basketList: [
             { img: "basket2", currentList: [], need: 1 },
             { img: "basket3", currentList: [], need: 1 },
@@ -141,7 +121,7 @@ export default {
           flowerNumber: 5
         },
         {
-          type: "basketFlower",
+          type: "boxToBasket",
           basketList: [
             { img: "basket3", currentList: [], need: 1 },
             { img: "basket4", currentList: [], need: 1 },
@@ -151,12 +131,25 @@ export default {
           flowerNumber: 5
         },
         {
-					type: "butterflyFlower",
-					butterflyList: [{top: '25%',left: '0%'},{top: '50%',left: '25%'},{top: '0%',left: '35%'},{top: '50%',left: '55%'}]
-				},{
-					type: "butterflyFlower",
-					butterflyList: [{top: '25%',left: '0%'},{top: '50%',left: '25%'},{top: '0%',left: '35%'},{top: '50%',left: '55%'},{top: '50%',left: '55%'},{top: '50%',left: '55%'}]
-				}
+          type: "basketToBox",
+          basketList: [
+            { img: "basket2_complete", currentList: [], need: 1 },
+            { img: "basket3_complete", currentList: [], need: 1 },
+            { img: "basket4_complete", currentList: [], need: 1 }
+          ],
+          isRight: false,
+          flowerNumber: 0
+        },
+        {
+          type: "basketToBox",
+          basketList: [
+            { img: "basket3_complete", currentList: [], need: 1 },
+            { img: "basket4_complete", currentList: [], need: 1 },
+            { img: "basket5_complete", currentList: [], need: 1 }
+          ],
+          isRight: false,
+          flowerNumber: 0
+        },
       ]
     };
   },
@@ -197,10 +190,16 @@ export default {
         _this.isFinish = true;
         _this.playAudio("complete");
       } else {
+        _this.playAudio("stem_music_" + (_this.currentIndex + 1))
         _this.currentItem = _this.gameList[_this.currentIndex];
         for (let i = 0, len = flowerEleList.length; i < len; i++) {
           flowerEleList[i].style.left = "0px";
           flowerEleList[i].style.top = "0px";
+        }
+        if(_this.currentItem.type=="basketToBox"){
+          let extraFlower = document.getElementById('extra_flower');
+          extraFlower.style.top = 'auto';
+          extraFlower.style.left = '43%'
         }
         _this.musicActive = true;
         _this.canDrag = true;
@@ -282,7 +281,7 @@ export default {
     broadcast() {
       let _this = this;
       _this.musicActive = true;
-      _this.canDrag = false;
+      _this.canDrag = true;
       _this.playAudio("stem_music_" + (_this.currentIndex + 1));
     },
     //返回上一级
@@ -292,10 +291,10 @@ export default {
     //游戏初始化
     initiate() {
       let _this = this;
-      _this.currentIndex = 3;
+      _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
-      _this.canDrag = false;
+      _this.canDrag = true;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
@@ -320,14 +319,13 @@ export default {
       let mouseY = event.changedTouches[0].pageY;
       //获取三个div的元素
       let moveDiv = event.target;
-      let basketList = document.getElementsByClassName("basket-item");
-			console.log(basketList);
-			if(_this.currentItem.type == 'basketFlower'){
+      let basketList = document.getElementsByClassName("basket-item-wrapper");
+			if(_this.currentItem.type == 'boxToBasket'){
 				for (let i = 0, len = basketList.length; i < len; i++) {
 					//篮子的四边
 					let basketDivLeft = basketList[i].offsetLeft;
 					let basketDivRight = basketDivLeft + basketList[i].clientWidth;
-					let basketDivTop = basketList[i].offsetTop;
+					let basketDivTop = getElementToPageTop(basketList[i])-60;
 					let basketDivBottom = basketDivTop + basketList[i].clientHeight;
 					// console.log(mouseX,mouseY)
 					// console.log('盘子',basketDivLeft,basketDivRight,basketDivTop,basketDivBottom )
@@ -368,7 +366,20 @@ export default {
 				_this.playAudio("right_music");
 				_this.canDrag = false;
 			}else{
-				
+        let boxDiv = document.getElementById('box')
+        let boxDivLeft = boxDiv.offsetLeft;
+        let boxDivRight = boxDivLeft + boxDiv.offsetWidth;
+        let boxDivTop = boxDiv.offsetTop;
+        let boxDivBottom = boxDivTop + boxDiv.offsetHeight;
+        if (
+						mouseX > boxDivLeft &&
+						mouseX < boxDivRight &&
+						mouseY > boxDivTop &&
+						mouseY < boxDivBottom
+					) {
+            _this.currentIndex++;
+            _this.playAudio("right_music");
+          }
 			}
     }
   }
@@ -458,10 +469,23 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        .basket-item {
+        .basket-item-wrapper{
+          position: relative;
+          display: inline-block;
+          vertical-align: middle;
           width: 25%;
           height: 37vh;
-          vertical-align: middle;
+          #extra_flower{
+            width: 28%;
+            top: 32%;
+            left: 43%;
+            position: absolute;
+            z-index: 999;
+          }
+        }
+        .basket-item {
+          width: 100%;
+          height: 100%;
         }
 			}
 			.flower_butterfly_wrapper{

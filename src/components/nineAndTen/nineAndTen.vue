@@ -4,8 +4,8 @@
         <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
         <audio id="finish_five" src="static/audio/common/top_finish_five.m4a">您的浏览器不支持 audio 标签。</audio>
         <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_globe" src="static/audio/cylinder/select_globe.m4a">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_cylinder" src="static/audio/cylinder/select_cylinder.m4a">您的浏览器不支持 audio 标签。</audio>
+        <audio id="select_nine" src="static/audio/nineAndTen/select_nine.wav">您的浏览器不支持 audio 标签。</audio>
+        <audio id="select_ten" src="static/audio/nineAndTen/select_ten.wav">您的浏览器不支持 audio 标签。</audio>
 
         <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/top_music.png"> 
         <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/top_music_active.gif">
@@ -51,49 +51,49 @@ export default {
         canChoose: false,
         gameList: [
             {
-                title: '请选出球体',
-                leftImg: 'static/images/cylinder/ball.png',
-                rightImg: 'static/images/cylinder/battery.png',
+                title: '请选9的组合',
+                leftImg: 'static/images/nineAndTen/finger_nine.png',
+                rightImg: 'static/images/nineAndTen/finger_eight.png',
                 rightChoice: 'left',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_globe'
+                audioType: 'select_nine'
             },
             {
-                title: '请选出圆柱体',
-                leftImg: 'static/images/cylinder/stockForm.png',
-                rightImg: 'static/images/cylinder/pinpangball.png',
-                rightChoice: 'left',
-                isRight: false,
-                isWrong: false,
-                audioType: 'select_cylinder'
-            },
-            {
-                title: '请选出球体',
-                leftImg: 'static/images/cylinder/circle.png',
-                rightImg: 'static/images/cylinder/football.png',
+                title: '请选10的组合',
+                leftImg: 'static/images/nineAndTen/finger_six.png',
+                rightImg: 'static/images/nineAndTen/finger_ten.png',
                 rightChoice: 'right',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_globe'
+                audioType: 'select_ten'
             },
             {
-                title: '请选出圆柱体',
-                leftImg: 'static/images/cylinder/bucket.png',
-                rightImg: 'static/images/cylinder/watermalen.png',
+                title: '请选9的组合',
+                leftImg: 'static/images/nineAndTen/perple_nine.jpg',
+                rightImg: 'static/images/nineAndTen/people_seven.jpg',
                 rightChoice: 'left',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_cylinder'
+                audioType: 'select_nine'
             },
             {
-                title: '请选出球体',
-                leftImg: 'static/images/cylinder/milkPot.png',
-                rightImg: 'static/images/cylinder/basketball.png',
+                title: '请选10的组合',
+                leftImg: 'static/images/nineAndTen/people_nine_2.jpg',
+                rightImg: 'static/images/nineAndTen/people_ten.jpg',
                 rightChoice: 'right',
                 isRight: false,
                 isWrong: false,
-                audioType: 'select_globe'
+                audioType: 'select_ten'
+            },
+            {
+                title: '请选10的组合',
+                leftImg: 'static/images/nineAndTen/add_nine.png',
+                rightImg: 'static/images/nineAndTen/add_ten.png',
+                rightChoice: 'right',
+                isRight: false,
+                isWrong: false,
+                audioType: 'select_ten'
             },
         ]
     }
@@ -110,19 +110,19 @@ export default {
         let right_music = document.getElementById('right_music');
         let finish_five = document.getElementById('finish_five');
         let please_think = document.getElementById('please_think');
-        let select_globe = document.getElementById('select_globe');
-        let select_cylinder = document.getElementById('select_cylinder');
+        let select_nine = document.getElementById('select_nine');
+        let select_ten = document.getElementById('select_ten');
         bg_music.addEventListener("canplaythrough",function(){
             bg_music.play();
         });
-        select_globe.addEventListener("canplaythrough",function(){
-            select_globe.play();
+        select_nine.addEventListener("canplaythrough",function(){
+            select_nine.play();
         });
-        select_globe.addEventListener("ended", function(){
+        select_nine.addEventListener("ended", function(){
             _this.musicActive = false;
             _this.canChoose = true;
         })
-        select_cylinder.addEventListener("ended", function(){
+        select_ten.addEventListener("ended", function(){
             _this.musicActive = false;
             _this.canChoose = true;
         })
@@ -295,6 +295,7 @@ export default {
                 
                 .choice-img{
                     width: 60%;
+                    min-height: 16vh;
                 }
                 .shake-animation{
                     animation-name: shaky-slow;

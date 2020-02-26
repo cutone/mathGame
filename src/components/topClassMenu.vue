@@ -48,6 +48,13 @@ export default {
         url: '/leftAndRight',
         img: 'static/images/topClassMenu/leftAndRight.png'
       },
+      
+      {
+        title: '学习9、10的组成',
+        url: '/nineAndTen',
+        img: 'static/images/topClassMenu/nineAndTen.png'
+      },
+      
       //下学期
       {
         title: '层级分类',

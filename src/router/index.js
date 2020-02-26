@@ -44,6 +44,9 @@ import learnZero from '@/components/learnZero/learnZero'
 import addAndSubWithinTen from '@/components/addAndSubWithinTen/addAndSubWithinTen'
 import selfSubQuestionWithinTen from '@/components/selfSubQuestionWithinTen/selfSubQuestionWithinTen'
 import multiAngleClassification from '@/components/multiAngleClassification/multiAngleClassification'
+import nineAndTen from '@/components/nineAndTen/nineAndTen'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -345,6 +348,14 @@ export default new Router({
       meta: {
         keepAlive: false
       }
-    }
+    },
+    {
+      path: '/nineAndTen',
+      name: 'nineAndTen',
+      component: nineAndTen,
+      meta: {
+        keepAlive: false
+      }
+    },
   ]
 })
