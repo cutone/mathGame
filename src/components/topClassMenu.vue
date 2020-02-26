@@ -66,7 +66,6 @@ export default {
         url: '/selfSubQuestionWithinTen',
         img: 'static/images/topClassMenu/selfSubQuestionWithinTen.png'
       },
-      
       {
         title: '学习自编应用题',
         url: '/selfMadeQuestion',
@@ -80,19 +79,28 @@ export default {
         title: '按规律排序（四）',
         url: '/regular4',
         img: 'static/images/topClassMenu/regular4.png'
-      },{
-        title: '认识‘0’',
-        url: '/learnZero',
-        img: 'static/images/topClassMenu/learnZero.png'
-      },{
-        title: '10以内的加减法',
-        url: '/addAndSubWithinTen',
-        img: 'static/images/topClassMenu/addAndSubWithinTen.png'
-      },{
+      },
+      {
         title: '多角度分类',
         url: '/multiAngleClassification',
         img: 'static/images/topClassMenu/multiAngleClassification.png'
-      }],
+      },
+      {
+        title: '认识‘0’',
+        url: '/learnZero',
+        img: 'static/images/topClassMenu/learnZero.png'
+      },
+      {
+        title: '10以内的加减法',
+        url: '/addAndSubWithinTen',
+        img: 'static/images/topClassMenu/addAndSubWithinTen.png'
+      },
+      
+      {
+        title: '认识正方体与长方体',
+        url: '/cube',
+        img: 'static/images/topClassMenu/cube.png'
+      },],
       swiperOption:{
         effect: 'coverflow',
         coverflowEffect: {

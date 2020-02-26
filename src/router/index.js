@@ -45,6 +45,7 @@ import addAndSubWithinTen from '@/components/addAndSubWithinTen/addAndSubWithinT
 import selfSubQuestionWithinTen from '@/components/selfSubQuestionWithinTen/selfSubQuestionWithinTen'
 import multiAngleClassification from '@/components/multiAngleClassification/multiAngleClassification'
 import nineAndTen from '@/components/nineAndTen/nineAndTen'
+import cube from '@/components/cube/cube'
 
 
 Vue.use(Router)
@@ -353,6 +354,14 @@ export default new Router({
       path: '/nineAndTen',
       name: 'nineAndTen',
       component: nineAndTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/cube',
+      name: 'cube',
+      component: cube,
       meta: {
         keepAlive: false
       }
