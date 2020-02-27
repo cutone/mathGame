@@ -2,7 +2,7 @@
   <div class="self-sub-question-within-ten-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/top_finish_five.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music" class="stem-music" src="static/audio/learnAdd/stem_music.wav">您的浏览器不支持 audio 标签。</audio>
     <img
