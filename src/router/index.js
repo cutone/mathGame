@@ -48,6 +48,8 @@ import nineAndTen from '@/components/nineAndTen/nineAndTen'
 import cube from '@/components/cube/cube'
 import bisect from '@/components/bisect/bisect'
 import lengthAndArea from '@/components/lengthAndArea/lengthAndArea'
+import learnAdd from '@/components/learnAdd/learnAdd'
+import learnSub from '@/components/learnSub/learnSub'
 
 Vue.use(Router)
 
@@ -379,6 +381,22 @@ export default new Router({
       path: '/lengthAndArea',
       name: 'lengthAndArea',
       component: lengthAndArea,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/learnAdd',
+      name: 'learnAdd',
+      component: learnAdd,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/learnSub',
+      name: 'learnSub',
+      component: learnSub,
       meta: {
         keepAlive: false
       }
