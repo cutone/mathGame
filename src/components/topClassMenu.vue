@@ -106,6 +106,21 @@ export default {
         url: '/bisect',
         img: 'static/images/topClassMenu/bisect.png'
       },
+      {
+        title: '长度、面积守恒',
+        url: '/lengthAndArea',
+        img: 'static/images/topClassMenu/lengthAndArea.png'
+      },
+      {
+        title: '学习列加法算式',
+        url: '/learnAdd',
+        img: 'static/images/topClassMenu/learnAdd.png'
+      },
+      {
+        title: '学习列减法算式',
+        url: '/learnSub',
+        img: 'static/images/topClassMenu/learnSub.png'
+      },
       ],
       swiperOption:{
         effect: 'coverflow',

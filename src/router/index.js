@@ -47,6 +47,7 @@ import multiAngleClassification from '@/components/multiAngleClassification/mult
 import nineAndTen from '@/components/nineAndTen/nineAndTen'
 import cube from '@/components/cube/cube'
 import bisect from '@/components/bisect/bisect'
+import lengthAndArea from '@/components/lengthAndArea/lengthAndArea'
 
 Vue.use(Router)
 
@@ -374,6 +375,13 @@ export default new Router({
         keepAlive: false
       }
     },
-    
+    {
+      path: '/lengthAndArea',
+      name: 'lengthAndArea',
+      component: lengthAndArea,
+      meta: {
+        keepAlive: false
+      }
+    },
   ]
 })
