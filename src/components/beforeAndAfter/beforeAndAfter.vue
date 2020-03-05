@@ -41,19 +41,29 @@
       </div>
 
     </div>
-    <common-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
-    </common-complete>
+    <bottom-class-complete 
+        v-if="isFinish" 
+        :background="background" 
+        :leftImg="leftImg" 
+        :rightImg="rightImg"
+        @goBack="goBack" 
+        @initiate="initiate"
+    >
+    </bottom-class-complete>
   </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import commonComplete from "@/common/commonComplete";
+import bottomClassComplete from "@/common/bottomClassComplete";
 import {getElementToPageLeft, getElementToPageTop} from '@/common/js/common'
 export default {
   name: 'HelloWorld',
   data () {
     return {
+      background: 'static/images/beforeAndAfter/background.jpg',
+      leftImg: 'static/images/beforeAndAfter/minnie-2.png',
+      rightImg: 'static/images/beforeAndAfter/minnie-1.png',
       position: {x:0,y:0},
       currentIndex: 0,
       currentItem: {},
@@ -91,7 +101,7 @@ export default {
   },
   components: {
     commonHeader,
-    commonComplete
+    bottomClassComplete
   },
   mounted() {
     let _this = this;
