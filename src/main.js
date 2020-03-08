@@ -7,8 +7,6 @@ import router from './router'
 import '../static/css/doudong.css';
 import '../static/css/common.css';
 
-import less from 'less'
-Vue.use(less)
 Vue.config.productionTip = false
 
 //引入手势插件
