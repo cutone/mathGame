@@ -119,10 +119,11 @@ export default {
 
 <style scoped lang='less'>
 @import "../../../static/css/common.css";
+@bodyHeight: calc(~"100% - 30px");
 .hello-container{
   height: 100%;
   .body{
-    height: 100%;
+    height: @bodyHeight;
 
   }
 }
