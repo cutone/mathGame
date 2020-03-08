@@ -12,6 +12,12 @@ import oneAndMany from '@/components/oneAndMany/oneAndMany'
 import compareNumber from '@/components/compareNumber/compareNumber'
 import beforeAndAfter from '@/components/beforeAndAfter/beforeAndAfter'
 import topAndBottom from '@/components/topAndBottom/topAndBottom'
+import circle from '@/components/circle/circle'
+import classificationByName from '@/components/classificationByName/classificationByName'
+import numberWithinThree from '@/components/numberWithinThree/numberWithinThree'
+import square from '@/components/square/square'
+import triangle from '@/components/triangle/triangle'
+import numberwithinFive from '@/components/numberwithinFive/numberwithinFive'
 
 //中班
 import sequenceFive from '@/components/sequenceFive/sequenceFive'
@@ -83,6 +89,46 @@ export default new Router({
       component: topClassMenu,
       meta: {
         keepAlive: true
+      }
+    },
+    {
+      path: '/triangle',
+      name: 'triangle',
+      component: triangle,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/square',
+      name: 'square',
+      component: square,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/numberWithinThree',
+      name: 'numberWithinThree',
+      component: numberWithinThree,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/classificationByName',
+      name: 'classificationByName',
+      component: classificationByName,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/circle',
+      name: 'circle',
+      component: circle,
+      meta: {
+        keepAlive: false
       }
     },
     {
