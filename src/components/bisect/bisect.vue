@@ -13,7 +13,7 @@
             <div class="game-item">
                 <div class="game-title">
                     <span class="game-title-text">{{currentItem.title}}</span>
-                    <img class="game-title-img" src="static/images/trapezoid/cloud.png" alt="">
+                    <img class="game-title-img" src="static/images/common/cloud.png" alt="">
                 </div>
                 <div class="choose-item-wrapper">
                     <div class="item-wrapper">
@@ -199,9 +199,9 @@ export default {
 
 <style scoped lang='less'>
 @headerHeight: 30px;
-@bodyHeight: calc("100%"-40px);
+@bodyHeight: calc(~"100% - 30px");
 .middle-class-menu-container{
-    background-image: url('../../../static/images/trapezoid/background.png');
+    background-image: url('../../../static/images/common/background.png');
     background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
@@ -211,38 +211,8 @@ export default {
         left: 50px; 
         width: 100px;
     }
-    .header{
-        display: block;
-        width: 100%;
-        height: @headerHeight;
-        background: #69473d;
-        text-align: left;
-        .back-btn{
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-            border-right: 5px solid #7d5445;
-            padding: 0 10px;
-        }
-        .grograss-wrapper{
-            display: inline-block;
-            vertical-align: middle;
-            height: 20px;
-            padding-left: 10px;
-            font-size:0;
-            .grograss{
-                height: 20px;
-                margin-right: 5px;
-            }
-            .yellow-grograss{
-                height: 20px;
-                margin-right: 5px;
-            }
-        }
-    }
     .game-list{
-        height: 100%;
+        height: @bodyHeight;
         .game-item{
             height: 100%;
         }

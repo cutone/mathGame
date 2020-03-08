@@ -206,9 +206,9 @@ export default {
 
 <style scoped lang='less'>
 @headerHeight: 30px;
-@bodyHeight: calc("100%"-40px);
+@bodyHeight: calc(~"100% - 30px");
 .middle-class-menu-container{
-    background-image: url('../../../static/images/trapezoid/background.png');
+    background-image: url('../../../static/images/common/background.png');
     background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
@@ -219,7 +219,7 @@ export default {
         width: 100px;
     }
     .game-list{
-        height: 100%;
+        height: @bodyHeight;
         .game-item{
             height: 100%;
         }

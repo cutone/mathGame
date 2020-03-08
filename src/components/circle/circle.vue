@@ -202,10 +202,8 @@ export default {
 
 <style scoped lang='less'>
 @headerHeight: 30px;
-@bodyHeight: calc("100%"-40px);
+@bodyHeight: calc(~"100% - 30px");
 .circle-container{
-    background-image: url('../../../static/images/circle/background.png');
-    background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
     .music-img{
@@ -214,38 +212,12 @@ export default {
         left: 50px; 
         width: 100px;
     }
-    .header{
-        display: block;
-        width: 100%;
-        height: @headerHeight;
-        background: #69473d;
-        text-align: left;
-        .back-btn{
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-            border-right: 5px solid #7d5445;
-            padding: 0 10px;
-        }
-        .grograss-wrapper{
-            display: inline-block;
-            vertical-align: middle;
-            height: 20px;
-            padding-left: 10px;
-            font-size:0;
-            .grograss{
-                height: 20px;
-                margin-right: 5px;
-            }
-            .yellow-grograss{
-                height: 20px;
-                margin-right: 5px;
-            }
-        }
-    }
     .game-list{
-        height: 100%;
+        height: @bodyHeight;
+        background-image: url('../../../static/images/circle/background.png');
+        background-size: 100% 100%;
+        padding-top: 20px;
+        box-sizing: border;
         .game-item{
             height: 100%;
         }
@@ -258,7 +230,6 @@ export default {
             .game-title-img{
                 display: block;
                 height: 100px;
-                 margin-top: 20px;
             }
             .game-title-text{
                 position: absolute;

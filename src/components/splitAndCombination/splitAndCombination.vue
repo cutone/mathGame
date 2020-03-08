@@ -491,44 +491,14 @@ export default {
 <style scoped lang='less'>
 @import "../../../static/css/doudong.css";
 @headerHeight: 30px;
-@bodyHeight: calc("100%"-40px);
+@bodyHeight: calc(~"100% - 30px");
 .middle-class-menu-container {
   background-image: url("../../../static/images/splitAndCombination/background.png");
   background-size: 100% 100%;
   height: 100%;
   box-sizing: border-box;
-  .header {
-    display: block;
-    width: 100%;
-    height: @headerHeight;
-    background: #69473d;
-    text-align: left;
-    .back-btn {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-      border-right: 5px solid #7d5445;
-      padding: 0 10px;
-    }
-    .grograss-wrapper {
-      display: inline-block;
-      vertical-align: middle;
-      height: 20px;
-      padding-left: 10px;
-      font-size: 0;
-      .grograss {
-        height: 20px;
-        margin-right: 5px;
-      }
-      .yellow-grograss {
-        height: 20px;
-        margin-right: 5px;
-      }
-    }
-  }
   .game-list {
-    height: 100%;
+    height: @bodyHeight;
     .game-item {
       height: 100%;
     }
