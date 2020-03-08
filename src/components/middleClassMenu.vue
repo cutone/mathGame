@@ -58,6 +58,11 @@ export default {
           url: '/sixToTen',
           img: 'static/images/middleClassMenu/sixToTen.png',
         },
+        {
+          title: '图形的分割与组合',
+          url: '/splitAndCombination',
+          img: 'static/images/middleClassMenu/splitAndCombination.png',
+        },
         //下学期
         {
           title: '认识梯形',
@@ -69,7 +74,7 @@ export default {
           url: '/sequenceTen',
           img: 'static/images/middleClassMenu/sequence_ten.png',
         },
-        
+
         {
           title: '学习五以内的序数（一）',
           url: '/sequenceFive',
@@ -95,7 +100,7 @@ export default {
           url: '/regular',
           img: 'static/images/middleClassMenu/regular.png',
         },
-        
+
       ],
       swiperOption:{
         effect: 'coverflow',
@@ -189,11 +194,11 @@ export default {
     }
     .swiper-slide-prev{
       transform: translateY(20px) scale(0.7) rotate(-15deg) !important;
-      
+
     }
     .swiper-slide-next{
       transform: translateY(20px) scale(0.7) rotate(15deg) !important;
-      
+
     }
     .menu-item{
       width: 100%;

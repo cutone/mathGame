@@ -23,6 +23,7 @@ import rectangle from '@/components/rectangle/rectangle'
 import oval from '@/components/oval/oval'
 import compareNeighborsFive from '@/components/compareNeighborsFive/compareNeighborsFive'
 import sixToTen from '@/components/sixToTen/sixToTen'
+import splitAndCombination from '@/components/splitAndCombination/splitAndCombination'
 import compareNumberWithinFive from '@/components/compareNumberWithinFive/compareNumberWithinFive'
 import regular2 from '@/components/regular2/regular2'
 import numbersWithinSeven from '@/components/numbersWithinSeven/numbersWithinSeven'
@@ -221,6 +222,14 @@ export default new Router({
       path: '/sixToTen',
       name: 'sixToTen',
       component: sixToTen,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/splitAndCombination',
+      name: 'splitAndCombination',
+      component: splitAndCombination,
       meta: {
         keepAlive: false
       }
