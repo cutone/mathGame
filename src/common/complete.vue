@@ -1,5 +1,5 @@
 <template>
-   <div class="finish-wrapper">
+   <div class="finish-wrapper" :style="{'background': background}">
       <img class="finish-img" :src="img" alt />
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
@@ -16,7 +16,11 @@ export default {
       }
   },
   props: {
-      img: String
+      img: String,
+      background: {
+        type: String,
+        default: '#9bcfd3'
+      }
   },
   methods: {
       goBack(){
@@ -33,7 +37,6 @@ export default {
     height: 100%;
     display: flex;
     padding-bottom: 20px;
-    background: #9bcfd3;
     flex-direction: column;
     justify-content: space-around;
     padding: 20px 0;

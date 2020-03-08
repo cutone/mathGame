@@ -71,8 +71,8 @@ export default {
         },
         {
           title: "复习5以内的数",
-          url: "/numberwithinFive",
-          img: "static/images/bottomClassMenu/numberwithinFive.png"
+          url: "/numberWithinFive",
+          img: "static/images/bottomClassMenu/numberWithinFive.png"
         },
         {
           title: "区分前后",

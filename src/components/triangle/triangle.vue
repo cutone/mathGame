@@ -8,11 +8,10 @@
         <audio id="select_rect" src="static/audio/triangle/select_rect.wav">您的浏览器不支持 audio 标签。</audio>
         <audio id="first_page" src="static/audio/triangle/first_page.wav">您的浏览器不支持 audio 标签。</audio>
 
-        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/bottom_music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/bottom_music_active.gif">
+        <img v-if="!isFirstPage && !musicActive && !isFinish" class="music-img" @click="broadcast()" src="static/images/common/bottom_music.png"> 
+        <img v-if="!isFirstPage && musicActive && !isFinish" class="music-img" src="static/images/common/bottom_music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
-        <div>
-            
+        <div class="first-page" v-if="isFirstPage && !isFinish">
         </div> 
         <div class="body" v-if="!isFinish">
             <div class="game-item">
@@ -29,28 +28,28 @@
                 </div>
             </div>
         </div>
-        <bottom-class-complete 
+        <complete 
             v-if="isFinish" 
             @goBack="goBack" 
-            @initiate="initiate"
-            :leftImg="leftImg" 
-            :rightImg="rightImg">
-        </bottom-class-complete>
+            @initiate="restart"
+            :img="completeImg"
+            background="#fef987">
+        </complete>
     </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import bottomClassComplete from "@/common/bottomClassComplete";
+import complete from "@/common/complete";
 export default {
   name: 'triangle',
   data(){
     return {
-        leftImg: 'static/images/beforeAndAfter/minnie-2.png',
-        rightImg: 'static/images/beforeAndAfter/minnie-1.png',
+        completeImg: 'static/images/triangle/complete.png',
         currentIndex: 0,
         currentItem: {},
         isFinish: true,
+        isFirstPage: true,
         musicActive: true,
         canChoose: false,
         gameList: [
@@ -157,7 +156,7 @@ export default {
   },
   components: {
       commonHeader,
-      bottomClassComplete
+      complete
   },
   mounted(){
       let _this = this;
@@ -177,7 +176,10 @@ export default {
             first_page.play();
         });
         first_page.addEventListener("ended", function(){
-            _this.playAudio('select_rect')
+            setTimeout(function(){
+                _this.playAudio('select_rect');
+                _this.isFirstPage = false;
+            },1000)
         })
         select_triangle.addEventListener("ended", function(){
             _this.musicActive = false;
@@ -204,6 +206,9 @@ export default {
         })
         please_think.addEventListener("ended", function(){
             _this.canChoose = true;
+            for(let i = 0, len = _this.gameList.length; i < len; i++){
+                _this.gameList[i].isWrong = false;
+            }
         })
         _this.initiate()
       })
@@ -258,10 +263,11 @@ export default {
     initiate(){
         let _this = this;
         _this.isFinish = false;
+        _this.isFirstPage = true;
         _this.currentIndex = 0;
         for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isWrong = false;
-            for(let j = 0; j< _this.gameList.choiceList.length; j++){
+            for(let j = 0; j< _this.gameList[i].choiceList.length; j++){
                 _this.gameList[i].choiceList[j].currentRight = false;
             }
         }
@@ -274,9 +280,10 @@ export default {
         let _this = this;
         _this.isFinish = false;
         _this.currentIndex = 0;
+        _this.isFirstPage = false;
         for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isWrong = false;
-            for(let j = 0; j< _this.gameList.choiceList.length; j++){
+            for(let j = 0; j< _this.gameList[i].choiceList.length; j++){
                 _this.gameList[i].choiceList[j].currentRight = false;
             }
         }
@@ -290,7 +297,7 @@ export default {
 
 <style scoped lang='less'>
 @headerHeight: 30px;
-@bodyHeight: calc("100%"-40px);
+@bodyHeight: calc(~"100% - 30px");
 .triangle-container{
     height: 100%;
     box-sizing: border-box;
@@ -300,12 +307,17 @@ export default {
         left: 50px; 
         width: 100px;
     }
+    .first-page{
+        background-image: url('../../../static/images/triangle/firstPage.png');
+        background-size: 100% 100%;
+        height: @bodyHeight;
+        margin-bottom: 30px;
+    }
     .body{
         background-image: url('../../../static/images/triangle/background.png');
         background-size: 100% 100%;
-        height: 100%;
+        height: @bodyHeight;
         padding-top: 40px;
-        padding-bottom: 30px;
         box-sizing: border-box;
         .game-item{
             height: 100%;
@@ -331,7 +343,6 @@ export default {
             }
         }
         .choose-item-wrapper{
-            height: 70%;
             width: 80%;
             margin: 0 auto;
             display: flex;
