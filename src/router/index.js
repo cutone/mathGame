@@ -57,6 +57,7 @@ import bisect from '@/components/bisect/bisect'
 import lengthAndArea from '@/components/lengthAndArea/lengthAndArea'
 import learnAdd from '@/components/learnAdd/learnAdd'
 import learnSub from '@/components/learnSub/learnSub'
+import sixToEight from '@/components/sixToEight/sixToEight'
 
 Vue.use(Router)
 
@@ -452,6 +453,14 @@ export default new Router({
       path: '/learnSub',
       name: 'learnSub',
       component: learnSub,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: '/sixToEight',
+      name: 'sixToEight',
+      component: sixToEight,
       meta: {
         keepAlive: false
       }

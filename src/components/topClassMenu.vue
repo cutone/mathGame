@@ -48,7 +48,11 @@ export default {
         url: '/leftAndRight',
         img: 'static/images/topClassMenu/leftAndRight.png'
       },
-      
+      {
+        title: '学习6-8的组成',
+        url: '/sixToEight',
+        img: 'static/images/topClassMenu/sixToEight.png'
+      },
       {
         title: '学习9、10的组成',
         url: '/nineAndTen',
