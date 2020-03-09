@@ -3,14 +3,22 @@
     <audio id="bg_music" loop="loop" src="static/audio/splitAndCombination/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/splitAndCombination/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/splitAndCombination/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_keystone" src="static/audio/splitAndCombination/selt_keystone.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_rectangular" src="static/audio/splitAndCombination/selt_rectangular.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_square" src="static/audio/splitAndCombination/selt_square.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_triangle" src="static/audio/splitAndCombination/selt_triangle.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_house" src="static/audio/splitAndCombination/selt_house.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_fish" src="static/audio/splitAndCombination/selt_fish.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_chicken" src="static/audio/splitAndCombination/selt_chicken.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="selt_car" src="static/audio/splitAndCombination/selt_car.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="selt_keystone" class="stem-music" src="static/audio/splitAndCombination/selt_keystone.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_rectangular" class="stem-music" src="static/audio/splitAndCombination/selt_rectangular.mp3">您的浏览器不支持
+      audio 标签。</audio>
+    <audio id="selt_square" class="stem-music" src="static/audio/splitAndCombination/selt_square.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_triangle" class="stem-music" src="static/audio/splitAndCombination/selt_triangle.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_house" class="stem-music" src="static/audio/splitAndCombination/selt_house.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_fish" class="stem-music" src="static/audio/splitAndCombination/selt_fish.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_chicken" class="stem-music" src="static/audio/splitAndCombination/selt_chicken.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="selt_car" class="stem-music" src="static/audio/splitAndCombination/selt_car.mp3">您的浏览器不支持 audio
+      标签。</audio>
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div class="game-list" v-if="!isFinish">
       <div class="game-item">
@@ -28,49 +36,44 @@
             <div class="choose-item left-item" @click="choose('left', currentItem)">
               <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg"
                 alt="">
+              <img v-if="currentItem.isLeft=='left'" class="right-img" src="static/images/splitAndCombination/right.png"
+                alt="">
             </div>
-            <img v-if="currentItem.isLeft=='left'" class="right-img" src="static/images/splitAndCombination/right.png"
-              alt="">
-          </div>
-          <div class="topFour" v-if="currentItem.centerImg&&currentIndex<4">
-            <div class="choose-item left-item" @click="choose('center', currentItem)">
+            <div v-if="currentItem.centerImg" class="choose-item left-item" @click="choose('center', currentItem)">
               <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.centerImg"
                 alt="">
-
+              <img v-if="currentItem.isCenter=='center'" class="right-img"
+                src="static/images/splitAndCombination/right.png" alt="">
             </div>
-            <img v-if="currentItem.isCenter=='center'" class="right-img"
-              src="static/images/splitAndCombination/right.png" alt="">
-          </div>
-          <div class="topFour" v-if="currentIndex<4">
             <div class="choose-item right-item" @click="choose('right', currentItem)">
               <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg"
                 alt="">
+              <img v-if="currentItem.isRight=='right'" class="right-img"
+                src="static/images/splitAndCombination/right.png" alt="">
             </div>
-            <img v-if="currentItem.isRight=='right'" class="right-img" src="static/images/splitAndCombination/right.png"
-              alt="">
           </div>
           <div class="topFive" v-if="currentIndex==4">
-            <div class="left">
-              <img class="one" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[0]+'.png'"
-                @touchmove="touchMove(gameList[currentIndex].img[0])" @touchstart="down(gameList[currentIndex].img[0])"
-                @touchend="check()" :id="gameList[currentIndex].img[0]">
-              <img class="two" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[1]+'.png'"
-                @touchmove="touchMove(gameList[currentIndex].img[1])" @touchstart="down(gameList[currentIndex].img[1])"
-                @touchend="check()" :id="gameList[currentIndex].img[1]">
-              <img class="three" :src="'static/images/splitAndCombination/'+gameList[4].img[2]+'.png'"
-                @touchmove="touchMove(gameList[currentIndex].img[2])" @touchstart="down(gameList[currentIndex].img[2])"
-                @touchend="check()" :id="gameList[currentIndex].img[2]">
-              <img class="four" :src="'static/images/splitAndCombination/'+gameList[4].img[3]+'.png'"
-                @touchmove="touchMove(gameList[currentIndex].img[3])" @touchstart="down(gameList[currentIndex].img[3])"
-                @touchend="check()" :id="gameList[currentIndex].img[3]">
-            </div>
-            <div class="right">
-              <img src='static/images/splitAndCombination/border2.png' class="back">
-              <img src='static/images/splitAndCombination/rHouse.png' class="small">
-              <img src='static/images/splitAndCombination/rHouse1.png' class="small1">
-              <img src='static/images/splitAndCombination/rHouse2.png' class="small2">
-              <img src='static/images/splitAndCombination/rHouse3.png' class="small3">
-            </div>
+            <img class="one" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[0]+'.png'"
+              @touchmove="touchMove(gameList[currentIndex].img[0])" @touchstart="down(gameList[currentIndex].img[0])"
+              @touchend="check(gameList[currentIndex].img[0],0)" :id="gameList[currentIndex].img[0]">
+            <img class="two" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[1]+'.png'"
+              @touchmove="touchMove(gameList[currentIndex].img[1])" @touchstart="down(gameList[currentIndex].img[1])"
+              @touchend="check(gameList[currentIndex].img[1],1)" :id="gameList[currentIndex].img[1]">
+            <img class="three" :src="'static/images/splitAndCombination/'+gameList[4].img[2]+'.png'"
+              @touchmove="touchMove(gameList[currentIndex].img[2])" @touchstart="down(gameList[currentIndex].img[2])"
+              @touchend="check(gameList[currentIndex].img[2],2)" :id="gameList[currentIndex].img[2]">
+            <img class="four" :src="'static/images/splitAndCombination/'+gameList[4].img[3]+'.png'"
+              @touchmove="touchMove(gameList[currentIndex].img[3])" @touchstart="down(gameList[currentIndex].img[3])"
+              @touchend="check(gameList[currentIndex].img[3],3)" :id="gameList[currentIndex].img[3]">
+            <img src='static/images/splitAndCombination/border2.png' class="back" id="house">
+            <img src='static/images/splitAndCombination/rHouse.png' class="small"
+              :class="gameList[currentIndex].img[0]">
+            <img src='static/images/splitAndCombination/rHouse1.png' class="small1"
+              :class="gameList[currentIndex].img[1]">
+            <img src='static/images/splitAndCombination/rHouse2.png' class="small2"
+              :class="gameList[currentIndex].img[2]">
+            <img src='static/images/splitAndCombination/rHouse3.png' class="small3"
+              :class="gameList[currentIndex].img[3]">
           </div>
           <div class="topSix" v-if="currentIndex==5">
             <div class="left"></div>
@@ -178,12 +181,11 @@ export default {
         {
           title: '请用给出的图形拼出一座房子',
           img: ['house_one', 'house_two', 'house_three', 'house_four'],
-          leftImg: 'static/images/trapezoid/box.png',
-          rightImg: 'static/images/trapezoid/trapezoid5.png',
-          rightChoice: 'right',
+          rightChoice: 4,
+          currentChoice: 0,
           isRight: false,
           isWrong: false,
-          audioType: 'select_trapezoid'
+          audioType: 'selt_house'
         },
         {
           title: '请用给出的图形拼出两条鱼',
@@ -192,7 +194,7 @@ export default {
           rightChoice: 'right',
           isRight: false,
           isWrong: false,
-          audioType: 'select_trapezoid'
+          audioType: 'selt_fish'
         },
         {
           title: '请用给出的图形拼出一只小鸡',
@@ -201,7 +203,7 @@ export default {
           rightChoice: 'right',
           isRight: false,
           isWrong: false,
-          audioType: 'select_trapezoid'
+          audioType: 'selt_chicken'
         },
         {
           title: '请用给出的图形拼出一辆车',
@@ -210,9 +212,21 @@ export default {
           rightChoice: 'right',
           isRight: false,
           isWrong: false,
-          audioType: 'select_trapezoid'
+          audioType: 'selt_car'
         },
-      ]
+      ],
+      houseLeft: '',
+      houseRight: '',
+      houseTop: '',
+      houseBottom: '',
+      initialPosition: [],
+    }
+  },
+  watch: {
+    currentIndex (val) {
+      if (val == 4) {
+
+      }
     }
   },
   components: {
@@ -235,60 +249,30 @@ export default {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
       let please_think = document.getElementById('please_think');
-      let selt_keystone = document.getElementById('selt_keystone');
-      let selt_rectangular = document.getElementById('selt_rectangular');
-      let selt_square = document.getElementById('selt_square');
-      let selt_triangle = document.getElementById('selt_triangle');
+      let stemMusicList = document.getElementsByClassName("stem-music");
+      for (let i = 0, len = stemMusicList.length; i < len; i++) {
+        eval("let " + stemMusicList[i].id + "=document.getElementById('" + stemMusicList.id + "');");
+        stemMusicList[i].addEventListener("ended", function () {
+          _this.canChoose = true;
+          _this.musicActive = false;
+        });
+      }
       bg_music.addEventListener("canplaythrough", function () {
         bg_music.play();
       });
       selt_square.addEventListener("canplaythrough", function () {
         selt_square.play();
       });
-
-      //每次题目mp3后播放背景音乐
-      selt_square.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_rectangular.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_keystone.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_triangle.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_house.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_fish.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_chicken.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
-      selt_car.addEventListener("ended", function () {
-        _this.musicActive = false;
-        _this.canChoose = true;
-      })
       //正确提示mp3播放后
       right_music.addEventListener("ended", function () {
         _this.currentIndex++;
-        if (_this.currentIndex == 7) {
+        console.log(_this.currentIndex);
+        if (_this.currentIndex == _this.gameList.length) {
           //播放答对五道题的mp3
           _this.playAudio('finish_five');
           _this.isFinish = true;
         } else {
           //修改题目下标，播放题目
-
           _this.currentItem = _this.gameList[_this.currentIndex];
           _this.playAudio(_this.gameList[_this.currentIndex].audioType)
           _this.musicActive = true;
@@ -310,17 +294,22 @@ export default {
     //播放游戏规则
     playAudio (id) {
       let audioBtn = document.getElementById(id);
+      console.log(audioBtn);
       audioBtn.currentTime = 0;
       audioBtn.play();
     },
     goBack () {
       this.$router.go(-1);
     },
-    check (item) {
-      let _this = this;
-      if (!_this.canDrag) {
-        return;
+    // 判断是否在目标图片内
+    onThePicyure (x, y) {
+      if (this.houseLeft < x && this.houseRight > x && this.houseTop < y && this.houseBottom > y) {
+        return true;
       }
+    },
+    // 鼠标松开后触发
+    check (item, index) {
+      let _this = this;
       let touch;
       if (event.touches) {
         touch = event.touches[0];
@@ -329,48 +318,46 @@ export default {
       }
       let mouseX = event.changedTouches[0].pageX;
       let mouseY = event.changedTouches[0].pageY;
-      console.log(mouseX, mouseY)
-      let moveDiv = event.target;
-      let LightList = document.getElementsByClassName("target-ele");
-      for (let i = 0; i < LightList.length; i++) {
-        let imgLeft = LightList[i].offsetLeft;
-        let imgRight = imgLeft + LightList[i].clientWidth;
-        // let imgTop = getElementToPageTop(LightList[i]);
-        let imgTop = LightList[i].offsetTop;
-        let imgBottom = imgTop + LightList[i].clientHeight;
-        console.log(imgLeft, imgRight, imgTop, imgBottom);
-        if (
-          mouseX > imgLeft &&
-          mouseX < imgRight &&
-          mouseY > imgTop &&
-          mouseY < imgBottom
-        ) {
-          console.log(_this.currentItem.type + '_' + _this.colorList[i].color)
-          console.log()
-          if (_this.currentItem.type + '_' + _this.colorList[i].color == moveDiv.id) {
-            console.log("对了");
-            moveDiv.style.display = 'none';
-            _this.colorList[i].isRight = true;
-
-          } else {
-            console.log("错了");
-            moveDiv.style.top = '0px';
-            moveDiv.style.left = '0px';
-            _this.canDrag = false;
-            _this.playAudio("please_think");
+      if (this.onThePicyure(mouseX, mouseY)) {
+        let moveDiv = event.target;
+        let LightList = document.getElementsByClassName(item);
+        let imgLeft = LightList[0].offsetLeft;
+        let imgRight = imgLeft + LightList[0].clientWidth;
+        let imgTop = document.body.clientHeight * 4 / 10 + LightList[0].offsetTop;
+        let imgBottom = imgTop + LightList[0].clientHeight;
+        if (mouseX > imgLeft && mouseX < imgRight && mouseY > imgTop && mouseY < imgBottom) {
+          LightList[0].src = "static/images/splitAndCombination/" + this.gameList[this.currentIndex].img[index] + ".png";
+          document.getElementById(item).style.opacity = 0;
+          this.gameList[this.currentIndex].currentChoice++;
+          console.log(this.gameList[this.currentIndex].currentChoice);
+          if (this.gameList[this.currentIndex].rightChoice == this.gameList[this.currentIndex].currentChoice) {
+            _this.currentIndex++;
+            _this.playAudio('right_music')
           }
+
+        } else {
+          // 判断是不是在目标位置
+          this.initialPosition.forEach(item1 => {
+            if (item == item1.key) {
+              moveDiv.style.top = item1.y;
+              moveDiv.style.left = item1.x;
+              _this.playAudio("please_think");
+            }
+          })
         }
+      } else {
+        return;
       }
-      for (let i = 0; i < _this.colorList.length; i++) {
-        if (_this.colorList[i].isRight == false) {
-          return
-        }
-      }
-      _this.currentIndex++;
-      _this.playAudio('right_music')
     },
     //鼠标按下触发
     down (el) {
+      if (this.currentIndex == 4) {
+        let house = document.getElementById("house");
+        this.houseLeft = house.offsetLeft;
+        this.houseRight = this.houseLeft + house.clientWidth;
+        this.houseTop = document.body.clientHeight * 4 / 10 + house.offsetTop;
+        this.houseBottom = this.houseTop + house.clientHeight;
+      }
       let moveDiv = document.getElementById(el);
       this.flags = true;
       var touch;
@@ -383,14 +370,29 @@ export default {
       this.position.y = touch.clientY;
       this.dx = moveDiv.offsetLeft;
       this.dy = moveDiv.offsetTop;
-      console.log(this.position.x, this.position.y)
+
+      let result = this.initialPosition.some(item => {
+        return el == item.key;
+      })
+      if (!result) {
+        this.initialPosition.push({
+          key: el,
+          x: this.dx + 'px',
+          y: this.dy + 'px',
+        })
+      }
     },
     //选择答案
     choose (choiceItem, item) {
+      //  题目音乐播放完之后才能点击
+      if (!this.canChoose) {
+        return;
+      }
       let _this = this;
       let selt_canChoose = _this.selt_canChoose.some(item1 => {
         return choiceItem == item1;
       })
+      // 判断是不是已经点过的图形
       if (selt_canChoose) {
         return;
       }
@@ -403,7 +405,6 @@ export default {
         switch (choiceItem) {
           case 'left':
             item.isLeft = choiceItem;
-
             break;
           case 'center':
             item.isCenter = choiceItem;
@@ -491,14 +492,15 @@ export default {
 <style scoped lang='less'>
 @import "../../../static/css/doudong.css";
 @headerHeight: 30px;
-@bodyHeight: calc(~"100% - 30px");
+@bodyHeight: calc(~"100%-30px");
 .middle-class-menu-container {
   background-image: url("../../../static/images/splitAndCombination/background.png");
   background-size: 100% 100%;
   height: 100%;
   box-sizing: border-box;
+  position: relative;
   .game-list {
-    height: @bodyHeight;
+    height: 100%;
     .game-item {
       height: 100%;
     }
@@ -548,26 +550,25 @@ export default {
     .choose-item-wrapper {
       width: 100%;
       height: 60%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
       .topFour {
-        width: 30%;
+        width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         .choose-item {
           display: inline-block;
-          padding: 6% 0;
+          padding: 4% 0;
           box-sizing: border-box;
-          margin: 20px 30px;
           margin-bottom: 0;
-          width: 70%;
+          width: 25%;
           height: 60%;
           background-image: url("../../../static/images/splitAndCombination/border.png");
           background-size: 100% 100%;
-          vertical-align: middle;
+          position: relative;
           .choice-img {
-            margin-top: 20%;
-            width: 50%;
+            width: 40%;
+            height: 90%;
           }
           .shake-animation {
             animation-name: shaky-slow;
@@ -578,9 +579,12 @@ export default {
             animation-delay: 0s; // 动画延时时间
             animation-play-state: running; // 动画执行状态，一般没必要parse
           }
-        }
-        .right-img {
-          width: 50%;
+          .right-img {
+            position: absolute;
+            width: 40%;
+            top: 100%;
+            left: 30%;
+          }
         }
       }
       .topFive {
@@ -589,81 +593,72 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        .left {
-          position: relative;
-          width: 40%;
-          height: 80%;
-          .one {
-            position: absolute;
-            width: 40%;
-            height: 40%;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
-          }
-          .two {
-            position: absolute;
-            width: 50%;
-            height: 40%;
-            top: 10px;
-            left: 50%;
-            z-index: 10;
-          }
-          .three {
-            position: absolute;
-            width: 10%;
-            height: 15%;
-            top: 50%;
-            left: 10px;
-            z-index: 10;
-          }
-          .four {
-            position: absolute;
-            width: 10%;
-            height: 40%;
-            top: 50%;
-            left: 50%;
-            z-index: 10;
-          }
+        position: relative;
+        .one {
+          position: absolute;
+          width: 25%;
+          height: 30%;
+          top: 10px;
+          left: 5%;
+          z-index: 10;
         }
-        .right {
+        .two {
+          position: absolute;
+          width: 25%;
+          height: 35%;
+          top: 40%;
+          left: 5%;
+          z-index: 10;
+        }
+        .three {
+          position: absolute;
+          width: 5%;
+          height: 12%;
+          top: 2%;
+          left: 35%;
+          z-index: 10;
+        }
+        .four {
+          position: absolute;
+          width: 5%;
+          height: 25%;
+          top: 50%;
+          left: 35%;
+          z-index: 10;
+        }
+        .back {
+          position: absolute;
+          left: 50%;
           width: 40%;
-          height: 80%;
-          position: relative;
-          .back {
-            position: absolute;
-            left: 0;
-            width: 80%;
-            height: 100%;
-          }
-          .small {
-            position: absolute;
-            left: 15%;
-            top: 3%;
-            width: 50%;
-            height: 40%;
-          }
-          .small1 {
-            position: absolute;
-            left: 15%;
-            top: 43%;
-            width: 50%;
-            height: 40%;
-          }
-          .small2 {
-            position: absolute;
-            left: 20%;
-            top: 50%;
-            width: 15%;
-            height: 15%;
-          }
-          .small3 {
-            position: absolute;
-            left: 45%;
-            top: 58%;
-            width: 12%;
-            height: 25%;
-          }
+          height: 90%;
+        }
+        .small {
+          position: absolute;
+          left: 58%;
+          top: 12%;
+          width: 25%;
+          height: 30%;
+        }
+        .small1 {
+          position: absolute;
+          left: 58%;
+          top: 42%;
+          width: 25%;
+          height: 35%;
+        }
+        .small2 {
+          position: absolute;
+          left: 62%;
+          top: 50%;
+          width: 5%;
+          height: 12%;
+        }
+        .small3 {
+          position: absolute;
+          width: 5%;
+          height: 25%;
+          left: 75%;
+          top: 52%;
         }
       }
     }
