@@ -55,16 +55,16 @@
           <div class="topFive" v-if="currentIndex==4">
             <img class="one" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[0]+'.png'"
               @touchmove="touchMove(gameList[currentIndex].img[0])" @touchstart="down(gameList[currentIndex].img[0])"
-              @touchend="check(gameList[currentIndex].img[0],0)" :id="gameList[currentIndex].img[0]">
+              @touchend="check(gameList[currentIndex].img[0],0,'house')" :id="gameList[currentIndex].img[0]">
             <img class="two" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[1]+'.png'"
               @touchmove="touchMove(gameList[currentIndex].img[1])" @touchstart="down(gameList[currentIndex].img[1])"
-              @touchend="check(gameList[currentIndex].img[1],1)" :id="gameList[currentIndex].img[1]">
+              @touchend="check(gameList[currentIndex].img[1],1,'house')" :id="gameList[currentIndex].img[1]">
             <img class="three" :src="'static/images/splitAndCombination/'+gameList[4].img[2]+'.png'"
               @touchmove="touchMove(gameList[currentIndex].img[2])" @touchstart="down(gameList[currentIndex].img[2])"
-              @touchend="check(gameList[currentIndex].img[2],2)" :id="gameList[currentIndex].img[2]">
+              @touchend="check(gameList[currentIndex].img[2],2,'house')" :id="gameList[currentIndex].img[2]">
             <img class="four" :src="'static/images/splitAndCombination/'+gameList[4].img[3]+'.png'"
               @touchmove="touchMove(gameList[currentIndex].img[3])" @touchstart="down(gameList[currentIndex].img[3])"
-              @touchend="check(gameList[currentIndex].img[3],3)" :id="gameList[currentIndex].img[3]">
+              @touchend="check(gameList[currentIndex].img[3],3,'house')" :id="gameList[currentIndex].img[3]">
             <img src='static/images/splitAndCombination/border2.png' class="back" id="house">
             <img src='static/images/splitAndCombination/rHouse.png' class="small"
               :class="gameList[currentIndex].img[0]">
@@ -183,8 +183,6 @@ export default {
           img: ['house_one', 'house_two', 'house_three', 'house_four'],
           rightChoice: 4,
           currentChoice: 0,
-          isRight: false,
-          isWrong: false,
           audioType: 'selt_house'
         },
         {
@@ -236,7 +234,7 @@ export default {
   created () {
     let _this = this;
     _this.isFinish = false;
-    _this.currentIndex = 0;
+    _this.currentIndex = 4;
     for (let i = 0, len = _this.gameList.length; i < len; i++) {
       _this.gameList[i].isRight = false;
     }
@@ -244,7 +242,7 @@ export default {
   },
   mounted () {
     let _this = this;
-    _this.currentIndex = 0;
+    _this.currentIndex = 4;
     this.$nextTick(() => {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
@@ -294,7 +292,6 @@ export default {
     //播放游戏规则
     playAudio (id) {
       let audioBtn = document.getElementById(id);
-      console.log(audioBtn);
       audioBtn.currentTime = 0;
       audioBtn.play();
     },
@@ -302,15 +299,27 @@ export default {
       this.$router.go(-1);
     },
     // 判断是否在目标图片内
-    onThePicyure (x, y) {
-      if (this.houseLeft < x && this.houseRight > x && this.houseTop < y && this.houseBottom > y) {
+    onThePicyure (x, y, id) {
+      let back = document.getElementById(id);
+      this.backLeft = back.offsetLeft;
+      this.backRight = this.backLeft + back.clientWidth;
+      this.backTop = document.body.clientHeight * 4 / 10 + back.offsetTop;
+      this.backBottom = this.backTop + back.clientHeight;
+      if (this.backLeft < x && this.backRight > x && this.backTop < y && this.backBottom > y) {
         return true;
       }
     },
     // 鼠标松开后触发
-    check (item, index) {
+    check (item, index, id) {
       let _this = this;
       let touch;
+      // 判断是不是成功的图片
+      let resultCan = this.initialPosition.some(item1 => {
+        return item == item1.key && !item1.isCanChoice
+      })
+      if (resultCan) {
+        return;
+      }
       if (event.touches) {
         touch = event.touches[0];
       } else {
@@ -318,7 +327,7 @@ export default {
       }
       let mouseX = event.changedTouches[0].pageX;
       let mouseY = event.changedTouches[0].pageY;
-      if (this.onThePicyure(mouseX, mouseY)) {
+      if (this.onThePicyure(mouseX, mouseY, id)) {
         let moveDiv = event.target;
         let LightList = document.getElementsByClassName(item);
         let imgLeft = LightList[0].offsetLeft;
@@ -329,8 +338,13 @@ export default {
           LightList[0].src = "static/images/splitAndCombination/" + this.gameList[this.currentIndex].img[index] + ".png";
           document.getElementById(item).style.opacity = 0;
           this.gameList[this.currentIndex].currentChoice++;
-          console.log(this.gameList[this.currentIndex].currentChoice);
+          this.initialPosition.forEach(im => {
+            if (item == im.key) {
+              im.isCanChoice = false;
+            }
+          })
           if (this.gameList[this.currentIndex].rightChoice == this.gameList[this.currentIndex].currentChoice) {
+            _this.canChoose = false;
             _this.currentIndex++;
             _this.playAudio('right_music')
           }
@@ -350,13 +364,10 @@ export default {
       }
     },
     //鼠标按下触发
-    down (el) {
-      if (this.currentIndex == 4) {
-        let house = document.getElementById("house");
-        this.houseLeft = house.offsetLeft;
-        this.houseRight = this.houseLeft + house.clientWidth;
-        this.houseTop = document.body.clientHeight * 4 / 10 + house.offsetTop;
-        this.houseBottom = this.houseTop + house.clientHeight;
+    down (el, id) {
+      //  题目音乐播放完之后才能点击
+      if (!this.canChoose) {
+        return;
       }
       let moveDiv = document.getElementById(el);
       this.flags = true;
@@ -370,7 +381,7 @@ export default {
       this.position.y = touch.clientY;
       this.dx = moveDiv.offsetLeft;
       this.dy = moveDiv.offsetTop;
-
+      // 判断是不是已经获取初始位置的图片
       let result = this.initialPosition.some(item => {
         return el == item.key;
       })
@@ -379,6 +390,7 @@ export default {
           key: el,
           x: this.dx + 'px',
           y: this.dy + 'px',
+          isCanChoice: true,
         })
       }
     },
