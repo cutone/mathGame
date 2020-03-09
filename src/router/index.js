@@ -34,6 +34,7 @@ import compareNumberWithinFive from "@/components/compareNumberWithinFive/compar
 import regular2 from "@/components/regular2/regular2";
 import numbersWithinSeven from "@/components/numbersWithinSeven/numbersWithinSeven";
 import sequenceFive2 from "@/components/sequenceFive2/sequenceFive2";
+import compareSixToTen from '@/components/compareSixToTen/compareSixToTen'
 
 //大班
 import cylinder from "@/components/cylinder/cylinder";
@@ -468,6 +469,14 @@ export default new Router({
       path: "/sixToEight",
       name: "sixToEight",
       component: sixToEight,
+      meta: {
+        keepAlive: false
+      }
+    },
+    {
+      path: "/compareSixToTen",
+      name: "compareSixToTen",
+      component: compareSixToTen,
       meta: {
         keepAlive: false
       }

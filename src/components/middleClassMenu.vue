@@ -74,7 +74,11 @@ export default {
           url: '/sequenceTen',
           img: 'static/images/middleClassMenu/sequence_ten.png',
         },
-
+        {
+          title: '比较6--10的两数关系',
+          url: '/compareSixToTen',
+          img: 'static/images/middleClassMenu/compareSixToTen.png',
+        },
         {
           title: '学习五以内的序数（一）',
           url: '/sequenceFive',
