@@ -231,18 +231,8 @@ export default {
     commonHeader,
     redComplete
   },
-  created () {
-    let _this = this;
-    _this.isFinish = false;
-    _this.currentIndex = 4;
-    for (let i = 0, len = _this.gameList.length; i < len; i++) {
-      _this.gameList[i].isRight = false;
-    }
-    _this.currentItem = _this.gameList[_this.currentIndex];
-  },
   mounted () {
     let _this = this;
-    _this.currentIndex = 4;
     this.$nextTick(() => {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
@@ -280,13 +270,8 @@ export default {
       please_think.addEventListener("ended", function () {
         _this.canChoose = true;
       })
+       _this.initiate();
     })
-  },
-  beforeDestroy () {
-    let _this = this;
-    _this.isFinish = false;
-    _this.currentIndex = 0;
-    _this.currentItem = _this.gameList[_this.currentIndex];
   },
   methods: {
     //播放游戏规则
