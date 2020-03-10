@@ -4,11 +4,11 @@
     <audio id="right_music" src="static/audio/trapezoid/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="finish_five" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/trapezoid/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="dog_music" src="static/audio/sequenceFive/dog.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="elephant_music" src="static/audio/sequenceFive/elephant.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="fox_music" src="static/audio/sequenceFive/fox.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="pig_music" src="static/audio/sequenceFive/pig.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="snail_music" src="static/audio/sequenceFive/snail.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="dog_music" class="stem-music" src="static/audio/sequenceFive/dog.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="elephant_music" class="stem-music" src="static/audio/sequenceFive/elephant.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="fox_music" class="stem-music" src="static/audio/sequenceFive/fox.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="pig_music" class="stem-music" src="static/audio/sequenceFive/pig.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="snail_music" class="stem-music" src="static/audio/sequenceFive/snail.mp3">您的浏览器不支持 audio 标签。</audio>
     <img
       class="music-img"
       @click="broadcast()"
@@ -193,12 +193,14 @@ export default {
     let right_music = document.getElementById("right_music");
     let finish_five = document.getElementById("finish_five");
     let please_think = document.getElementById("please_think");
-    let elephant_music = document.getElementById("elephant_music");
-    let fox_music = document.getElementById("fox_music");
-    let dog_music = document.getElementById("dog_music");
-    let pig_music = document.getElementById("pig_music");
-    let snail_music = document.getElementById("snail_music");
-
+    let stemMusicList = document.getElementsByClassName("stem-music");
+    for(let i = 0, len = stemMusicList.length; i < len; i++){
+      eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
+      stemMusicList[i].addEventListener("ended", function() {
+        _this.canChoose = true;
+        _this.musicActive = false;
+      });
+    }
     bg_music.addEventListener("canplaythrough", function() {
       bg_music.play();
     });
@@ -209,27 +211,6 @@ export default {
       _this.currentItem.isWrong = false;
       _this.canChoose = true;
     });
-    elephant_music.addEventListener("ended", function() {
-      _this.musicActive = false;
-      _this.canChoose = true;
-    });
-    fox_music.addEventListener("ended", function() {
-      _this.musicActive = false;
-      _this.canChoose = true;
-    });
-    dog_music.addEventListener("ended", function() {
-      _this.musicActive = false;
-      _this.canChoose = true;
-    });
-    pig_music.addEventListener("ended", function() {
-      _this.musicActive = false;
-      _this.canChoose = true;
-    });
-    snail_music.addEventListener("ended", function() {
-      _this.musicActive = false;
-      _this.canChoose = true;
-    });
-
     //正确提示mp3播放后
     right_music.addEventListener("ended", function() {
       if (_this.currentIndex == 5) {
@@ -359,15 +340,6 @@ export default {
       width: 60px;
       height: 60px;
       margin: 0 30px;
-    }
-    .shake-animation {
-      animation-name: shaky-slow;
-      animation-duration: 2s; // 动画执行时间
-      animation-delay: 0s; // 动画等待时间
-      animation-iteration-count: 1; // 动画执行次数，infinite为一直执行
-      animation-timing-function: ease-in-out; // 动画执行速度
-      animation-delay: 0s; // 动画延时时间
-      animation-play-state: running; // 动画执行状态，一般没必要parse
     }
   }
   .finish-wrapper {

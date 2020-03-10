@@ -269,6 +269,7 @@ export default {
       })
       please_think.addEventListener("ended", function () {
         _this.canChoose = true;
+        _this.currentItem.isWrong = false;
       })
        _this.initiate();
     })
@@ -340,6 +341,7 @@ export default {
             if (item == item1.key) {
               moveDiv.style.top = item1.y;
               moveDiv.style.left = item1.x;
+              _this.canChoose = false;
               _this.playAudio("please_think");
             }
           })
@@ -566,15 +568,6 @@ export default {
           .choice-img {
             width: 40%;
             height: 90%;
-          }
-          .shake-animation {
-            animation-name: shaky-slow;
-            animation-duration: 2s; // 动画执行时间
-            animation-delay: 0s; // 动画等待时间
-            animation-iteration-count: 1; // 动画执行次数，infinite为一直执行
-            animation-timing-function: ease-in-out; // 动画执行速度
-            animation-delay: 0s; // 动画延时时间
-            animation-play-state: running; // 动画执行状态，一般没必要parse
           }
           .right-img {
             position: absolute;

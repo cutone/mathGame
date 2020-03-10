@@ -140,6 +140,7 @@ export default {
         })
         please_think.addEventListener("ended", function(){
             _this.canChoose = true;
+            _this.currentItem.isWrong = false
         })
         _this.initiate()
       })
@@ -266,15 +267,6 @@ export default {
                 padding: 5% 0;
                 background-image: url('../../../static/images/trapezoid/border.png');
                 background-size: 100% 100%;
-            }
-            .shake-animation{
-                animation-name: shaky-slow;
-                animation-duration: 2s;			// 动画执行时间
-                animation-delay: 0s;			// 动画等待时间
-                animation-iteration-count: 1;	// 动画执行次数，infinite为一直执行
-                animation-timing-function: ease-in-out;	// 动画执行速度
-                animation-delay: 0s;			// 动画延时时间
-                animation-play-state: running;		// 动画执行状态，一般没必要parse
             }
         }
     }
