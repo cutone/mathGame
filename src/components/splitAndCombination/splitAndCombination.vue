@@ -3,6 +3,7 @@
     <audio id="bg_music" loop="loop" src="static/audio/splitAndCombination/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/splitAndCombination/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/splitAndCombination/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="bottom_right" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="selt_keystone" class="stem-music" src="static/audio/splitAndCombination/selt_keystone.mp3">您的浏览器不支持 audio
       标签。</audio>
     <audio id="selt_rectangular" class="stem-music" src="static/audio/splitAndCombination/selt_rectangular.mp3">您的浏览器不支持
@@ -52,58 +53,26 @@
                 src="static/images/splitAndCombination/right.png" alt="">
             </div>
           </div>
-          <div class="topFive" v-if="currentIndex==4">
-            <img class="one" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[0]+'.png'"
-              @touchmove="touchMove(gameList[currentIndex].img[0])" @touchstart="down(gameList[currentIndex].img[0])"
-              @touchend="check(gameList[currentIndex].img[0],0,'house')" :id="gameList[currentIndex].img[0]">
-            <img class="two" :src="'static/images/splitAndCombination/'+gameList[currentIndex].img[1]+'.png'"
-              @touchmove="touchMove(gameList[currentIndex].img[1])" @touchstart="down(gameList[currentIndex].img[1])"
-              @touchend="check(gameList[currentIndex].img[1],1,'house')" :id="gameList[currentIndex].img[1]">
-            <img class="three" :src="'static/images/splitAndCombination/'+gameList[4].img[2]+'.png'"
-              @touchmove="touchMove(gameList[currentIndex].img[2])" @touchstart="down(gameList[currentIndex].img[2])"
-              @touchend="check(gameList[currentIndex].img[2],2,'house')" :id="gameList[currentIndex].img[2]">
-            <img class="four" :src="'static/images/splitAndCombination/'+gameList[4].img[3]+'.png'"
-              @touchmove="touchMove(gameList[currentIndex].img[3])" @touchstart="down(gameList[currentIndex].img[3])"
-              @touchend="check(gameList[currentIndex].img[3],3,'house')" :id="gameList[currentIndex].img[3]">
-            <img src='static/images/splitAndCombination/border2.png' class="back" id="house">
-            <img src='static/images/splitAndCombination/rHouse.png' class="small"
-              :class="gameList[currentIndex].img[0]">
-            <img src='static/images/splitAndCombination/rHouse1.png' class="small1"
-              :class="gameList[currentIndex].img[1]">
-            <img src='static/images/splitAndCombination/rHouse2.png' class="small2"
-              :class="gameList[currentIndex].img[2]">
-            <img src='static/images/splitAndCombination/rHouse3.png' class="small3"
-              :class="gameList[currentIndex].img[3]">
-          </div>
-          <div class="topSix" v-if="currentIndex==5">
-            <div class="left"></div>
-            <div class="right">
-              <img src='static/images/splitAndCombination/border2.png'>
-            </div>
-          </div>
-          <div class="topSenven" v-if="currentIndex==6">
-            <div class="left"></div>
-            <div class="right">
-              <img src='static/images/splitAndCombination/border2.png'>
-            </div>
-          </div>
-          <div class="topEight" v-if="currentIndex==7">
-            <div class="left"></div>
-            <div class="right">
-              <img src='static/images/splitAndCombination/border2.png'>
-            </div>
+          <div class="topFive" v-for="item in lastFour" :key="item.id" v-if="currentIndex==item.id">
+            <img v-for="(item1,index1) in currentItem.initCss" :key="index1" class="all" :style="item1.css"
+              :src="'static/images/splitAndCombination/'+item1.name+'.png'" @touchmove="touchMove(item1.name)"
+              @touchstart="down(item1.name)" @touchend="check(item1.name,index1,item1.id)" :id="item1.name" />
+            <img src='static/images/splitAndCombination/border2.png' class="back" :id="item.backId">
+            <img v-for="item2 in currentItem.rImg" :key="item2.name" :style="item2.css "
+              :src="'static/images/splitAndCombination/'+item2.name+'.png'" :class="item2.class">
           </div>
         </div>
       </div>
     </div>
-    <red-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
-    </red-complete>
+    <middle-complete v-if="isFinish" @goBack="goBack" @initiate="initiate"
+      background="../../../static/images/splitAndCombination/ending.gif">
+    </middle-complete>
   </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import redComplete from "@/common/redComplete";
+import middleComplete from "@/common/middleComplete";
 export default {
   name: 'splitAndCombination',
   data () {
@@ -179,40 +148,269 @@ export default {
           audioType: 'selt_triangle'
         },
         {
+          id: 4,
           title: '请用给出的图形拼出一座房子',
-          img: ['house_one', 'house_two', 'house_three', 'house_four'],
+          initCss: [
+            {
+              name: 'house_one',
+              id: 'house',
+              css: { width: "25%", height: "30%", top: "10px", left: " 5%" }
+            },
+            {
+              name: 'house_two',
+              id: 'house',
+              css: { width: "25%", height: "35%", top: "40%", left: "5%" }
+            },
+            {
+              name: 'house_three',
+              id: 'house',
+              css: { width: "5%", height: "12%", top: "2%", left: "35%" },
+            },
+            {
+              name: 'house_four',
+              id: 'house',
+              css: { width: "5%", height: "25%", top: "50%", left: "35%" }
+            },
+          ],
+          rImg: [
+            {
+              name: 'rHouse',
+              class: 'house_one',
+              css: { position: "absolute", left: "58%", top: "12%", width: " 25%", height: "30%", }
+            },
+            {
+              name: 'rHouse1',
+              class: 'house_two',
+              css: { position: "absolute", left: "58%", top: "42%", width: "25%", height: "35%", }
+            },
+            {
+              name: 'rHouse2',
+              class: 'house_three',
+              css: { position: "absolute", left: "62%", top: "50%", width: "5%", height: "12%" },
+            },
+            {
+              name: 'rHouse3',
+              class: 'house_four',
+              css: { position: "absolute", width: "5%", height: "25%", left: "75%", top: "52%", }
+            }
+          ],
+          backId: 'house',
           rightChoice: 4,
           currentChoice: 0,
-          audioType: 'selt_house'
+          audioType: 'selt_house',
+          isWrong: false,
         },
         {
+          id: 5,
           title: '请用给出的图形拼出两条鱼',
-          leftImg: 'static/images/trapezoid/box.png',
-          rightImg: 'static/images/trapezoid/trapezoid5.png',
-          rightChoice: 'right',
-          isRight: false,
+          initCss: [
+            {
+              name: 'fish_one',
+              id: 'fish',
+              css: { width: "20%", height: "30%", top: "10px", left: " 5%" }
+            },
+            {
+              name: 'fish_two',
+              id: 'fish',
+              css: { width: "5%", height: "30%", top: "40%", left: "5%" }
+            },
+            {
+              name: 'fish_three',
+              id: 'fish',
+              css: { width: "7%", height: "45%", top: "10px", left: "30%" },
+            },
+            {
+              name: 'fish_four',
+              id: 'fish',
+              css: { width: "5%", height: "30%", top: "40%", left: "12%" }
+            },
+            {
+              name: 'fish_five',
+              id: 'fish',
+              css: { width: "4%", height: "15%", top: "46%", left: "20%" }
+            },
+            {
+              name: 'fish_six',
+              id: 'fish',
+              css: { width: "2.5%", height: "10%", top: "48%", left: "25%" }
+            },
+          ],
+          rImg: [
+            {
+              name: 'rFish',
+              class: 'fish_one',
+              css: { position: "absolute", left: "58%", top: "12%", width: "20%", height: "30%" }
+            },
+            {
+              name: 'rFish1',
+              class: 'fish_two',
+              css: { position: "absolute", left: "78%", top: "12%", width: "5%", height: "30%" }
+            },
+            {
+              name: 'rFish2',
+              class: 'fish_three',
+              css: { position: "absolute", left: "62%", top: "45%", width: "7%", height: "45%" },
+            },
+            {
+              name: 'rFish3',
+              class: 'fish_four',
+              css: { position: "absolute", left: "69%", top: "52%", width: "5%", height: "30%" }
+            },
+            {
+              name: 'rFish4',
+              class: 'fish_five',
+              css: { position: "absolute", left: "60%", top: "19%", width: "4%", height: "15%" }
+            },
+            {
+              name: 'rFish5',
+              class: 'fish_six',
+              css: { position: "absolute", left: "64%", top: "62%", width: "2.5%", height: "10%" }
+            },
+          ],
+          backId: 'fish',
+          rightChoice: 6,
+          currentChoice: 0,
           isWrong: false,
           audioType: 'selt_fish'
         },
         {
+          id: 6,
           title: '请用给出的图形拼出一只小鸡',
-          leftImg: 'static/images/trapezoid/box.png',
-          rightImg: 'static/images/trapezoid/trapezoid5.png',
-          rightChoice: 'right',
-          isRight: false,
+          initCss: [
+            {
+              name: 'chicken_one',
+              id: 'chicken',
+              css: { width: "12%", height: "35%", top: "10px", left: " 5%" }
+            },
+            {
+              name: 'chicken_two',
+              id: 'chicken',
+              css: { width: "16%", height: "45%", top: "40%", left: "5%" }
+            },
+            {
+              name: 'chicken_three',
+              id: 'chicken',
+              css: { width: "4%", height: "20%", top: "4%", left: "30%" },
+            },
+            {
+              name: 'chicken_four',
+              id: 'chicken',
+              css: { width: "5%", height: "15%", top: "4%", left: "20%" }
+            },
+            {
+              name: 'chicken_five',
+              id: 'chicken',
+              css: { width: "4%", height: "15%", top: "46%", left: "25%" }
+            },
+            {
+              name: 'chicken_six',
+              id: 'chicken',
+              css: { width: "4%", height: "15%", top: "46%", left: "30%" }
+            },
+          ],
+          rImg: [
+            {
+              name: 'rChicken',
+              class: 'chicken_one',
+              css: { position: "absolute", left: "58%", top: "12%", width: "12%", height: "35%" }
+            },
+            {
+              name: 'rChicken1',
+              class: 'chicken_two',
+              css: { position: "absolute", left: "68%", top: "25%", width: "16%", height: "45%" }
+            },
+            {
+              name: 'rChicken2',
+              class: 'chicken_three',
+              css: { position: "absolute", left: "54%", top: "18%", width: "4%", height: "20%" },
+            },
+            {
+              name: 'rChicken3',
+              class: 'chicken_four',
+              css: { position: "absolute", left: "60%", top: "22%", width: "5%", height: "15%" }
+            },
+            {
+              name: 'rChicken4',
+              class: 'chicken_five',
+              css: { position: "absolute", left: "70%", top: "64%", width: "4%", height: "15%" }
+            },
+            {
+              name: 'rChicken5',
+              class: 'chicken_six',
+              css: { position: "absolute", left: "76%", top: "64%", width: "4%", height: "15%" }
+            },
+          ],
+          backId: 'chicken',
+          rightChoice: 6,
+          currentChoice: 0,
           isWrong: false,
           audioType: 'selt_chicken'
         },
         {
+          id: 7,
           title: '请用给出的图形拼出一辆车',
-          leftImg: 'static/images/trapezoid/box.png',
-          rightImg: 'static/images/trapezoid/trapezoid5.png',
-          rightChoice: 'right',
-          isRight: false,
+          initCss: [
+            {
+              name: 'car_one',
+              id: 'car',
+              css: { width: "8%", height: "25%", top: "10px", left: " 5%" }
+            },
+            {
+              name: 'car_two',
+              id: 'car',
+              css: { width: "12%", height: "25%", top: "40%", left: "5%" }
+            },
+            {
+              name: 'car_three',
+              id: 'car',
+              css: { width: "30%", height: "25%", top: "4%", left: "15%" },
+            },
+            {
+              name: 'car_four',
+              id: 'car',
+              css: { width: "5%", height: "15%", top: "46%", left: "20%" }
+            },
+            {
+              name: 'car_five',
+              id: 'car',
+              css: { width: "5%", height: "15%", top: "46%", left: "28%" }
+            },
+          ],
+          rImg: [
+            {
+              name: 'rCar',
+              class: 'car_one',
+              css: { position: "absolute", left: "54%", top: "14%", width: "8%", height: "25%" }
+            },
+            {
+              name: 'rCar1',
+              class: 'car_two',
+              css: { position: "absolute", left: "62%", top: "14%", width: "12%", height: "25%" }
+            },
+            {
+              name: 'rCar2',
+              class: 'car_three',
+              css: { position: "absolute", left: "54%", top: "39%", width: "30%", height: "25%" },
+            },
+            {
+              name: 'rCar3',
+              class: 'car_four',
+              css: { position: "absolute", left: "60%", top: "64%", width: "5%", height: "15%" }
+            },
+            {
+              name: 'rCar4',
+              class: 'car_five',
+              css: { position: "absolute", left: "75%", top: "64%", width: "5%", height: "15%" }
+            },
+          ],
+          backId: 'car',
+          rightChoice: 5,
+          currentChoice: 0,
           isWrong: false,
           audioType: 'selt_car'
         },
       ],
+      lastFour: [],
       houseLeft: '',
       houseRight: '',
       houseTop: '',
@@ -220,23 +418,18 @@ export default {
       initialPosition: [],
     }
   },
-  watch: {
-    currentIndex (val) {
-      if (val == 4) {
-
-      }
-    }
-  },
   components: {
     commonHeader,
-    redComplete
+    middleComplete
   },
   mounted () {
     let _this = this;
+    _this.lastFour = _this.gameList.slice(4);
     this.$nextTick(() => {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
       let please_think = document.getElementById('please_think');
+      let bottom_right = document.getElementById('bottom_right');
       let stemMusicList = document.getElementsByClassName("stem-music");
       for (let i = 0, len = stemMusicList.length; i < len; i++) {
         eval("let " + stemMusicList[i].id + "=document.getElementById('" + stemMusicList.id + "');");
@@ -254,10 +447,11 @@ export default {
       //正确提示mp3播放后
       right_music.addEventListener("ended", function () {
         _this.currentIndex++;
-        console.log(_this.currentIndex);
-        if (_this.currentIndex == _this.gameList.length) {
+        console.log(_this.currentIndex, _this.gameList.length);
+        if (_this.currentIndex == _this.gameList.length + 1) {
+          console.log('123');
           //播放答对五道题的mp3
-          _this.playAudio('finish_five');
+          _this.playAudio('bottom_right');
           _this.isFinish = true;
         } else {
           //修改题目下标，播放题目
@@ -271,7 +465,7 @@ export default {
         _this.canChoose = true;
         _this.currentItem.isWrong = false;
       })
-       _this.initiate();
+      _this.initiate();
     })
   },
   methods: {
@@ -321,15 +515,15 @@ export default {
         let imgTop = document.body.clientHeight * 4 / 10 + LightList[0].offsetTop;
         let imgBottom = imgTop + LightList[0].clientHeight;
         if (mouseX > imgLeft && mouseX < imgRight && mouseY > imgTop && mouseY < imgBottom) {
-          LightList[0].src = "static/images/splitAndCombination/" + this.gameList[this.currentIndex].img[index] + ".png";
+          this.currentItem.rImg[index].name = this.currentItem.rImg[index].class;
           document.getElementById(item).style.opacity = 0;
-          this.gameList[this.currentIndex].currentChoice++;
+          this.currentItem.currentChoice++;
           this.initialPosition.forEach(im => {
             if (item == im.key) {
               im.isCanChoice = false;
             }
           })
-          if (this.gameList[this.currentIndex].rightChoice == this.gameList[this.currentIndex].currentChoice) {
+          if (this.currentItem.rightChoice == this.currentItem.currentChoice) {
             _this.canChoose = false;
             _this.currentIndex++;
             _this.playAudio('right_music')
@@ -353,9 +547,6 @@ export default {
     //鼠标按下触发
     down (el, id) {
       //  题目音乐播放完之后才能点击
-      if (!this.canChoose) {
-        return;
-      }
       let moveDiv = document.getElementById(el);
       this.flags = true;
       var touch;
@@ -426,6 +617,9 @@ export default {
     //拖动事件
     touchMove (el) {
       const _this = this;
+      if (!_this.canChoose) {
+        return;
+      }
       let moveDiv = document.getElementById(el);
       var touch;
       if (event.touches) {
@@ -476,7 +670,7 @@ export default {
     initiate () {
       let _this = this;
       _this.isFinish = false;
-      _this.currentIndex = 0;
+      _this.currentIndex = 7;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
       }
@@ -584,36 +778,8 @@ export default {
         justify-content: space-around;
         align-items: center;
         position: relative;
-        .one {
+        .all {
           position: absolute;
-          width: 25%;
-          height: 30%;
-          top: 10px;
-          left: 5%;
-          z-index: 10;
-        }
-        .two {
-          position: absolute;
-          width: 25%;
-          height: 35%;
-          top: 40%;
-          left: 5%;
-          z-index: 10;
-        }
-        .three {
-          position: absolute;
-          width: 5%;
-          height: 12%;
-          top: 2%;
-          left: 35%;
-          z-index: 10;
-        }
-        .four {
-          position: absolute;
-          width: 5%;
-          height: 25%;
-          top: 50%;
-          left: 35%;
           z-index: 10;
         }
         .back {
@@ -622,33 +788,8 @@ export default {
           width: 40%;
           height: 90%;
         }
-        .small {
+        .allSmall {
           position: absolute;
-          left: 58%;
-          top: 12%;
-          width: 25%;
-          height: 30%;
-        }
-        .small1 {
-          position: absolute;
-          left: 58%;
-          top: 42%;
-          width: 25%;
-          height: 35%;
-        }
-        .small2 {
-          position: absolute;
-          left: 62%;
-          top: 50%;
-          width: 5%;
-          height: 12%;
-        }
-        .small3 {
-          position: absolute;
-          width: 5%;
-          height: 25%;
-          left: 75%;
-          top: 52%;
         }
       }
     }
