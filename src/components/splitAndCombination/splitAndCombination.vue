@@ -20,6 +20,9 @@
       标签。</audio>
     <audio id="selt_car" class="stem-music" src="static/audio/splitAndCombination/selt_car.mp3">您的浏览器不支持 audio
       标签。</audio>
+    <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish"
+      src="static/images/trapezoid/music.png">
+    <img class="music-img" v-if="musicActive && !isFinish" src="static/images/trapezoid/music_active.gif">
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div class="game-list" v-if="!isFinish">
       <div class="game-item">
@@ -58,7 +61,7 @@
               :src="'static/images/splitAndCombination/'+item1.name+'.png'" @touchmove="touchMove(item1.name)"
               @touchstart="down(item1.name)" @touchend="check(item1.name,index1,item1.id)" :id="item1.name" />
             <img src='static/images/splitAndCombination/border2.png' class="back" :id="item.backId">
-            <img v-for="item2 in currentItem.rImg" :key="item2.name" :style="item2.css "
+            <img v-for="item2 in currentItem.rImg" :key="item2.name" :style="item2.css"
               :src="'static/images/splitAndCombination/'+item2.name+'.png'" :class="item2.class">
           </div>
         </div>
@@ -299,42 +302,50 @@ export default {
             },
             {
               name: 'chicken_five',
+              repeat: 'chicken_five',
               id: 'chicken',
               css: { width: "4%", height: "15%", top: "46%", left: "25%" }
             },
             {
               name: 'chicken_six',
+              repeat: 'chicken_six',
               id: 'chicken',
               css: { width: "4%", height: "15%", top: "46%", left: "30%" }
             },
           ],
           rImg: [
             {
+              id: 0,
               name: 'rChicken',
               class: 'chicken_one',
               css: { position: "absolute", left: "58%", top: "12%", width: "12%", height: "35%" }
             },
             {
+              id: 1,
               name: 'rChicken1',
               class: 'chicken_two',
               css: { position: "absolute", left: "68%", top: "25%", width: "16%", height: "45%" }
             },
             {
+              id: 2,
               name: 'rChicken2',
               class: 'chicken_three',
               css: { position: "absolute", left: "54%", top: "18%", width: "4%", height: "20%" },
             },
             {
+              id: 3,
               name: 'rChicken3',
               class: 'chicken_four',
               css: { position: "absolute", left: "60%", top: "22%", width: "5%", height: "15%" }
             },
             {
+              id: 4,
               name: 'rChicken4',
               class: 'chicken_five',
               css: { position: "absolute", left: "70%", top: "64%", width: "4%", height: "15%" }
             },
             {
+              id: 5,
               name: 'rChicken5',
               class: 'chicken_six',
               css: { position: "absolute", left: "76%", top: "64%", width: "4%", height: "15%" }
@@ -367,11 +378,13 @@ export default {
             },
             {
               name: 'car_four',
+              repeat: 'car_four',
               id: 'car',
               css: { width: "5%", height: "15%", top: "46%", left: "20%" }
             },
             {
               name: 'car_five',
+              repeat: 'car_five',
               id: 'car',
               css: { width: "5%", height: "15%", top: "46%", left: "28%" }
             },
@@ -447,9 +460,7 @@ export default {
       //正确提示mp3播放后
       right_music.addEventListener("ended", function () {
         _this.currentIndex++;
-        console.log(_this.currentIndex, _this.gameList.length);
         if (_this.currentIndex == _this.gameList.length + 1) {
-          console.log('123');
           //播放答对五道题的mp3
           _this.playAudio('bottom_right');
           _this.isFinish = true;
@@ -491,6 +502,7 @@ export default {
     },
     // 鼠标松开后触发
     check (item, index, id) {
+      console.log(item);
       let _this = this;
       let touch;
       // 判断是不是成功的图片
@@ -509,36 +521,39 @@ export default {
       let mouseY = event.changedTouches[0].pageY;
       if (this.onThePicyure(mouseX, mouseY, id)) {
         let moveDiv = event.target;
-        let LightList = document.getElementsByClassName(item);
-        let imgLeft = LightList[0].offsetLeft;
-        let imgRight = imgLeft + LightList[0].clientWidth;
-        let imgTop = document.body.clientHeight * 4 / 10 + LightList[0].offsetTop;
-        let imgBottom = imgTop + LightList[0].clientHeight;
-        if (mouseX > imgLeft && mouseX < imgRight && mouseY > imgTop && mouseY < imgBottom) {
-          this.currentItem.rImg[index].name = this.currentItem.rImg[index].class;
-          document.getElementById(item).style.opacity = 0;
-          this.currentItem.currentChoice++;
-          this.initialPosition.forEach(im => {
-            if (item == im.key) {
-              im.isCanChoice = false;
-            }
-          })
-          if (this.currentItem.rightChoice == this.currentItem.currentChoice) {
-            _this.canChoose = false;
-            _this.currentIndex++;
-            _this.playAudio('right_music')
-          }
-
-        } else {
-          // 判断是不是在目标位置
-          this.initialPosition.forEach(item1 => {
-            if (item == item1.key) {
-              moveDiv.style.top = item1.y;
-              moveDiv.style.left = item1.x;
+        let LightList;
+        LightList = document.getElementsByClassName(item);
+        console.log(LightList, LightList.length);
+        for (let i = 0; i < LightList.length; i++) {
+          let imgLeft = LightList[i].offsetLeft;
+          let imgRight = imgLeft + LightList[i].clientWidth;
+          let imgTop = document.body.clientHeight * 4 / 10 + LightList[i].offsetTop;
+          let imgBottom = imgTop + LightList[i].clientHeight;
+          if (mouseX > imgLeft && mouseX < imgRight && mouseY > imgTop && mouseY < imgBottom) {
+            console.log(index, this.currentItem.rImg[index].name, this.currentItem.rImg[index].class);
+            this.currentItem.rImg[index].name = this.currentItem.rImg[index].class;
+            document.getElementById(item).style.display = "none";
+            this.currentItem.currentChoice++;
+            this.initialPosition.forEach(im => {
+              if (item == im.key) {
+                im.isCanChoice = false;
+              }
+            })
+            if (this.currentItem.rightChoice == this.currentItem.currentChoice) {
               _this.canChoose = false;
-              _this.playAudio("please_think");
+              _this.playAudio('right_music');
             }
-          })
+          } else if (i == LightList.length) {
+            // 判断是不是在目标位置
+            this.initialPosition.forEach(item1 => {
+              if (item == item1.key) {
+                moveDiv.style.top = item1.y;
+                moveDiv.style.left = item1.x;
+                _this.canChoose = false;
+                _this.playAudio("please_think");
+              }
+            })
+          }
         }
       } else {
         return;
@@ -670,7 +685,7 @@ export default {
     initiate () {
       let _this = this;
       _this.isFinish = false;
-      _this.currentIndex = 7;
+      _this.currentIndex = 6;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
       }
@@ -692,6 +707,12 @@ export default {
   height: 100%;
   box-sizing: border-box;
   position: relative;
+  .music-img {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 100px;
+  }
   .game-list {
     height: 100%;
     .game-item {
