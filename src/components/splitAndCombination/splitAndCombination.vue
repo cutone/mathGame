@@ -28,7 +28,7 @@
       <div class="game-item">
         <div class="game-title">
           <div class="game-title-left" v-if="currentIndex<4">
-            <img class="game-title-leftImg" :src="titleImgList[currentIndex]" alt="">
+            <img class="game-title-leftImg" :src="currentItem.titleImg" alt="">
           </div>
           <div class="game-title-right">
             <span class="game-title-text">{{currentItem.title}}</span>
@@ -37,38 +37,41 @@
         </div>
         <div class="choose-item-wrapper">
           <div class="topFour" v-if="currentIndex<4">
-            <div class="choose-item left-item" @click="choose('left', currentItem)">
-              <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg"
+            <div class="choose-item left-item" @click="choose('left')">
+              <img :class="currentItem.isWrong?'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg"
                 alt="">
               <img v-if="currentItem.isLeft=='left'" class="right-img" src="static/images/splitAndCombination/right.png"
                 alt="">
             </div>
-            <div v-if="currentItem.centerImg" class="choose-item left-item" @click="choose('center', currentItem)">
+            <div v-if="currentItem.centerImg" class="choose-item left-item" @click="choose('center')">
               <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.centerImg"
                 alt="">
               <img v-if="currentItem.isCenter=='center'" class="right-img"
                 src="static/images/splitAndCombination/right.png" alt="">
             </div>
-            <div class="choose-item right-item" @click="choose('right', currentItem)">
+            <div class="choose-item right-item" @click="choose('right')">
               <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg"
                 alt="">
               <img v-if="currentItem.isRight=='right'" class="right-img"
                 src="static/images/splitAndCombination/right.png" alt="">
             </div>
           </div>
-          <div class="topFive" v-for="item in lastFour" :key="item.id" v-if="currentIndex==item.id">
+          <div class="topFive" :key="currentItem.id" v-if="currentIndex>3">
+            <!-- 左侧可拖动图片 -->
             <img v-for="(item1,index1) in currentItem.initCss" :key="index1" class="all" :style="item1.css"
               :src="'static/images/splitAndCombination/'+item1.name+'.png'" @touchmove="touchMove(item1.name)"
-              @touchstart="down(item1.name)" @touchend="check(item1.name,index1,item1.id)" :id="item1.name" />
-            <img src='static/images/splitAndCombination/border2.png' class="back" :id="item.backId">
-            <img v-for="item2 in currentItem.rImg" :key="item2.name" :style="item2.css"
-              :src="'static/images/splitAndCombination/'+item2.name+'.png'" :class="item2.class">
+              @touchstart="down(item1.name)" @touchend="check(item1,index1)" :id="item1.name" />
+            <!-- 外边框 -->
+            <img src='static/images/splitAndCombination/border2.png' class="back" :id="currentItem.backId">
+            <!-- 目标区域图片 -->
+            <img v-for="item2 in currentItem.rImg" :key="item2.name" :style="item2.css" :name="item2.class"
+              :src="'static/images/splitAndCombination/'+item2.img+'.png'" :class="item2.class">
           </div>
         </div>
       </div>
     </div>
     <middle-complete v-if="isFinish" @goBack="goBack" @initiate="initiate"
-      background="../../../static/images/splitAndCombination/ending.gif">
+      background="static/images/splitAndCombination/ending.gif">
     </middle-complete>
   </div>
 </template>
@@ -88,14 +91,9 @@ export default {
       canChoose: false,
       selt_canChoose: [],
       canDrag: false,
-      titleImgList: [
-        'static/images/splitAndCombination/titleRectangular.png',
-        'static/images/splitAndCombination/rectangular.png',
-        'static/images/splitAndCombination/quad.png',
-        'static/images/splitAndCombination/pinkTriangle.png'
-      ],
       gameList: [
         {
+          titleImg: 'static/images/splitAndCombination/titleRectangular.png',
           title: '正方形可以分割成下列哪些图形？',
           leftImg: 'static/images/splitAndCombination/splitRectangular.png',
           rightImg: 'static/images/splitAndCombination/splitTriangle.png',
@@ -109,6 +107,7 @@ export default {
           audioType: 'selt_square'
         },
         {
+          titleImg: 'static/images/splitAndCombination/rectangular.png',
           title: '长方形可以分割成下列哪些图形？',
           leftImg: 'static/images/splitAndCombination/purpleKeystone.png',
           centerImg: 'static/images/splitAndCombination/purpleTriangle.png',
@@ -123,6 +122,7 @@ export default {
           audioType: 'selt_rectangular'
         },
         {
+          titleImg: 'static/images/splitAndCombination/quad.png',
           title: '梯形可以分割成下列哪些图形？',
           leftImg: 'static/images/splitAndCombination/blueRectangular.png',
           centerImg: 'static/images/splitAndCombination/blueTriangle.png',
@@ -137,6 +137,7 @@ export default {
           audioType: 'selt_keystone'
         },
         {
+          titleImg: 'static/images/splitAndCombination/pinkTriangle.png',
           title: '三角形可以分割成下列哪些图形？',
           leftImg: 'static/images/splitAndCombination/pinkTriangle.png',
           centerImg: 'static/images/splitAndCombination/pinkKeystone.png',
@@ -157,44 +158,52 @@ export default {
             {
               name: 'house_one',
               id: 'house',
-              css: { width: "25%", height: "30%", top: "10px", left: " 5%" }
+              css: { width: "25%", height: "30%", top: "10px", left: " 5%" },
+              target: 'house_one'
             },
             {
               name: 'house_two',
               id: 'house',
-              css: { width: "25%", height: "35%", top: "40%", left: "5%" }
+              css: { width: "25%", height: "35%", top: "40%", left: "5%" },
+              target: 'house_two'
             },
             {
               name: 'house_three',
               id: 'house',
               css: { width: "5%", height: "12%", top: "2%", left: "35%" },
+              target: 'house_three'
             },
             {
               name: 'house_four',
               id: 'house',
-              css: { width: "5%", height: "25%", top: "50%", left: "35%" }
+              css: { width: "5%", height: "25%", top: "50%", left: "35%" },
+              target: 'house_four'
             },
           ],
           rImg: [
             {
               name: 'rHouse',
               class: 'house_one',
-              css: { position: "absolute", left: "58%", top: "12%", width: " 25%", height: "30%", }
+              css: { position: "absolute", left: "58%", top: "12%", width: " 25%", height: "30%"},
+              img: 'rHouse',
             },
             {
               name: 'rHouse1',
               class: 'house_two',
-              css: { position: "absolute", left: "58%", top: "42%", width: "25%", height: "35%", }
+              css: { position: "absolute", left: "58%", top: "42%", width: "25%", height: "35%"},
+              img: 'rHouse1',
             },
             {
               name: 'rHouse2',
               class: 'house_three',
-              css: { position: "absolute", left: "62%", top: "50%", width: "5%", height: "12%" },
+              css: { position: "absolute", left: "62%", top: "50%", width: "5%", height: "12%"},
+              img: 'rHouse2',
             },
             {
               name: 'rHouse3',
               class: 'house_four',
-              css: { position: "absolute", width: "5%", height: "25%", left: "75%", top: "52%", }
+              css: { position: "absolute", width: "5%", height: "25%", left: "75%", top: "52%"},
+              img: 'rHouse3',
             }
           ],
           backId: 'house',
@@ -210,64 +219,76 @@ export default {
             {
               name: 'fish_one',
               id: 'fish',
-              css: { width: "20%", height: "30%", top: "10px", left: " 5%" }
+              css: { width: "20%", height: "30%", top: "10px", left: " 5%" },
+              target: 'fish_one'
             },
             {
               name: 'fish_two',
               id: 'fish',
-              css: { width: "5%", height: "30%", top: "40%", left: "5%" }
+              css: { width: "5%", height: "30%", top: "40%", left: "5%" },
+              target: 'fish_two'
             },
             {
               name: 'fish_three',
               id: 'fish',
               css: { width: "7%", height: "45%", top: "10px", left: "30%" },
+              target: 'fish_three'
             },
             {
               name: 'fish_four',
               id: 'fish',
-              css: { width: "5%", height: "30%", top: "40%", left: "12%" }
+              css: { width: "5%", height: "30%", top: "40%", left: "12%" },
+              target: 'fish_four'
             },
             {
               name: 'fish_five',
               id: 'fish',
-              css: { width: "4%", height: "15%", top: "46%", left: "20%" }
+              css: { width: "4%", height: "15%", top: "46%", left: "20%" },
+              target: 'fish_five'
             },
             {
               name: 'fish_six',
               id: 'fish',
-              css: { width: "2.5%", height: "10%", top: "48%", left: "25%" }
+              css: { width: "2.5%", height: "10%", top: "48%", left: "25%" },
+              target: 'fish_six'
             },
           ],
           rImg: [
             {
               name: 'rFish',
               class: 'fish_one',
-              css: { position: "absolute", left: "58%", top: "12%", width: "20%", height: "30%" }
+              css: { position: "absolute", left: "58%", top: "12%", width: "20%", height: "30%" },
+              img: 'rFish'
             },
             {
               name: 'rFish1',
               class: 'fish_two',
-              css: { position: "absolute", left: "78%", top: "12%", width: "5%", height: "30%" }
+              css: { position: "absolute", left: "78%", top: "12%", width: "5%", height: "30%" },
+              img: 'rFish1'
             },
             {
               name: 'rFish2',
               class: 'fish_three',
               css: { position: "absolute", left: "62%", top: "45%", width: "7%", height: "45%" },
+              img: 'rFish2'
             },
             {
               name: 'rFish3',
               class: 'fish_four',
-              css: { position: "absolute", left: "69%", top: "52%", width: "5%", height: "30%" }
+              css: { position: "absolute", left: "69%", top: "52%", width: "5%", height: "30%" },
+              img: 'rFish3'
             },
             {
               name: 'rFish4',
               class: 'fish_five',
-              css: { position: "absolute", left: "60%", top: "19%", width: "4%", height: "15%" }
+              css: { position: "absolute", left: "60%", top: "19%", width: "4%", height: "15%" },
+              img: 'rFish4'
             },
             {
               name: 'rFish5',
               class: 'fish_six',
-              css: { position: "absolute", left: "64%", top: "62%", width: "2.5%", height: "10%" }
+              css: { position: "absolute", left: "64%", top: "62%", width: "2.5%", height: "10%" },
+              img: 'rFish5'
             },
           ],
           backId: 'fish',
@@ -283,34 +304,39 @@ export default {
             {
               name: 'chicken_one',
               id: 'chicken',
-              css: { width: "12%", height: "35%", top: "10px", left: " 5%" }
+              css: { width: "12%", height: "35%", top: "10px", left: " 5%" },
+              target: 'chicken_one'
             },
             {
               name: 'chicken_two',
               id: 'chicken',
-              css: { width: "16%", height: "45%", top: "40%", left: "5%" }
+              css: { width: "16%", height: "45%", top: "40%", left: "5%" },
+              target: 'chicken_two'
             },
             {
               name: 'chicken_three',
               id: 'chicken',
               css: { width: "4%", height: "20%", top: "4%", left: "30%" },
+              target: 'chicken_three'
             },
             {
               name: 'chicken_four',
               id: 'chicken',
-              css: { width: "5%", height: "15%", top: "4%", left: "20%" }
+              css: { width: "5%", height: "15%", top: "4%", left: "20%" },
+              target: 'chicken_four'
             },
             {
               name: 'chicken_five',
-              repeat: 'chicken_five',
               id: 'chicken',
-              css: { width: "4%", height: "15%", top: "46%", left: "25%" }
+              css: { width: "4%", height: "15%", top: "46%", left: "25%" },
+              target: 'chicken_five'
             },
             {
               name: 'chicken_six',
               repeat: 'chicken_six',
               id: 'chicken',
-              css: { width: "4%", height: "15%", top: "46%", left: "30%" }
+              css: { width: "4%", height: "15%", top: "46%", left: "30%" },
+              target: 'chicken_five'
             },
           ],
           rImg: [
@@ -318,37 +344,43 @@ export default {
               id: 0,
               name: 'rChicken',
               class: 'chicken_one',
-              css: { position: "absolute", left: "58%", top: "12%", width: "12%", height: "35%" }
+              css: { position: "absolute", left: "58%", top: "12%", width: "12%", height: "35%" },
+              img: 'rChicken'
             },
             {
               id: 1,
               name: 'rChicken1',
               class: 'chicken_two',
-              css: { position: "absolute", left: "68%", top: "25%", width: "16%", height: "45%" }
+              css: { position: "absolute", left: "68%", top: "25%", width: "16%", height: "45%" },
+              img: 'rChicken1'
             },
             {
               id: 2,
               name: 'rChicken2',
               class: 'chicken_three',
               css: { position: "absolute", left: "54%", top: "18%", width: "4%", height: "20%" },
+              img: 'rChicken2'
             },
             {
               id: 3,
               name: 'rChicken3',
               class: 'chicken_four',
-              css: { position: "absolute", left: "60%", top: "22%", width: "5%", height: "15%" }
+              css: { position: "absolute", left: "60%", top: "22%", width: "5%", height: "15%" },
+              img: 'rChicken3'
             },
             {
               id: 4,
               name: 'rChicken4',
               class: 'chicken_five',
-              css: { position: "absolute", left: "70%", top: "64%", width: "4%", height: "15%" }
+              css: { position: "absolute", left: "70%", top: "64%", width: "4%", height: "15%" },
+              img: 'rChicken4'
             },
             {
               id: 5,
               name: 'rChicken5',
-              class: 'chicken_six',
-              css: { position: "absolute", left: "76%", top: "64%", width: "4%", height: "15%" }
+              class: 'chicken_five',
+              css: { position: "absolute", left: "76%", top: "64%", width: "4%", height: "15%" },
+              img: 'rChicken5'
             },
           ],
           backId: 'chicken',
@@ -364,56 +396,64 @@ export default {
             {
               name: 'car_one',
               id: 'car',
-              css: { width: "8%", height: "25%", top: "10px", left: " 5%" }
+              css: { width: "8%", height: "25%", top: "10px", left: " 5%" },
+              target: 'car_one'
             },
             {
               name: 'car_two',
               id: 'car',
-              css: { width: "12%", height: "25%", top: "40%", left: "5%" }
+              css: { width: "12%", height: "25%", top: "40%", left: "5%" },
+              target: 'car_two'
             },
             {
               name: 'car_three',
               id: 'car',
               css: { width: "30%", height: "25%", top: "4%", left: "15%" },
+              target: 'car_three'
             },
             {
               name: 'car_four',
-              repeat: 'car_four',
               id: 'car',
-              css: { width: "5%", height: "15%", top: "46%", left: "20%" }
+              css: { width: "5%", height: "15%", top: "46%", left: "20%" },
+              target: 'car_four',
             },
             {
               name: 'car_five',
-              repeat: 'car_five',
               id: 'car',
-              css: { width: "5%", height: "15%", top: "46%", left: "28%" }
+              css: { width: "5%", height: "15%", top: "46%", left: "28%" },
+              target: 'car_four',
             },
           ],
           rImg: [
             {
               name: 'rCar',
               class: 'car_one',
-              css: { position: "absolute", left: "54%", top: "14%", width: "8%", height: "25%" }
+              css: { position: "absolute", left: "54%", top: "14%", width: "8%", height: "25%" },
+              img: 'rCar'
             },
             {
               name: 'rCar1',
               class: 'car_two',
-              css: { position: "absolute", left: "62%", top: "14%", width: "12%", height: "25%" }
+              css: { position: "absolute", left: "62%", top: "14%", width: "12%", height: "25%" },
+              img: 'rCar1'
             },
             {
               name: 'rCar2',
               class: 'car_three',
               css: { position: "absolute", left: "54%", top: "39%", width: "30%", height: "25%" },
+              img: 'rCar2'
             },
             {
               name: 'rCar3',
               class: 'car_four',
-              css: { position: "absolute", left: "60%", top: "64%", width: "5%", height: "15%" }
+              css: { position: "absolute", left: "60%", top: "64%", width: "5%", height: "15%" },
+              img: 'rCar3'
             },
             {
               name: 'rCar4',
-              class: 'car_five',
-              css: { position: "absolute", left: "75%", top: "64%", width: "5%", height: "15%" }
+              class: 'car_four',
+              css: { position: "absolute", left: "75%", top: "64%", width: "5%", height: "15%" },
+              img: 'rCar4'
             },
           ],
           backId: 'car',
@@ -423,7 +463,6 @@ export default {
           audioType: 'selt_car'
         },
       ],
-      lastFour: [],
       houseLeft: '',
       houseRight: '',
       houseTop: '',
@@ -437,7 +476,6 @@ export default {
   },
   mounted () {
     let _this = this;
-    _this.lastFour = _this.gameList.slice(4);
     this.$nextTick(() => {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
@@ -460,7 +498,7 @@ export default {
       //正确提示mp3播放后
       right_music.addEventListener("ended", function () {
         _this.currentIndex++;
-        if (_this.currentIndex == _this.gameList.length + 1) {
+        if (_this.currentIndex == _this.gameList.length) {
           //播放答对五道题的mp3
           _this.playAudio('bottom_right');
           _this.isFinish = true;
@@ -489,29 +527,11 @@ export default {
     goBack () {
       this.$router.go(-1);
     },
-    // 判断是否在目标图片内
-    onThePicyure (x, y, id) {
-      let back = document.getElementById(id);
-      this.backLeft = back.offsetLeft;
-      this.backRight = this.backLeft + back.clientWidth;
-      this.backTop = document.body.clientHeight * 4 / 10 + back.offsetTop;
-      this.backBottom = this.backTop + back.clientHeight;
-      if (this.backLeft < x && this.backRight > x && this.backTop < y && this.backBottom > y) {
-        return true;
-      }
-    },
     // 鼠标松开后触发
-    check (item, index, id) {
+    check (item, index) {
       console.log(item);
       let _this = this;
       let touch;
-      // 判断是不是成功的图片
-      let resultCan = this.initialPosition.some(item1 => {
-        return item == item1.key && !item1.isCanChoice
-      })
-      if (resultCan) {
-        return;
-      }
       if (event.touches) {
         touch = event.touches[0];
       } else {
@@ -519,10 +539,10 @@ export default {
       }
       let mouseX = event.changedTouches[0].pageX;
       let mouseY = event.changedTouches[0].pageY;
-      if (this.onThePicyure(mouseX, mouseY, id)) {
         let moveDiv = event.target;
         let LightList;
-        LightList = document.getElementsByClassName(item);
+        console.log(item.target)
+        LightList = document.getElementsByClassName(item.target);
         console.log(LightList, LightList.length);
         for (let i = 0; i < LightList.length; i++) {
           let imgLeft = LightList[i].offsetLeft;
@@ -530,12 +550,12 @@ export default {
           let imgTop = document.body.clientHeight * 4 / 10 + LightList[i].offsetTop;
           let imgBottom = imgTop + LightList[i].clientHeight;
           if (mouseX > imgLeft && mouseX < imgRight && mouseY > imgTop && mouseY < imgBottom) {
-            console.log(index, this.currentItem.rImg[index].name, this.currentItem.rImg[index].class);
-            this.currentItem.rImg[index].name = this.currentItem.rImg[index].class;
-            document.getElementById(item).style.display = "none";
+            console.log(LightList[i].name)
+            LightList[i].src = 'static/images/splitAndCombination/'+LightList[i].name+'.png';
+            document.getElementById(item.name).style.display = "none";
             this.currentItem.currentChoice++;
             this.initialPosition.forEach(im => {
-              if (item == im.key) {
+              if (item.name == im.key) {
                 im.isCanChoice = false;
               }
             })
@@ -546,7 +566,7 @@ export default {
           } else if (i == LightList.length) {
             // 判断是不是在目标位置
             this.initialPosition.forEach(item1 => {
-              if (item == item1.key) {
+              if (item.name == item1.key) {
                 moveDiv.style.top = item1.y;
                 moveDiv.style.left = item1.x;
                 _this.canChoose = false;
@@ -555,12 +575,9 @@ export default {
             })
           }
         }
-      } else {
-        return;
-      }
     },
     //鼠标按下触发
-    down (el, id) {
+    down (el) {
       //  题目音乐播放完之后才能点击
       let moveDiv = document.getElementById(el);
       this.flags = true;
@@ -588,7 +605,7 @@ export default {
       }
     },
     //选择答案
-    choose (choiceItem, item) {
+    choose (choiceItem) {
       //  题目音乐播放完之后才能点击
       if (!this.canChoose) {
         return;
@@ -601,31 +618,33 @@ export default {
       if (selt_canChoose) {
         return;
       }
-      let result = item.rightChoice.some(item1 => {
+      let result = _this.currentItem.rightChoice.some(item1 => {
         return choiceItem == item1
       })
       if (result) {
         _this.selt_canChoose.push(choiceItem);
-        item.count++;
+        _this.currentItem.count++;
         switch (choiceItem) {
           case 'left':
-            item.isLeft = choiceItem;
+            _this.currentItem.isLeft = choiceItem;
             break;
           case 'center':
-            item.isCenter = choiceItem;
+            _this.currentItem.isCenter = choiceItem;
             break;
           case 'right':
-            item.isRight = choiceItem;
+            _this.currentItem.isRight = choiceItem;
             break;
         }
-        if (item.count == item.right) {
+        if (_this.currentItem.count == _this.currentItem.right) {
           _this.selt_canChoose = [];
           _this.canChoose = false;
           _this.playAudio('right_music');
         }
       }
       else {
-        item.isWrong = true;
+        _this.canChoose = false;
+        _this.currentItem.isWrong = true;
+        console.log(_this.currentItem)
         _this.playAudio('please_think');
       }
     },
@@ -685,9 +704,17 @@ export default {
     initiate () {
       let _this = this;
       _this.isFinish = false;
-      _this.currentIndex = 6;
+      _this.currentIndex = 0;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
+        if(i < 4){
+          _this.gameList[i].isLeft=''
+          _this.gameList[i].isCenter=''
+          _this.gameList[i].isRight=''
+          _this.gameList[i].count=0
+        }else{
+          _this.gameList[i].currentChoice = 0
+        }
       }
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.playAudio(_this.gameList[_this.currentIndex].audioType)

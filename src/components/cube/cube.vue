@@ -21,13 +21,13 @@
                         <div class="choose-item left-item" @click="choose('left', currentItem)">
                             <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg" alt="">
                         </div>
-                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'left'" class="right-img" src="static/images/trapezoid/right.png" alt="">
+                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'left'" class="right-img" src="static/images/common/right.png" alt="">
                     </div> 
                     <div class="item-wrapper">
                         <div class="choose-item right-item" @click="choose('right', currentItem)">
                             <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg" alt="">
                         </div>
-                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'right'" class="right-img" src="static/images/trapezoid/right.png" alt="">
+                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'right'" class="right-img" src="static/images/common/right.png" alt="">
                     </div>
                 </div>
             </div>
