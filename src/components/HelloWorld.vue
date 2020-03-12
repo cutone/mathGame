@@ -118,7 +118,6 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.css";
 @bodyHeight: calc(~"100% - 30px");
 .hello-container{
   height: 100%;

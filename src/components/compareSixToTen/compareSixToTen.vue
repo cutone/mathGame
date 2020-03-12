@@ -16,10 +16,13 @@
     <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/music.png" />
     <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif" />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
+    <!-- 一个糖葫芦 -->
     <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="thlImg" id="thl" v-show="draging">
     <div v-if="!isFinish" class="body">
+      <!-- 篮子 -->
       <img src="/static/images/compareSixToTen/basket.png" alt="" class="bask" @touchmove="touchMove('thl')"
         @touchstart="down('thl')" @touchend="check()">
+      <!-- 左边人物 -->
       <div class="left-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'left')">
         <img :src="'/static/images/compareSixToTen/'+currentItem.leftImg+'.png'" alt="" :style="currentItem.leftCss"
           class="personImg">
@@ -30,6 +33,7 @@
             v-show="item<=currentItem.leftCurrent">
         </div>
       </div>
+      <!-- 右边人物 -->
       <div class="right-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'right')">
         <img :src="'/static/images/compareSixToTen/'+currentItem.rightImg+'.png'" alt="" :style="currentItem.rightCss"
           class="personImg">
