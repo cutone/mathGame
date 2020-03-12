@@ -4,38 +4,41 @@
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music" class="stem-music" src="static/audio/common/stem_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <img
-      class="music-img"
-      @click="broadcast()"
-      v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
-    />
-    <img
-      class="music-img"
-      v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
-    />
+    <audio id="question1" src="static/audio/compareSixToTen/question1.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="question2" src="static/audio/compareSixToTen/question2.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem" src="static/audio/compareSixToTen/stem_music.mp3">您的浏览器不支持 audio
+      标签。</audio>
+    <audio id="sixSeven" class="stem-music" src="static/audio/compareSixToTen/67.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="sevenSix" class="stem-music" src="static/audio/compareSixToTen/76.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="eightSeven" class="stem-music" src="static/audio/compareSixToTen/87.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="eightNina" class="stem-music" src="static/audio/compareSixToTen/89.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="nineTen" class="stem-music" src="static/audio/compareSixToTen/910.mp3">您的浏览器不支持 audio 标签。</audio>
+    <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/music.png" />
+    <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif" />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
+    <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="thlImg" id="thl" v-show="draging">
     <div v-if="!isFinish" class="body">
-        <img v-show="isDraging" id="tanghulu" src="/static/images/tanghulu.png" alt="">
-        <div class="basket-wrapper">
-            <img src="/static/images/compareSixToTen/basket.png" alt="">
-        </div> 
-        <div class="left-wrapper">
-            <img class="person-img" :src="'/static/images/compareSixToTen/'+currentItem.leftImg+'.png'" alt="">
-            <div class="tanghulu-wrapper">
-                <img src="/static/images/compareSixToTen/stick.png" alt="">
-                <img v-for="img in currentItem.leftNeed" src="/static/images/compareSixToTen/tanghulu.png" alt="">
-            </div>
+      <img src="/static/images/compareSixToTen/basket.png" alt="" class="bask" @touchmove="touchMove('thl')"
+        @touchstart="down('thl')" @touchend="check()">
+      <div class="left-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'left')">
+        <img :src="'/static/images/compareSixToTen/'+currentItem.leftImg+'.png'" alt="" :style="currentItem.leftCss"
+          class="personImg">
+        <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.leftGCss" class="thlGImg" id="left" />
+        <div :style="currentItem.leftGCss" class="stickImg">
+          <img src="/static/images/compareSixToTen/tanghulu.png" alt=""
+            style="width:400%; margin-left:-130%;margin-top:10%" v-for="item in currentItem.leftNeed" :key="item"
+            v-show="item<=currentItem.leftCurrent">
         </div>
-        <div class="right-wrapper">
-            <img class="person-img" :src="'/static/images/compareSixToTen/'+currentItem.rightImg+'.png'" alt="">
-            <div class="tanghulu-wrapper">
-                <img src="/static/images/stick.png" alt="">
-                <img v-for="img in currentItem.leftNeed" src="/static/images/compareSixToTen/tanghulu.png" alt="">
-            </div>
+      </div>
+      <div class="right-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'right')">
+        <img :src="'/static/images/compareSixToTen/'+currentItem.rightImg+'.png'" alt="" :style="currentItem.rightCss"
+          class="personImg">
+        <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.rightGCss" class="thlGImg" id="right" />
+        <div :style="currentItem.rightGCss" class="stickImg">
+          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" style="width:400%; margin-left:-130%;"
+            v-for="item in currentItem.rightNeed" :key="item" v-show="item<=currentItem.rightCurrent">
         </div>
+      </div>
     </div>
     <common-complete v-if="isFinish" @goBack="goBack" @initiate="initiate">
     </common-complete>
@@ -49,98 +52,205 @@ export default {
   name: 'compareSixToTen',
   data () {
     return {
-    currentIndex: 0,
-    currentItem: {},
+      position: { x: 0, y: 0 },
+      currentIndex: 0,
+      currentItem: {},
       musicActive: true,
       canDrag: false,
       isFinish: false,
       isDraging: false,
+      tanghulu: 0,
+      draging: false,
       gameList: [{
-          leftImg: 'girl_1',
-          rightImg: 'boy_1',
-          leftCurrent: 0,
-          rightCurrent: 0,
-          leftNeed: 6,
-          rightNeed: 7,
-      }
-
-      ],
+        leftCss: {
+          width: "120%",
+          left: "10%",
+          top: "5%"
+        },
+        leftGCss: {
+          top: "5%",
+          left: "108%",
+        },
+        leftTop: {
+          marginTop: "500%",
+          width: "400%",
+          marginLeft: "-130%",
+        },
+        rightCss: {
+          width: "100%",
+          left: "50%",
+          top: "10%",
+        },
+        rightGCss: {
+          top: "10%",
+          left: "52%",
+        },
+        rightTop: {
+          marginTop: "300%",
+          width: "400%",
+          marginLeft: "-130%",
+        },
+        rightThl: {
+          width: "400%",
+          marginLeft: "-130%",
+        },
+        rightChoice: 'left',
+        canChoice: false,
+        leftImg: 'left1',
+        audio: 'sixSeven',
+        rightImg: 'right1',
+        question: 'question2',
+        leftCurrent: 0,
+        rightCurrent: 0,
+        leftNeed: 6,
+        rightNeed: 7,
+      }],
     }
   },
   components: {
     commonHeader,
     commonComplete
   },
-  mounted() {
+  mounted () {
     let _this = this;
     let bg_music = document.getElementById("bg_music");
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
+    let stem = document.getElementById("stem");
     let stemMusicList = document.getElementsByClassName("stem-music");
-    for(let i = 0, len = stemMusicList.length; i < len; i++){
-      eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
-      stemMusicList[i].addEventListener("ended", function() {
-        _this.canChoose = true;
+    for (let i = 0, len = stemMusicList.length; i < len; i++) {
+      eval("let " + stemMusicList[i].id + "=document.getElementById('" + stemMusicList.id + "');");
+      stemMusicList[i].addEventListener("ended", function () {
+        _this.canDrag = true;
         _this.musicActive = false;
       });
     }
-    bg_music.addEventListener("canplaythrough", function() {
+    bg_music.addEventListener("canplaythrough", function () {
       bg_music.play();
     });
-
-    stem_music.addEventListener("canplaythrough", function() {
-      stem_music.play();
+    stem.addEventListener("ended", function () {
+      _this.canDrag = true;
+      _this.musicActive = false;
     });
-    right_music.addEventListener("ended", function() {
-      if(_this.currentIndex == _this.gameList.length){
+    right_music.addEventListener("ended", function () {
+      if (_this.currentIndex == _this.gameList.length) {
         _this.isFinish = true;
         _this.playAudio('complete')
-      }else{
+      } else {
         _this.currentItem = _this.gameList[_this.currentIndex];
         _this.playAudio('stem_music');
         _this.musicActive = true;
       }
     });
-    please_think.addEventListener("ended", function() {
-      _this.canChoose = true
+    please_think.addEventListener("ended", function () {
+      _this.canDrag = true
     })
     _this.initiate();
   },
   methods: {
     //播放mp3
-    playAudio(id) {
+    playAudio (id) {
       let audioBtn = document.getElementById(id);
       audioBtn.currentTime = 0;
       audioBtn.play();
     },
     //播放当前题目
-    broadcast() {
+    broadcast () {
       let _this = this;
       _this.musicActive = true;
-      _this.canChoose = false;
-      _this.playAudio('stem_music');
+      _this.canDrag = false;
+      _this.playAudio('stem');
     },
     //返回上一级
-    goBack() {
+    goBack () {
       this.$router.go(-1);
     },
     //游戏初始化
-    initiate() {
+    initiate () {
       let _this = this;
       _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
-      _this.canChoose = false;
+      _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
         _this.gameList[i].isWrong = false;
       }
-      _this.playAudio('stem_music');
+      _this.broadcast();
+    },
+    // 比较谁都谁少
+    clickCompare (choice, right, id) {
+      console.log(choice, right, id);
+      if (!choice) {
+        return;
+      }
+      if (right == id) {
+        this.currentIndex++;
+        this.playAudio(this.currentItem.audio);
+      } else {
+        this.playAudio('please_think');
+      }
+    },
+    // 拖动结束事件
+    check () {
+      let _this = this;
+      if (!_this.canDrag) {
+        return;
+      }
+      let touch;
+      if (event.touches) {
+        touch = event.touches[0];
+      } else {
+        touch = event;
+      }
+      let mouseY = event.changedTouches[0].pageY
+      // 获取当前糖葫芦的位置
+      let thlDiv = document.getElementById('thl');
+      let thlDivLeft = thlDiv.x;
+      let thlDivRight = thlDiv.x + thlDiv.clientHeight;
+      // 糖葫芦棍的位置
+      let thlGDiv = document.getElementsByClassName('thlGImg');
+      console.log();
+      for (let i = 0; i < thlGDiv.length; i++) {
+        let thlGDivLeft = thlGDiv[i].x;
+        let thlGDivRight = thlGDivLeft + thlGDiv[i].clientWidth;
+        let thlGDivTop = thlGDiv[i].y;
+        let thlGDivBottom = thlGDivTop + thlGDiv[i].clientHeight;
+        _this.draging = false;
+        _this.canDrag = false;
+        if (thlDivLeft < thlGDivLeft && thlDivRight > thlGDivRight && mouseY > thlGDivTop && mouseY < thlGDivBottom) {
+          // 判断移动到哪一个糖葫芦棍
+          if (thlGDiv[i].id == 'left') {
+            _this.currentItem.leftCurrent++;
+            if (_this.currentItem.leftCurrent > _this.currentItem.leftNeed) {
+              _this.currentItem.leftCurrent--;
+              _this.playAudio('please_think');
+            }
+          } else {
+            _this.currentItem.rightCurrent++;
+            if (_this.currentItem.rightCurrent > _this.currentItem.rightNeed) {
+              _this.currentItem.rightCurrent--;
+              _this.playAudio('please_think');
+            }
+          }
+          // 判断是否已经完成
+          if (_this.currentItem.leftCurrent == _this.currentItem.leftNeed && _this.currentItem.rightCurrent == _this.currentItem.rightNeed) {
+            // _this.currentIndex++;
+            _this.playAudio(_this.currentItem.question);
+            _this.currentItem.canChoice = true;
+            _this.canDrag = false;
+          } else {
+            _this.canDrag = true;
+          }
+        } else {
+          _this.canDrag = true;
+        }
+      }
     },
     //鼠标按下触发
-    down(el) {
+    down (el) {
       let moveDiv = document.getElementById(el);
       this.flags = true;
       var touch;
@@ -153,15 +263,16 @@ export default {
       this.position.y = touch.clientY;
       this.dx = moveDiv.offsetLeft;
       this.dy = moveDiv.offsetTop;
+      console.log()
     },
     //拖动事件
-    touchMove(el) {
+    touchMove (el) {
       const _this = this;
-      let moveDiv = document.getElementById(el);
-      console.log(_this.canDrag);
       if (!_this.canDrag) {
         return;
       }
+      _this.draging = true;
+      let moveDiv = document.getElementById(el);
       var touch;
       if (event.touches) {
         touch = event.touches[0];
@@ -169,81 +280,18 @@ export default {
         touch = event;
       }
       //防止出屏
-      if (
-        touch.clientX < 15 ||
-        touch.clientX > window.innerWidth - 15 ||
-        touch.clientY < 15 ||
-        touch.clientY > window.innerHeight - 15
-      ) {
+      if (touch.clientX < 15 || touch.clientX > window.innerWidth - 15 || touch.clientY < 15 || touch.clientY > window.innerHeight - 15) {
         return;
       }
-      this.nx = touch.clientX - this.position.x;
-      this.ny = touch.clientY - this.position.y;
-      this.xPum = this.dx + this.nx;
-      this.yPum = this.dy + this.ny;
-      moveDiv.style.left = this.xPum + "px";
-      moveDiv.style.top = this.yPum + "px";
+      let mouseX = event.changedTouches[0].pageX
+      let mouseY = event.changedTouches[0].pageY
+      moveDiv.style.left = mouseX + "px";
+      moveDiv.style.top = mouseY + "px";
       //阻止页面的滑动默认事件；如果碰到滑动问题，1.2 请注意是否获取到 touchmove
-      document.addEventListener("touchmove", _this.preventDefault, {
-        passive: false
-      });
-      document.addEventListener(
-        "touchend",
-        function() {
-          document.removeEventListener(
-            "touchmove",
-            _this.preventDefault,
-            false
-          );
-        },
-        { passive: false }
-      );
-    },
-    check() {
-      let _this = this;
-      if (!_this.canDrag) {
-        return;
-      }
-      let touch;
-      if (event.touches) {
-        touch = event.touches[0];
-      } else {
-        touch = event;
-      }
-      let mouseX = event.changedTouches[0].pageX;
-      let mouseY = event.changedTouches[0].pageY;
-      //获取三个div的元素
-      let moveDiv = event.target;
-      let basketList = document.getElementsByClassName("basket-item-wrapper");
-			if(_this.currentItem.type == 'boxToBasket'){
-				for (let i = 0, len = basketList.length; i < len; i++) {
-					//篮子的四边
-					let basketDivLeft = basketList[i].offsetLeft;
-					let basketDivRight = basketDivLeft + basketList[i].clientWidth;
-					let basketDivTop = getElementToPageTop(basketList[i])-60;
-					let basketDivBottom = basketDivTop + basketList[i].clientHeight;
-					// console.log(mouseX,mouseY)
-					// console.log('盘子',basketDivLeft,basketDivRight,basketDivTop,basketDivBottom )
-					if (
-						mouseX > basketDivLeft &&
-						mouseX < basketDivRight &&
-						mouseY > basketDivTop &&
-						mouseY < basketDivBottom
-					) {
-						if (
-							_this.currentItem.basketList[i].currentList.length <
-							_this.currentItem.basketList[i].need
-						) {
-							_this.currentItem.basketList[i].currentList.push(moveDiv);
-						} else {
-							moveDiv.style.left = "0px";
-							moveDiv.style.top = "0px";
-							_this.canDrag = false;
-							_this.playAudio("please_think");
-						}
-                    } 
-                }
-            }
+      document.addEventListener("touchmove", _this.preventDefault, { passive: false });
+      document.addEventListener("touchend", function () {
+        document.removeEventListener('touchmove', _this.preventDefault, false);
+      }, { passive: false });
     },
   }
 }
@@ -251,37 +299,45 @@ export default {
 
 <style scoped lang='less'>
 @import "../../../static/css/common.css";
-.compare-six-to-ten-container{
+.compare-six-to-ten-container {
   height: 100%;
-  .body{
-      position: relative;
+  background-image: url("../../../static/images/compareSixToTen/background.png");
+  background-size: 100% 100%;
+  .thlImg {
+    position: absolute;
+    width: 15px;
+    z-index: 999;
+  }
+  .body {
     height: 100%;
-    background-image: url('../../../static/images/compareSixToTen/background.png');
-    background-size: 100% 100%;
-    #tanghulu{
-        position: absolute;
-    }
-    .basket-wrapper{
-        display: inline-block;
-        width: 20%;
-        vertical-align: bottom;
-        img{
-            width: 100%;
-        }
+    padding-top: 20%;
+    .bask {
+      display: inline-block;
+      width: 20%;
+      vertical-align: top;
+      margin-top: 5%;
     }
     .right-wrapper,
-    .left-wrapper{
-        display: inline-block;
-        width: 20%;
-        vertical-align: bottom;
-        position: relative;
-        .person-img{
-            width: 100%;
-        }
-        .tanghulu-wrapper{
-            position: absolute;
-            width: 10%;
-        }
+    .left-wrapper {
+      display: inline-block;
+      width: 20%;
+      vertical-align: top;
+      position: relative;
+      margin-top: -20%;
+      height: 100%;
+      .personImg {
+        position: absolute;
+      }
+      .stickImg {
+        position: absolute;
+        width: 3%;
+        height: 40%;
+      }
+      .thlGImg {
+        position: absolute;
+        width: 3%;
+        height: 40%;
+      }
     }
   }
 }
