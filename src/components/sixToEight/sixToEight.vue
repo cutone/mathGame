@@ -2,7 +2,7 @@
   <div class="six-to-eight-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/sequenceFive/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="finish_five" src="static/audio/common/top_finish_five.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio
       id="stem_music_1"
@@ -42,13 +42,13 @@
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
-      <div v-show="currentIndex < 3">
+      <div v-show="currentItem.type == 'first'">
         <div class="table-container">
           <div class="row-wrapper">
             <div class="img-wrapper">
               <div class="game-title-wrapper">{{currentItem.title}}</div>
             </div>
-            <div class="totle-number">{{currentItem.total}}</div>
+            <div class="total-number"><img class="total-img" :src="'static/images/sixToEight/'+currentItem.total+'.png'" alt=""></div>
           </div>
           <div class="row-wrapper" v-for="(img, index) in currentItem.rowNumber">
             <div class="img-wrapper table-cell">
@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-      <div v-show="currentIndex > 2">
+      <div v-show="currentItem.type == 'second'">
         <div class="game-title-wrapper">{{currentItem.title}}</div>
         <div class="question-wrapper">
           <div
@@ -103,15 +103,23 @@
             :name="item.need"
           >
             <img
-              :id="img+'_'+index"
+              v-show="!item.isRight"
+              :id="item.img+'_'+index"
               class="drag-item"
               :src="'static/images/sixToEight/'+item.img+'.png'"
+              alt
+            />
+            <img
+              v-show="item.isRight"
+              :id="item.img+'_'+index"
+              class="drag-item"
+              :src="'static/images/sixToEight/'+item.righrImg+'.png'"
               alt
             />
           </div>
         </div>
         <div class="answer-wrapper">
-          <div class="answer-item-wrapper" v-for="(img, index) in currentItem.answerList">
+          <div class="answer-item-wrapper" :class="currentIndex==4?'last-game-answer-item':''" v-for="(img, index) in currentItem.answerList">
             <img
               :id="img+'_'+index"
               @touchmove="touchMove(img+'_'+index)"
@@ -151,6 +159,7 @@ export default {
       isFinish: false,
       gameList: [
       {
+          type: 'first',
           title: '数圆点，填组成',
           leftImg: 'circle_left',
           total: 6,
@@ -160,32 +169,36 @@ export default {
           rightNumber: 6,
           currentRight: 0
       },{
+          type: 'first',
           title: '数小兔，填组成',
-          leftImg: 'circle_left',
+          leftImg: 'rabit_left',
           total: 7,
-          rightImg: 'circle_right',
+          rightImg: 'rabit_right',
           rowNumber: 3,
           choiceList: ['1','2','3','4','5','6'],
           rightNumber: 6,
           currentRight: 0
       },{
-          title: '数圆点，填组成',
-          leftImg: 'circle_left',
+          type: 'first',
+          title: '数小鱼，填组成',
+          leftImg: 'fish_left',
           total: 8,
-          rightImg: 'circle_right',
+          rightImg: 'fish_right',
           rowNumber: 4,
           choiceList: ['1','2','3','4','4','5','6','7'],
           rightNumber: 8,
           currentRight: 0
       },{
+          type: 'second',
           title: '拖动点数到正确位置',
-          questionList: [{img:'question_1',need:'answer_2'},{img: 'question_2',need: 'answer_1'},{img: 'question_3',need: 'answer_3'}],
+          questionList: [{img:'question_1',need:'answer_2',isRight: false,righrImg: 'question_1_finish'},{img: 'question_2',need: 'answer_1',isRight: false,righrImg: 'question_2_finish'},{img: 'question_3',need: 'answer_3',isRight: false,righrImg: 'question_3_finish'}],
           answerList: ['answer_1','answer_2','answer_3'],
           rightNumber: 3,
           currentRight: 0
       },{
+          type: 'second',
           title: '拖动点数到正确位置',
-          questionList: ['question_4','question_5','question_6'],
+          questionList: [{img:'question_4',need:'answer_4',isRight: false,righrImg: 'question_4_finish'},{img: 'question_5',need: 'answer_5',isRight: false,righrImg: 'question_5_finish'},{img: 'question_6',need: 'answer_6',isRight: false,righrImg: 'question_6_finish'}],
           answerList: ['answer_4','answer_5','answer_6'],
           rightNumber: 3,
           currentRight: 0
@@ -202,6 +215,7 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
+    let finish_five = document.getElementById("finish_five");
     let stemMusicList = document.getElementsByClassName("stem-music");
     for(let i = 0, len = stemMusicList.length; i < len; i++){
       eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
@@ -210,9 +224,9 @@ export default {
         _this.musicActive = false;
       });
     }
-    // bg_music.addEventListener("canplaythrough", function() {
-    //   bg_music.play();
-    // });
+    bg_music.addEventListener("canplaythrough", function() {
+      bg_music.play();
+    });
 
     stem_music_1.addEventListener("canplaythrough", function() {
       stem_music_1.play();
@@ -220,7 +234,7 @@ export default {
     right_music.addEventListener("ended", function() {
       if(_this.currentIndex == _this.gameList.length){
         _this.isFinish = true;
-        _this.playAudio('complete')
+        _this.playAudio('finish_five')
       }else{
         let dragList = document.getElementsByClassName("drag-item");
         let rightImg = document.getElementsByClassName("right-img");
@@ -260,38 +274,40 @@ export default {
       let moveDiv = event.target;
       let targetList = document.getElementsByClassName("target");
       for (let i = 0; i < targetList.length; i++) {
-            let imgLeft = getElementToPageLeft(targetList[i]);
-            let imgRight = imgLeft + targetList[i].clientWidth;
-            let imgTop = targetList[i].offsetTop + 30 + 20;
-            let imgBottom = imgTop + targetList[i].clientHeight;
-            console.log(imgLeft, imgRight, imgTop, imgBottom);
-            if (
-              mouseX > imgLeft &&
-              mouseX < imgRight &&
-              mouseY > imgTop &&
-              mouseY < imgBottom
-            ) {
-              console.log(item , targetList[i].getAttribute('name'))
-              // if(_this.currentIndex < 3){
-                if (item == targetList[i].getAttribute('name')) {
-                  console.log("对了");
-                  moveDiv.style.display = 'none';
-                  targetList[i].firstChild.style.display = 'block'
-                  _this.currentItem.currentRight++;
-                  if (_this.currentItem.currentRight == _this.currentItem.rightNumber) {
-                    _this.canDrag = false;
-                    _this.playAudio("right_music");
-                    _this.currentIndex++;
-                  }
+        let imgLeft = getElementToPageLeft(targetList[i]);
+        let imgRight = imgLeft + targetList[i].clientWidth;
+        let imgTop = targetList[i].offsetTop + 30 + 20;
+        let imgBottom = imgTop + targetList[i].clientHeight;
+        console.log(imgLeft, imgRight, imgTop, imgBottom);
+        if (
+          mouseX > imgLeft &&
+          mouseX < imgRight &&
+          mouseY > imgTop &&
+          mouseY < imgBottom
+        ) {
+          console.log(item , targetList[i].getAttribute('name'))
+          if (item == targetList[i].getAttribute('name')) {
+            console.log("对了");
+            moveDiv.style.display = 'none';
+            targetList[i].firstChild.style.display = 'block'
+            _this.currentItem.currentRight++;
+            if(_this.currentItem.type=='second'){
+              _this.currentItem.questionList[i].isRight = true
+            }
+            if (_this.currentItem.currentRight == _this.currentItem.rightNumber) {
+              _this.canDrag = false;
+              _this.playAudio("right_music");
+              _this.currentIndex++;
+            }
 
-                } else {
-                  console.log("错了");
-                  moveDiv.style.top = '0px';
-                  moveDiv.style.left = '0px';
-                  _this.canDrag = false;
-                  _this.playAudio("please_think");
-                }
-              }
+          } else {
+            console.log("错了");
+            moveDiv.style.top = 'auto';
+            moveDiv.style.left = 'auto';
+            _this.canDrag = false;
+            _this.playAudio("please_think");
+          }
+        }
       }
     },
     //播放mp3
@@ -320,8 +336,10 @@ export default {
       _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
-        _this.gameList[i].isRight = false;
-        _this.gameList[i].isWrong = false;
+        for(let j = 0; j < _this.gameList[i].questionList.length; j++){
+          _this.gameList[i].questionList[j].isRight = false;
+        }
+        _this.gameList[i].currentRight = 0;
       }
       _this.playAudio('stem_music_'+(_this.currentIndex+1))
     },
@@ -413,15 +431,20 @@ export default {
       width: 80%;
       margin: 0 auto;
       position: relative;
-      .totle-number {
+      .total-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         right: 0;
         bottom: 100%;
         height: 20vh;
-        line-height: 20vh;
         border: 1px solid #47b1f0;
         float: right;
         box-sizing: border-box;
         width: 40%;
+        .total-img{
+          width: 13%;
+        }
       }
       .row-wrapper {
         display: flex;
@@ -439,6 +462,7 @@ export default {
           justify-content: space-around;
           img {
             width: 30px;
+            max-height: 100%;
           }
         }
         .left-target-wrapper {
@@ -484,20 +508,41 @@ export default {
       justify-content: center;
       align-items: center;
     }
-    .answer-item-wrapper,
+    .answer-item-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 15vw;
+      height: 25vh;
+      margin: 0 5vw;
+      .drag-item {
+        position: absolute;
+        width: 100%;
+      }
+    }
+    .last-game-answer-item{
+      width: 6.7vw !important;
+    }
     .question-item-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
       width: 15vw;
-      height: 30vh;
+      height: 33.5vh;
       margin: 0 5vw;
+      .drag-item {
+        position: absolute;
+        height: 100%;
+      }
+      .second-right-img{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
     }
-    .drag-item {
-      position: absolute;
-      width: 100%;
-    }
+    
     .target {
       .right-img {
         display: none;
