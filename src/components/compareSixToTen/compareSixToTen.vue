@@ -11,7 +11,7 @@
     <audio id="sixSeven" class="stem-music" src="static/audio/compareSixToTen/67.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="sevenSix" class="stem-music" src="static/audio/compareSixToTen/76.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="eightSeven" class="stem-music" src="static/audio/compareSixToTen/87.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="eightNina" class="stem-music" src="static/audio/compareSixToTen/89.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="eightNine" class="stem-music" src="static/audio/compareSixToTen/89.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="nineTen" class="stem-music" src="static/audio/compareSixToTen/910.mp3">您的浏览器不支持 audio 标签。</audio>
     <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/music.png" />
     <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif" />
@@ -28,9 +28,10 @@
           class="personImg">
         <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.leftGCss" class="thlGImg" id="left" />
         <div :style="currentItem.leftGCss" class="stickImg">
-          <img src="/static/images/compareSixToTen/tanghulu.png" alt=""
-            style="width:400%; margin-left:-130%;margin-top:10%" v-for="item in currentItem.leftNeed" :key="item"
-            v-show="item<=currentItem.leftCurrent">
+          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" v-for="item in currentItem.leftNeed" :key="item"
+            v-show="item<=currentItem.leftCurrent"
+            :class="(item==1)&&(currentItem.animation=='left')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''"
+            class="rThlImg">
         </div>
       </div>
       <!-- 右边人物 -->
@@ -39,8 +40,9 @@
           class="personImg">
         <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.rightGCss" class="thlGImg" id="right" />
         <div :style="currentItem.rightGCss" class="stickImg">
-          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" style="width:400%; margin-left:-130%;"
-            v-for="item in currentItem.rightNeed" :key="item" v-show="item<=currentItem.rightCurrent">
+          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="rThlImg"
+            v-for="item in currentItem.rightNeed" :key="item" v-show="item<=currentItem.rightCurrent"
+            :class="(item==0)&&(currentItem.animation=='right')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''">
         </div>
       </div>
     </div>
@@ -62,53 +64,173 @@ export default {
       musicActive: true,
       canDrag: false,
       isFinish: false,
-      isDraging: false,
-      tanghulu: 0,
       draging: false,
-      gameList: [{
-        leftCss: {
-          width: "120%",
-          left: "10%",
-          top: "5%"
-        },
-        leftGCss: {
-          top: "5%",
-          left: "108%",
-        },
-        leftTop: {
-          marginTop: "500%",
-          width: "400%",
-          marginLeft: "-130%",
-        },
-        rightCss: {
-          width: "100%",
-          left: "50%",
-          top: "10%",
-        },
-        rightGCss: {
-          top: "10%",
-          left: "52%",
-        },
-        rightTop: {
-          marginTop: "300%",
-          width: "400%",
-          marginLeft: "-130%",
-        },
-        rightThl: {
-          width: "400%",
-          marginLeft: "-130%",
-        },
-        rightChoice: 'left',
-        canChoice: false,
-        leftImg: 'left1',
-        audio: 'sixSeven',
-        rightImg: 'right1',
-        question: 'question2',
-        leftCurrent: 0,
-        rightCurrent: 0,
-        leftNeed: 6,
-        rightNeed: 7,
-      }],
+      gameList: [
+        {
+          leftCss: {
+            width: "120%",
+            left: "10%",
+            top: "5%"
+          },
+          leftGCss: {
+            top: "5%",
+            left: "108%",
+          },
+          rightCss: {
+            width: "100%",
+            left: "50%",
+            top: "10%",
+          },
+          rightGCss: {
+            top: "10%",
+            left: "52%",
+          },
+          isWrong: false,
+          rightChoice: 'left',
+          animation: 'right',
+          canChoice: false,
+          leftImg: 'left1',
+          audio: 'sixSeven',
+          rightImg: 'right1',
+          question: 'question2',
+          leftCurrent: 0,
+          rightCurrent: 0,
+          leftNeed: 6,
+          rightNeed: 7,
+        }, {
+          leftCss: {
+            width: "120%",
+            left: "10%",
+            top: "20%"
+          },
+          leftGCss: {
+            top: "2%",
+            left: "25%",
+            height: "42%",
+          },
+          rightCss: {
+            width: "120%",
+            left: "50%",
+            top: "10%",
+          },
+          rightGCss: {
+            top: "4%",
+            left: "55%",
+            height: "48%"
+          },
+          isWrong: false,
+          rightChoice: 'left',
+          animation: 'right',
+          canChoice: false,
+          leftImg: 'left2',
+          audio: 'nineTen',
+          rightImg: 'right2',
+          question: 'question2',
+          leftCurrent: 0,
+          rightCurrent: 0,
+          leftNeed: 9,
+          rightNeed: 10,
+        }, {
+          leftCss: {
+            width: "120%",
+            left: "10%",
+            top: "20%"
+          },
+          leftGCss: {
+            top: "28%",
+            left: "118%",
+            height: "42%",
+          },
+          rightCss: {
+            width: "140%",
+            left: "50%",
+            top: "20%",
+          },
+          rightGCss: {
+            top: "15%",
+            left: "78%",
+            height: "45%"
+          },
+          isWrong: false,
+          rightChoice: 'left',
+          animation: 'right',
+          canChoice: false,
+          leftImg: 'left3',
+          audio: 'eightNine',
+          rightImg: 'right3',
+          question: 'question2',
+          leftCurrent: 8,
+          rightCurrent: 9,
+          leftNeed: 8,
+          rightNeed: 9,
+        }, {
+          leftCss: {
+            width: "120%",
+            left: "10%",
+            top: "10%"
+          },
+          leftGCss: {
+            top: "25%",
+            left: "105%",
+            height: "40%",
+          },
+          rightCss: {
+            width: "130%",
+            left: "50%",
+            top: "10%",
+          },
+          rightGCss: {
+            top: "20%",
+            left: "70%",
+            height: "40%"
+          },
+          isWrong: false,
+          rightChoice: 'left',
+          animation: 'left',
+          canChoice: false,
+          leftImg: 'left4',
+          audio: 'eightSeven',
+          rightImg: 'right4',
+          question: 'question1',
+          leftCurrent: 0,
+          rightCurrent: 0,
+          leftNeed: 8,
+          rightNeed: 7,
+        }, {
+          leftCss: {
+            width: "140%",
+            left: "10%",
+            top: "10%"
+          },
+          leftGCss: {
+            top: "10%",
+            left: "125%",
+            height: "40%",
+          },
+          rightCss: {
+            width: "130%",
+            left: "50%",
+            top: "10%",
+          },
+          rightGCss: {
+            top: "28%",
+            left: "65%",
+            height: "40%"
+          },
+          isWrong: false,
+          rightChoice: 'left',
+          animation: 'left',
+          canChoice: false,
+          leftImg: 'left5',
+          audio: 'sevenSix',
+          rightImg: 'right5',
+          question: 'question1',
+          leftCurrent: 0,
+          rightCurrent: 0,
+          leftNeed: 7,
+          rightNeed: 6,
+        }
+      ],
     }
   },
   components: {
@@ -126,8 +248,14 @@ export default {
     for (let i = 0, len = stemMusicList.length; i < len; i++) {
       eval("let " + stemMusicList[i].id + "=document.getElementById('" + stemMusicList.id + "');");
       stemMusicList[i].addEventListener("ended", function () {
-        _this.canDrag = true;
-        _this.musicActive = false;
+        if (_this.currentIndex == _this.gameList.length) {
+          _this.isFinish = true;
+          _this.playAudio('complete')
+        } else {
+          _this.currentItem = _this.gameList[_this.currentIndex];
+          _this.playAudio('stem');
+          _this.musicActive = true;
+        }
       });
     }
     bg_music.addEventListener("canplaythrough", function () {
@@ -136,16 +264,6 @@ export default {
     stem.addEventListener("ended", function () {
       _this.canDrag = true;
       _this.musicActive = false;
-    });
-    right_music.addEventListener("ended", function () {
-      if (_this.currentIndex == _this.gameList.length) {
-        _this.isFinish = true;
-        _this.playAudio('complete')
-      } else {
-        _this.currentItem = _this.gameList[_this.currentIndex];
-        _this.playAudio('stem_music');
-        _this.musicActive = true;
-      }
     });
     please_think.addEventListener("ended", function () {
       _this.canDrag = true
@@ -173,26 +291,25 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.currentIndex = 0;
+      _this.currentIndex = 4;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
       _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
-        _this.gameList[i].isWrong = false;
       }
       _this.broadcast();
     },
     // 比较谁都谁少
     clickCompare (choice, right, id) {
-      console.log(choice, right, id);
       if (!choice) {
         return;
       }
       if (right == id) {
-        this.currentIndex++;
+        this.currentItem.isWrong = true;
         this.playAudio(this.currentItem.audio);
+        this.currentIndex++;
       } else {
         this.playAudio('please_think');
       }
@@ -302,7 +419,6 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.css";
 .compare-six-to-ten-container {
   height: 100%;
   background-image: url("../../../static/images/compareSixToTen/background.png");
@@ -341,6 +457,12 @@ export default {
         position: absolute;
         width: 3%;
         height: 40%;
+      }
+      .rThlImg {
+        width: 400%;
+        margin-left: -135%;
+        display: block;
+        margin-top: 1px;
       }
     }
   }
