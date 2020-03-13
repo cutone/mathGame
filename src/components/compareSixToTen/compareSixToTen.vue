@@ -227,8 +227,8 @@ export default {
           question: 'question1',
           leftCurrent: 0,
           rightCurrent: 0,
-          leftNeed: 2,
-          rightNeed: 1,
+          leftNeed: 7,
+          rightNeed: 6,
         }
       ],
     }
