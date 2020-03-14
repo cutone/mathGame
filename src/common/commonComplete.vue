@@ -1,5 +1,5 @@
 <template>
-   <div class="finish-wrapper">
+   <div class="common-finish-wrapper">
       <img class="finish-img" src="static/images/common/Doraemon.gif" alt />
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
@@ -26,7 +26,7 @@ export default {
 }
 </script>
 <style lang="less">
-.finish-wrapper {
+.common-finish-wrapper {
     height: 100%;
     display: block;
     padding-bottom: 20px;

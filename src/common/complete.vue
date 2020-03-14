@@ -1,5 +1,5 @@
 <template>
-   <div class="finish-wrapper" :style="{'background': background}">
+   <div class="complete-finish-wrapper" :style="{'background': background}">
       <img class="finish-img" :src="img" alt />
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 <style lang="less">
-.finish-wrapper {
+.complete-finish-wrapper {
     height: 100%;
     display: flex;
     padding-bottom: 20px;

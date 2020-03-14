@@ -1,9 +1,9 @@
 <template>
   <div class="levelClassify-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/levelClassify/complete.m4a">您的浏览器不支持 audio 标签。</audio>
-    <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio
       id="stem_music_1"
       class="stem-music"
@@ -40,26 +40,35 @@
             :key="index"
             :style="{'background-image': 'url(static/images/levelClassify/' + item.bgImg + '.png)'}"
         >
-            <div class="drag-item-wrapper" v-for="img in item.imgList" :id="img">
+            <div class="drag-item-wrapper" v-for="img in item.imgList">
                 <img 
+                    :id="img"
+                    @touchmove="touchMove(img)" 
+                    @touchstart="down(img)"
+                    @touchend="check(img)"  
                     class="drag-item" 
                     :src="'static/images/levelClassify/'+img+'.png'" alt />
             </div> 
         </div>
+      </div>
+      <div class="bottom-wrapper">
+        <div
+          class="target-item-wrapper"
+          :name="item.need"
+          v-for="(item, index) in currentItem.targetList"
+          :style="{'background-image': 'url(static/images/levelClassify/' + item.bgImg + '.png)'}"
+        >
+          <img class="target-img" :src="'static/images/levelClassify/'+img+'.png'" v-for="img in item.currentList" alt="">
         </div>
-      <div
-        class="target-item-wrapper"
-        v-for="(item, index) in currentItem.targetList"
-        :style="{'background-image': 'url(static/images/levelClassify/' + item.bgImg + '.png)'}"
-      ></div>
+      </div>
     </div>
-    <common-complete v-if="isFinish" @goBack="goBack" @initiate="initiate"></common-complete>
+    <top-class-complete v-if="isFinish" @goBack="goBack" @initiate="initiate"></top-class-complete>
   </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import commonComplete from "@/common/commonComplete";
+import topClassComplete from "@/common/topClassComplete";
 export default {
   name: 'levelClassify',
   data () {
@@ -73,29 +82,130 @@ export default {
       gameList: [
         {
           title: '按形状进行分类',
+          currentNumber: 0,
+          rightNumber: 8,
           topImgList: [
             {
                 bgImg: 'border',
-                imgList: ['rect_green_grape','rect_yellow_grape','rect_green_strawberry','rect_yellow_strawberry','triangle_green_grape','triangle_green_strawberry','triangle_green_strawberry','triangle_green_grape']
+                imgList: [
+                  'rect_green_grape','rect_yellow_grape','rect_green_strawberry','rect_yellow_strawberry','triangle_green_grape','triangle_green_strawberry','triangle_yellow_strawberry','triangle_yellow_grape']
             }
             ],
             targetList: [
             {
                 bgImg: 'triangle_blue',
                 need: 'triangle',
-                currentList: []
+                currentList: [],
             },
             {
                 bgImg: 'rect_blue',
                 need: 'rect',
-                currentList: []
+                currentList: [],
+            }]
+        },{
+          title: '按颜色进行分类',
+          currentNumber: 0,
+          rightNumber: 8,
+          topImgList: [
+            {
+                bgImg: 'triangle_blue',
+                imgList: [
+                  'triangle_green_grape','triangle_green_strawberry','triangle_yellow_strawberry','triangle_yellow_grape']
+            },
+            {
+                bgImg: 'rect_blue',
+                imgList: [
+                  'rect_green_grape','rect_yellow_grape','rect_green_strawberry','rect_yellow_strawberry']
+            }
+            ],
+            targetList: [
+            {
+                bgImg: 'triangle_green',
+                need: 'triangle_green',
+                currentList: [],
+            },
+            {
+                bgImg: 'triangle_yellow',
+                need: 'triangle_yellow',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_green',
+                need: 'rect_green',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_yellow',
+                need: 'rect_yellow',
+                currentList: [],
+            }]
+        },{
+          title: '按种类进行分类',
+          currentNumber: 0,
+          rightNumber: 8,
+          topImgList: [
+            {
+                bgImg: 'triangle_green',
+                imgList: [
+                  'triangle_green_strawberry','triangle_green_grape']
+            },{
+                bgImg: 'triangle_yellow',
+                imgList: [
+                  'triangle_yellow_grape','triangle_yellow_strawberry']
+            },{
+                bgImg: 'rect_green',
+                imgList: [
+                  'rect_green_grape','rect_green_strawberry']
+            },{
+                bgImg: 'rect_yellow',
+                imgList: [
+                  'rect_yellow_grape','rect_yellow_strawberry']
+            }
+            ],
+            targetList: [
+            {
+                bgImg: 'rect_purple',
+                need: 'triangle_green_grape',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_red',
+                need: 'triangle_green_strawberry',
+                currentList: [],
+            },{
+                bgImg: 'rect_purple',
+                need: 'triangle_yellow_grape',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_red',
+                need: 'triangle_yellow_strawberry',
+                currentList: [],
+            },{
+                bgImg: 'rect_purple',
+                need: 'rect_green_grape',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_red',
+                need: 'rect_green_strawberry',
+                currentList: [],
+            },{
+                bgImg: 'rect_purple',
+                need: 'rect_yellow_grape',
+                currentList: [],
+            },
+            {
+                bgImg: 'rect_red',
+                need: 'rect_yellow_strawberry',
+                currentList: [],
             }]
         }]
     }
   },
   components: {
     commonHeader,
-    commonComplete
+    topClassComplete
   },
   mounted() {
     let _this = this;
@@ -123,6 +233,12 @@ export default {
         _this.isFinish = true;
         _this.playAudio('complete')
       }else{
+        let dragList = document.getElementsByClassName('drag-item');
+        for(let i = 0; i < dragList.length; i++){
+          dragList[i].style.display = 'block'
+          dragList[i].style.left = 'auto'
+          dragList[i].style.top = 'auto'
+        }
         _this.currentItem = _this.gameList[_this.currentIndex];
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
@@ -162,21 +278,22 @@ export default {
               mouseY > imgTop &&
               mouseY < imgBottom
             ) {
-              console.log(targetList[i].id);
-              if (item.img == targetList[i].id) {
+              console.log(targetList[i].getAttribute('name'));
+              if (item.indexOf(targetList[i].getAttribute('name'))!==-1) {
                 console.log("对了");
+                _this.currentItem.currentNumber++
+                _this.currentItem.targetList[i].currentList.push(item)
                 moveDiv.style.display = 'none';
-                _this.currentItem.questionList[i].isRight = true;
-                _this.currentItem.rightNumber++;
-                if (_this.currentItem.rightNumber == 5) {
+                if (_this.currentItem.currentNumber == _this.currentItem.rightNumber) {
                   _this.canDrag = false;
                   _this.playAudio("right_music");
+                  _this.currentIndex++
                 }
 
               } else {
                 console.log("错了");
-                moveDiv.style.top = '0px';
-                moveDiv.style.left = '0px';
+                moveDiv.style.top = 'auto';
+                moveDiv.style.left = 'auto';
                 _this.canDrag = false;
                 _this.playAudio("please_think");
               }
@@ -209,8 +326,10 @@ export default {
       _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
-        _this.gameList[i].isRight = false;
-        _this.gameList[i].isWrong = false;
+        _this.gameList[i].currentNumber = 0;
+        for(let j = 0; j < _this.gameList[i].targetList.length; j++){
+          _this.gameList[i].targetList[j].currentList = []
+        }
       }
       _this.playAudio('stem_music_'+(_this.currentIndex+1));
     },
@@ -318,6 +437,20 @@ export default {
             }
         }
     }
+    .bottom-wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .target-item-wrapper{
+        background-size: 100% 100%;
+        height: 30vh;
+        width: 30%;
+        .target-img{
+          width: 20%;
+        }
+      }
+    }
+    
   }
 }
 </style>
