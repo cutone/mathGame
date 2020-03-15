@@ -51,6 +51,12 @@
             </div> 
         </div>
       </div>
+      <div class="arrow-container">
+        <div class="arrow-wrapper" v-for="(item, index) in currentItem.topImgList">
+          <img class="arrow-img" src="static/images/levelClassify/left_arrow.png" alt />
+          <img class="arrow-img" src="static/images/levelClassify/right_arrow.png" alt />
+        </div>
+      </div>
       <div class="bottom-wrapper">
         <div
           class="target-item-wrapper"
@@ -269,7 +275,7 @@ export default {
       for (let i = 0; i < targetList.length; i++) {
             let imgLeft = targetList[i].offsetLeft;
             let imgRight = imgLeft + targetList[i].clientWidth;
-            let imgTop = targetList[i].offsetTop + 30;
+            let imgTop = targetList[i].offsetTop;
             let imgBottom = imgTop + targetList[i].clientHeight;
             console.log(imgLeft, imgRight, imgTop, imgBottom);
             if (
@@ -424,7 +430,7 @@ export default {
             align-items: center;
             height: 100%;
             background-size: 100% 100%;
-            padding: 0 20px;
+            padding: 0 5vw;
         }
         .drag-item-wrapper{
             position: relative;
@@ -437,16 +443,32 @@ export default {
             }
         }
     }
+    .arrow-container{
+      display: flex;
+      justify-content: space-around;
+      .arrow-wrapper{
+        height: 10vh;
+        display: flex;
+        justify-content: space-around;
+        width: 20%;
+        .arrow-img{
+          height: 100%;
+        }
+      }
+    }
     .bottom-wrapper{
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       .target-item-wrapper{
+        display: flex;
         background-size: 100% 100%;
         height: 30vh;
         width: 30%;
+        justify-content: center;
+        align-items: center;
         .target-img{
-          width: 20%;
+          width: 5vw;
         }
       }
     }
