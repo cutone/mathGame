@@ -1,47 +1,52 @@
 <template>
   <div class="max-five-container">
-    <button class="btn" @click="back()">上一页</button>
-    <button class="btn" @click="skip()">跳过动画</button>
+    <common-header :game-list="[]" v-if="!isFinish"></common-header>
     <audio id="firstScreenAudio" src="static/audio/firstScreen.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="secondScreenAudio" src="static/audio/secondScreen.mp3"></audio>
     <audio id="congratrulationAudio" src="static/audio/congratrulation.wav"></audio>
     <audio id="pleaseThinkAudio" src="static/audio/pleaseThink.wav"></audio>
-    <img v-if="step == 1" class="bee" src="static/images/maxFive/bee.png" alt="">
-    <img v-if="step == 1" class="snail" src="static/images/maxFive/snail.png" alt="">
-    <div class="tree" v-for="(tree,index) in treeList" :key="index" :style="{top: tree.style.top, left: tree.style.left}">
-      <img class="fruit" 
-        :id="tree.type + fruit.type + index" 
-        @touchmove="touchMove(tree.type + fruit.type + index)" 
-        @touchstart="down(tree.type + fruit.type + index)"
-        v-for="(fruit,index) in tree.fruitList" 
-        :src="fruit.src" 
-        :style="{top: fruit.top, left: fruit.left, width: fruit.width, height: fruit.height}"
-        :key="index">
-    </div>
-    <div class="basket-container" v-if="step == 2 || step ==3">
-      <div class="basket-wrapper" v-for="(basket, index) in basketList" :key="index">
-        <img :id="'basket'+index" class="basket" :src="basket.src">
-        <div v-if="basket.showQuestion" class="question-content">从箭头开始的第{{basket.tree}}颗
-          <img class="little-tree" src="static/images/maxFive/tree.png"> ，摘{{basket.count}}个果子
-        </div>
-        <div class="btn-wrapper" v-if="step == 3">
-          <img :id="'audio-btn-'+index" class="audio-btn" src="static/images/maxFive/audio.svg" alt="" @click="playAudio(basket,index)">
-          <button class="submit-btn" @click="check(index)">确定</button>
-        </div> 
-        <audio :id="'basket-audio-'+index" :src="basket.audioSrc">
-          您的浏览器不支持 audio 标签。
-        </audio>
+    <div class="body" v-if="!isFinish">
+      <img v-if="step == 1" class="bee" src="static/images/maxFive/bee.png" alt="">
+      <img v-if="step == 1" class="snail" src="static/images/maxFive/snail.png" alt="">
+      <div class="tree" v-for="(tree,index) in treeList" :key="index" :style="{top: tree.style.top, left: tree.style.left}">
+        <img class="fruit" 
+          :id="tree.type + fruit.type + index" 
+          @touchmove="touchMove(tree.type + fruit.type + index)" 
+          @touchstart="down(tree.type + fruit.type + index)"
+          v-for="(fruit,index) in tree.fruitList" 
+          :src="fruit.src" 
+          :style="{top: fruit.top, left: fruit.left, width: fruit.width, height: fruit.height}"
+          :key="index">
       </div>
-    </div>
+      <div class="basket-container" v-if="step == 2 || step ==3">
+        <div class="basket-wrapper" v-for="(basket, index) in basketList" :key="index">
+          <img :id="'basket'+index" class="basket" :src="basket.src">
+          <div v-if="basket.showQuestion" class="question-content">从箭头开始的第{{basket.tree}}颗
+            <img class="little-tree" src="static/images/maxFive/tree.png"> ，摘{{basket.count}}个果子
+          </div>
+          <div class="btn-wrapper" v-if="step == 3">
+            <img :id="'audio-btn-'+index" class="audio-btn" src="static/images/maxFive/audio.svg" alt="" @click="playAudio(basket,index)">
+            <button class="submit-btn" @click="check(index)">确定</button>
+          </div> 
+          <audio :id="'basket-audio-'+index" :src="basket.audioSrc">
+            您的浏览器不支持 audio 标签。
+          </audio>
+        </div>
+      </div>
+    </div>  
+    <common-complete v-if="isFinish"></common-complete>
   </div>
 </template>
 
 <script>
+import commonHeader from "@/common/commonHeader";
+import commonComplete from "@/common/commonComplete";
 export default {
   name: 'max-five',
   data(){
     return {
       step: 1,
+      isFinish: false,
       position: {x: 0, y:0},
       treeList: [{
           type: 'apple',
@@ -123,6 +128,10 @@ export default {
         {src: 'static/images/maxFive/basket.png', audioSrc: 'static/audio/fifthBasket.mp3', tree: 4, count: 5, showQuestion: false}
       ]
     }
+  },
+  components: {
+    commonHeader,
+    commonComplete
   },
   mounted(){
     let _this = this;
@@ -267,6 +276,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
+@bodyHeight: calc(~"100% - 30px");
 @keyframes bee-move{
   0%{
     left: 0;
@@ -306,6 +316,9 @@ export default {
     background: url('../../../static/images/maxFive/background.jpg');
     background-size: 100% 100%;
     position: relative;
+    .body{
+      height: @bodyHeight;
+    }
     .btn{
       position: relative;
       display: block;

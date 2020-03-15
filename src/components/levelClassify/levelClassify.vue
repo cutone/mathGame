@@ -404,7 +404,6 @@ export default {
 </script>
 
 <style scoped lang='less'>
-@import "../../../static/css/common.css";
 @bodyHeight: calc(~"100% - 30px");
 .levelClassify-container {
   height: 100%;
