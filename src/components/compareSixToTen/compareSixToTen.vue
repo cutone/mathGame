@@ -291,7 +291,7 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.currentIndex = 4;
+      _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
       _this.canDrag = false;
@@ -333,7 +333,6 @@ export default {
       let thlDivRight = thlDiv.x + thlDiv.clientHeight;
       // 糖葫芦棍的位置
       let thlGDiv = document.getElementsByClassName('thlGImg');
-      console.log();
       for (let i = 0; i < thlGDiv.length; i++) {
         let thlGDivLeft = thlGDiv[i].x;
         let thlGDivRight = thlGDivLeft + thlGDiv[i].clientWidth;
