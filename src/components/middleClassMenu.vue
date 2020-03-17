@@ -136,6 +136,7 @@ export default {
   },
   activated(){
     let middle_class_BGM = document.getElementById("middle_class_BGM");
+    middle_class_BGM.currentTime = 0;
     middle_class_BGM.play();
   },
   created(){

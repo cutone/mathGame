@@ -13,12 +13,12 @@
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
+      src="static/images/common/bottom_music.png"
     />
     <img
       class="music-img"
       v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
+      src="static/images/common/bottom_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
@@ -132,6 +132,7 @@ export default {
       }else{
         //切换到下一题
         _this.currentItem = _this.gameList[_this.currentIndex];
+        let currentAnimal = document.getElementById("currentAnimal");
         //重置被拖动元素的定位
         currentAnimal.style.right = 'auto'
         currentAnimal.style.bottom = 'auto'
@@ -221,6 +222,7 @@ export default {
         _this.gameList[i].isRight = false;
         _this.gameList[i].isWrong = false;
       }
+      _this.playAudio('stem_music_1')
     },
     check(){
       let _this = this;
@@ -254,6 +256,7 @@ export default {
       console.log('右线框',rightPlateDivLeft,rightPlateDivRight,rightPlateDivTop,rightPlateDivBottom )
       //左边线框检验
       if(mouseX > leftPlateDivLeft && mouseX < leftPlateDivRight && mouseY > leftPlateDivTop && mouseY < leftPlateDivBottom){
+          _this.canDrag = false;
           if(_this.currentItem.direction == 'left'){
             _this.currentIndex++
             _this.playAudio('right_music')
@@ -261,19 +264,18 @@ export default {
             console.log(222);
             moveDiv.style.left = '79%';
             moveDiv.style.top = '62%';
-            _this.canDrag = false;
             _this.playAudio('please_think')
           }
       }
       //右边线框检验
       else if(mouseX > rightPlateDivLeft && mouseX < rightPlateDivRight && mouseY > rightPlateDivTop && mouseY < rightPlateDivBottom){
+          _this.canDrag = false;
           if(_this.currentItem.direction == 'right'){
             _this.currentIndex++;
             _this.playAudio('right_music')
           }else{
             moveDiv.style.left = '79%';
             moveDiv.style.top = '62%';
-            _this.canDrag = false;
             _this.playAudio('please_think');
           }
       }

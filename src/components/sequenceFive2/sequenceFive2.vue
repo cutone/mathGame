@@ -252,6 +252,7 @@ export default {
               if (_this.currentItem.target == LightList[i].id) {
                 console.log("对了");
                 _this.currentIndex++;
+                _this.canDrag = false;
                 _this.playAudio("right_music");
               } else {
                 console.log("错了");
