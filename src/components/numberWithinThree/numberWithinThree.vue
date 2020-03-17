@@ -16,34 +16,25 @@
     </div>
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish&&!isFirstPage"></common-header>
     <div v-if="!isFinish&&!isFirstPage" class="body" :style="currentItem.backImg">
-      <!-- <div class="one" v-if="currentIndex==0">
-        <div class="pthree">
-          <img src="/static/images/numberWithinThree/pthree.png" v-if="!currentItem.pthree" class="oneP" />
-          <img src="/static/images/numberWithinThree/1.png" v-if="!currentItem.pthree" class="num" />
-        </div>
-        <img src="/static/images/numberWithinThree/pthree.png" @touchmove="touchMove('pthree')"
-          @touchstart="down('pthree')" @touchend="check('pthree','one')" id="pthree" v-if="currentItem.pthree"
-          class="pthree1" />
-      </div> -->
-      <div class="content" v-if="currentIndex==1">
+      <div class="content">
         <div v-for="(item,index) in currentItem.img" :key="index" :style="item.style" class="pst" :class="item.id">
           <img :src="item.imgSrc" v-if="!item.pthree" class="picture" :style="item.rotate" />
-          <img :src="item.numSrc" v-if="!item.pthree" class="num" />
+          <img :src="item.numSrc" v-if="!item.pthree" class="num" :style="item.numStyle" />
         </div>
         <img v-for="(item,index) in currentItem.img" :key="'i'+index" :src="item.imgSrc" :style="item.choiceStyle"
           v-show="item.pthree" class="choicePst" @touchmove="touchMove(item.id)" @touchstart="down(item.id)"
           @touchend="check(item)" :id="item.id" />
       </div>
     </div>
-    <top-class-complete v-if="isFinish&&!isFirstPage" @goBack="goBack" @initiate="initiate">
-    </top-class-complete>
+    <miqi-complete v-if="isFinish&&!isFirstPage" @goBack="goBack" @initiate="initiate">
+    </miqi-complete>
   </div>
 </template>
 
 <script>
 import { disOrderArr } from '@/common/js/common'
 import commonHeader from "@/common/commonHeader";
-import topClassComplete from "@/common/topClassComplete";
+import miqiComplete from "@/common/miqiComplete";
 export default {
   name: 'numberWithinThree',
   data () {
@@ -61,7 +52,20 @@ export default {
       gameList: [
         {
           backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background2.png')" },
-          pthree: true,
+          img: [
+            {
+              imgSrc: '/static/images/numberWithinThree/pT.png',
+              numSrc: '/static/images/numberWithinThree/1.png',
+              style: { top: "2%", left: "44%", width: "25%", height: "40%", transform: "rotate(-3deg)" },
+              rotate: { transform: "rotate(3deg)" },
+              choiceStyle: {
+                width: "25%", height: "40%", top: "45%", left: "70%"
+              },
+              pthree: true,
+              id: 'pthree',
+              num: 'one',
+            }
+          ],
           choiceImg: 1,
           currentImg: 0,
         },
@@ -93,13 +97,79 @@ export default {
           ],
           choiceImg: 2,
           currentImg: 0,
+        },
+        {
+          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background4.png')" },
+          img: [
+            {
+              imgSrc: '/static/images/numberWithinThree/pFvLeft.png',
+              numSrc: '/static/images/numberWithinThree/1.png',
+              style: { top: "19%", left: "5.5%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
+              rotate: { transform: "rotate(16deg)" },
+              numStyle: { height: "30%", marginTop: "-15%" },
+              choiceStyle: { width: "22%", height: "52%", top: "40%", left: "40%", transform: "rotate(-2deg)" },
+              pthree: true,
+              id: 'pthree',
+              num: 'one',
+            },
+            {
+              imgSrc: '/static/images/numberWithinThree/pFvRight.png',
+              numSrc: '/static/images/numberWithinThree/2.png',
+              style: { top: "8.5%", left: "29%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
+              rotate: { transform: "rotate(16deg)" },
+              numStyle: { height: "30%", marginTop: "-10%" },
+              choiceStyle: { width: "22%", height: "52%", top: "35%", left: "60%", transform: "rotate(-2deg)" },
+              pthree: true,
+              id: 'pthree1',
+              num: 'two'
+            }
+          ],
+          choiceImg: 2,
+          currentImg: 0,
+        },
+        {
+          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background5.png')" },
+          img: [
+            {
+              imgSrc: '/static/images/numberWithinThree/pSLeft.png',
+              numSrc: '/static/images/numberWithinThree/1.png',
+              style: { top: "10%", left: "18%", width: "21%", height: "37%", transform: "rotate(13deg)" },
+              rotate: { transform: "rotate(-10deg)" },
+              choiceStyle: { width: "22%", height: "37%", top: "50%", left: "20%", transform: "rotate(-4deg)" },
+              pthree: true,
+              id: 'pthree',
+              num: 'one',
+            },
+            {
+              imgSrc: '/static/images/numberWithinThree/pSCenter.png',
+              numSrc: '/static/images/numberWithinThree/2.png',
+              style: { top: "2%", left: "47%", width: "21.5%", height: "40%", transform: "rotate(-3deg)" },
+              rotate: { transform: "rotate(4deg)" },
+              choiceStyle: { width: "21.5%", height: "40%", top: "50%", left: "50%", transform: "rotate(-2deg)" },
+              pthree: true,
+              id: 'pthree1',
+              num: 'two'
+            },
+            {
+              imgSrc: '/static/images/numberWithinThree/pSRight.png',
+              numSrc: '/static/images/numberWithinThree/3.png',
+              style: { top: "7%", left: "76.5%", width: "21.5%", height: "32%", transform: "rotate(-10deg)" },
+              rotate: { transform: "rotate(9deg)" },
+              choiceStyle: { width: "21.5%", height: "32%", top: "50%", left: "80%", transform: "rotate(-0deg)" },
+              pthree: true,
+              id: 'pthree2',
+              num: 'three'
+            }
+          ],
+          choiceImg: 3,
+          currentImg: 0,
         }
       ]
     }
   },
   components: {
     commonHeader,
-    topClassComplete
+    miqiComplete
   },
   mounted () {
     let _this = this;
@@ -126,14 +196,12 @@ export default {
       first_page.play();
     });
     first_page.addEventListener("ended", function () {
-      setTimeout(function () {
-        _this.isFirstPage = false;
-      }, 500);
-      page.play();
+      _this.isFirstPage = false;
     })
     page.addEventListener("ended", function () {
       _this.canDrag = false;
-      if (typeof (this.currentIndex) == 'undefined' || this.currentIndex < this.gameList.length) {
+      _this.currentItem = _this.gameList[_this.currentIndex];
+      if (_this.currentIndex + 1 < _this.gameList.length) {
         stemMusicList[0].play();
       } else {
         stemMusicList[1].play();
@@ -146,6 +214,9 @@ export default {
       _this.currentIndex++;
       if (_this.currentIndex == _this.gameList.length) {
         _this.isFinish = true;
+      } else {
+        _this.initialPosition = [];
+        page.play();
       }
     })
     _this.initiate();
@@ -164,10 +235,18 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.currentIndex = 1;
+      _this.currentIndex = 0;
+      _this.isFirstPage = true;
       _this.currentItem = _this.gameList[_this.currentIndex];
+      _this.currentItem.currentImg = 0;
+      _this.currentItem.img.forEach(item => {
+        item.pthree = three;
+      })
       _this.isFinish = false;
-      // _this.canDrag = false;
+      _this.playAudio("first_page")
+      setTimeout(function () {
+        _this.playAudio("page");
+      }, 3000);
     },
     //检查是否正确
     check (item) {
@@ -185,10 +264,9 @@ export default {
       let mouseX = event.changedTouches[0].pageX;
       let mouseY = event.changedTouches[0].pageY;
       let Div = document.getElementsByClassName(item.id);
-      console.log(Div);
-      let DivLeft = Div[0].x;
+      let DivLeft = Div[0].offsetLeft;
       let DivRight = DivLeft + Div[0].clientWidth;
-      let DivTop = Div[0].y;
+      let DivTop = Div[0].offsetTop;
       let DivBottom = DivTop + Div[0].clientHeight;
       console.log(item, mouseX, DivLeft, DivRight, mouseY, DivTop, DivBottom);
       if (mouseX > DivLeft && mouseX < DivRight && mouseY > DivTop && mouseY < DivBottom) {
@@ -200,7 +278,7 @@ export default {
         }
       } else {
         this.initialPosition.forEach(item1 => {
-          if (item == item1.key) {
+          if (item.id == item1.key) {
             moveDiv.style.top = item1.y;
             moveDiv.style.left = item1.x;
             _this.canDrag = false;
@@ -306,35 +384,6 @@ export default {
     height: 100%;
     background-size: 100% 110%;
     background-position: 0 150%;
-    .one {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      .pthree {
-        position: absolute;
-        top: 2%;
-        left: 44%;
-        width: 25%;
-        height: 40%;
-        transform: rotate(-3deg);
-        .oneP {
-          transform: rotate(3deg);
-        }
-        .num {
-          margin-top: 30%;
-          height: 60%;
-        }
-      }
-      .pthree1 {
-        position: absolute;
-        top: 48%;
-        left: 72%;
-        display: block;
-        width: 25%;
-        height: 40%;
-        transform: rotate(3deg);
-      }
-    }
     .content {
       position: absolute;
       height: 100%;
@@ -343,15 +392,15 @@ export default {
     .pst {
       position: absolute;
       border: 1px solid blue;
-      .picture {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      .num {
-        margin-top: 30%;
-        height: 60%;
-      }
+    }
+    .picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .num {
+      margin-top: 30%;
+      height: 60%;
     }
     .choicePst {
       position: absolute;

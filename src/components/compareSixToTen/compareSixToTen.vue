@@ -2,7 +2,7 @@
   <div class="compare-six-to-ten-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <!-- <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio> -->
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="question1" src="static/audio/compareSixToTen/question1.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="question2" src="static/audio/compareSixToTen/question2.mp3">您的浏览器不支持 audio 标签。</audio>
@@ -227,8 +227,8 @@ export default {
           question: 'question1',
           leftCurrent: 0,
           rightCurrent: 0,
-          leftNeed: 7,
-          rightNeed: 6,
+          leftNeed: 2,
+          rightNeed: 1,
         }
       ],
     }
@@ -250,7 +250,6 @@ export default {
       stemMusicList[i].addEventListener("ended", function () {
         if (_this.currentIndex == _this.gameList.length) {
           _this.isFinish = true;
-          _this.playAudio('complete')
         } else {
           _this.currentItem = _this.gameList[_this.currentIndex];
           _this.playAudio('stem');
@@ -291,11 +290,15 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.currentIndex = 0;
+      _this.currentIndex = 4;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
       _this.canDrag = false;
       _this.musicActive = true;
+      _this.currentItem.isWrong = false;
+      _this.currentItem.canChoice = false;
+      _this.currentItem.leftCurrent = 0;
+      _this.currentItem.rightCurrent = 0;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
       }
