@@ -41,7 +41,7 @@
         <div :style="currentItem.rightGCss" class="stickImg">
           <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="rThlImg"
             v-for="item in currentItem.rightNeed" :key="item" v-show="item<=currentItem.rightCurrent"
-            :class="(item==0)&&(currentItem.animation=='right')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''">
+            :class="(item==1)&&(currentItem.animation=='right')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''">
         </div>
       </div>
     </div>
@@ -226,8 +226,8 @@ export default {
           question: 'question1',
           leftCurrent: 0,
           rightCurrent: 0,
-          leftNeed: 2,
-          rightNeed: 1,
+          leftNeed: 7,
+          rightNeed: 6,
         }
       ],
     }
@@ -251,6 +251,10 @@ export default {
           _this.isFinish = true;
         } else {
           _this.currentItem = _this.gameList[_this.currentIndex];
+          _this.currentItem.isWrong = false;
+          _this.currentItem.canChoice = false;
+          _this.currentItem.leftCurrent = 0;
+          _this.currentItem.rightCurrent = 0;
           _this.playAudio('stem');
           _this.musicActive = true;
         }
@@ -289,7 +293,7 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.currentIndex = 4;
+      _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
       _this.canDrag = false;

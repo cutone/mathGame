@@ -49,6 +49,7 @@ export default {
       isFirstPage: true,
       currentItem: {},
       initialPosition: [],
+      gameList2: [],
       gameList: [
         {
           backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background2.png')" },
@@ -193,6 +194,10 @@ export default {
     page.addEventListener("ended", function () {
       _this.canDrag = false;
       _this.currentItem = _this.gameList[_this.currentIndex];
+      _this.currentItem.currentImg = 0;
+      _this.currentItem.img.forEach(item => {
+        item.pthree = true;
+      })
       if (_this.currentIndex + 1 < _this.gameList.length) {
         stemMusicList[0].play();
       } else {
@@ -227,12 +232,13 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
+      _this.gameList2 = _this.gameList;
       _this.currentIndex = 0;
       _this.isFirstPage = true;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.currentItem.currentImg = 0;
       _this.currentItem.img.forEach(item => {
-        item.pthree = three;
+        item.pthree = true;
       })
       _this.isFinish = false;
       _this.playAudio("first_page")
