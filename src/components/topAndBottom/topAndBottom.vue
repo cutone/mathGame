@@ -13,12 +13,12 @@
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
+      src="static/images/common/bottom_music.png"
     />
     <img
       class="music-img"
       v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
+      src="static/images/common/bottom_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
@@ -223,6 +223,7 @@ export default {
         _this.gameList[i].isRight = false;
         _this.gameList[i].isWrong = false;
       }
+      _this.playAudio('stem_music_1')
     },
     check(){
       let _this = this;
@@ -250,6 +251,7 @@ export default {
       //左边线框检验
       if(mouseX > correctWrapLeft && mouseX < correctWrapRight && mouseY > correctWrapTop && mouseY < correctWrapBottom){
         _this.currentIndex++;
+        _this.canDrag = false;
         _this.playAudio('right_music');
       }
       else {
