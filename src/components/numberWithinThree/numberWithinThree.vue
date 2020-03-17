@@ -55,7 +55,7 @@ export default {
           img: [
             {
               imgSrc: '/static/images/numberWithinThree/pT.png',
-              numSrc: '/static/images/numberWithinThree/1.png',
+              numSrc: '',
               style: { top: "2%", left: "44%", width: "25%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
               choiceStyle: {
@@ -63,7 +63,6 @@ export default {
               },
               pthree: true,
               id: 'pthree',
-              num: 'one',
             }
           ],
           choiceImg: 1,
@@ -74,7 +73,7 @@ export default {
           img: [
             {
               imgSrc: '/static/images/numberWithinThree/pFLeft.png',
-              numSrc: '/static/images/numberWithinThree/1.png',
+              numSrc: '',
               style: { top: "2%", left: "40%", width: "24%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
               choiceStyle: {
@@ -82,17 +81,15 @@ export default {
               },
               pthree: true,
               id: 'pthree',
-              num: 'one',
             },
             {
               imgSrc: '/static/images/numberWithinThree/pFRight.png',
-              numSrc: '/static/images/numberWithinThree/2.png',
+              numSrc: '',
               style: { top: "6.5%", left: "73%", width: "24%", height: "32%", transform: "rotate(-11deg)" },
               rotate: { transform: "rotate(9deg)" },
               choiceStyle: { width: "24%", height: "32%", top: "50%", left: "70%" },
               pthree: true,
               id: 'pthree1',
-              num: 'two'
             }
           ],
           choiceImg: 2,
@@ -103,25 +100,23 @@ export default {
           img: [
             {
               imgSrc: '/static/images/numberWithinThree/pFvLeft.png',
-              numSrc: '/static/images/numberWithinThree/1.png',
+              numSrc: '',
               style: { top: "19%", left: "5.5%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
-              numStyle: { height: "30%", marginTop: "-15%" },
+              numStyle: { height: "30%", marginTop: "12%" },
               choiceStyle: { width: "22%", height: "52%", top: "40%", left: "40%", transform: "rotate(-2deg)" },
               pthree: true,
               id: 'pthree',
-              num: 'one',
             },
             {
               imgSrc: '/static/images/numberWithinThree/pFvRight.png',
-              numSrc: '/static/images/numberWithinThree/2.png',
+              numSrc: '',
               style: { top: "8.5%", left: "29%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
-              numStyle: { height: "30%", marginTop: "-10%" },
+              numStyle: { height: "30%", marginTop: "12%" },
               choiceStyle: { width: "22%", height: "52%", top: "35%", left: "60%", transform: "rotate(-2deg)" },
               pthree: true,
               id: 'pthree1',
-              num: 'two'
             }
           ],
           choiceImg: 2,
@@ -132,33 +127,30 @@ export default {
           img: [
             {
               imgSrc: '/static/images/numberWithinThree/pSLeft.png',
-              numSrc: '/static/images/numberWithinThree/1.png',
+              numSrc: '',
               style: { top: "10%", left: "18%", width: "21%", height: "37%", transform: "rotate(13deg)" },
               rotate: { transform: "rotate(-10deg)" },
               choiceStyle: { width: "22%", height: "37%", top: "50%", left: "20%", transform: "rotate(-4deg)" },
               pthree: true,
               id: 'pthree',
-              num: 'one',
             },
             {
               imgSrc: '/static/images/numberWithinThree/pSCenter.png',
-              numSrc: '/static/images/numberWithinThree/2.png',
+              numSrc: '',
               style: { top: "2%", left: "47%", width: "21.5%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(4deg)" },
               choiceStyle: { width: "21.5%", height: "40%", top: "50%", left: "50%", transform: "rotate(-2deg)" },
               pthree: true,
               id: 'pthree1',
-              num: 'two'
             },
             {
               imgSrc: '/static/images/numberWithinThree/pSRight.png',
-              numSrc: '/static/images/numberWithinThree/3.png',
+              numSrc: '/',
               style: { top: "7%", left: "76.5%", width: "21.5%", height: "32%", transform: "rotate(-10deg)" },
               rotate: { transform: "rotate(9deg)" },
               choiceStyle: { width: "21.5%", height: "32%", top: "50%", left: "80%", transform: "rotate(-0deg)" },
               pthree: true,
               id: 'pthree2',
-              num: 'three'
             }
           ],
           choiceImg: 3,
@@ -271,8 +263,17 @@ export default {
       console.log(item, mouseX, DivLeft, DivRight, mouseY, DivTop, DivBottom);
       if (mouseX > DivLeft && mouseX < DivRight && mouseY > DivTop && mouseY < DivBottom) {
         item.pthree = false;
-        _this.playAudio(item.num);
         this.currentItem.currentImg++;
+        if (this.currentItem.currentImg == 1) {
+          item.numSrc = "/static/images/numberWithinThree/1.png";
+          _this.playAudio("one");
+        } else if (this.currentItem.currentImg == 2) {
+          item.numSrc = "/static/images/numberWithinThree/2.png";
+          _this.playAudio("two");
+        } else if (this.currentItem.currentImg == 3) {
+          item.numSrc = "/static/images/numberWithinThree/3.png";
+          _this.playAudio("three");
+        }
         if (this.currentItem.currentImg == this.currentItem.choiceImg) {
           _this.playAudio("right_music");
         }
@@ -391,7 +392,6 @@ export default {
     }
     .pst {
       position: absolute;
-      border: 1px solid blue;
     }
     .picture {
       display: block;
