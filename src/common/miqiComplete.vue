@@ -30,11 +30,14 @@ export default {
   background-image: url("../../static/images/numberWithinThree/background6.png");
   background-size: 100% 100%;
   .oprate-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     .complete-btn {
       display: inline-block;
       width: 80px;
       height: 40px;
-      margin-top: 48%;
       background: #fdf731;
       border-radius: 5px;
       line-height: 40px;
@@ -46,7 +49,6 @@ export default {
       background: #47b1f0;
       border-radius: 5px;
       line-height: 40px;
-      margin-left: 70px;
     }
   }
 }
