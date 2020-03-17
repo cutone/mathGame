@@ -111,7 +111,6 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
-    let currentReference = document.getElementById("currentReference");
     let stemMusicList = document.getElementsByClassName("stem-music");
     for(let i = 0, len = stemMusicList.length; i < len; i++){
       eval("let "+ stemMusicList[i].id + "=document.getElementById('"+stemMusicList.id+"');");
@@ -135,6 +134,7 @@ export default {
         //切换到下一题
         _this.currentItem = _this.gameList[_this.currentIndex];
         //重置被拖动元素的定位
+        let currentReference = document.getElementById("currentReference");
         currentReference.style.right = 'auto'
         currentReference.style.top = 'auto'
         currentReference.style.left = '13%';
@@ -324,7 +324,7 @@ export default {
       left: 50%;
       z-index: 2;
       &.correct-1 {
-        bottom: 28%;
+        bottom: 30%;
         width: 21%;
         left: 58%;
       }
@@ -339,7 +339,7 @@ export default {
         left: 57%;
       }
       &.correct-4 {
-        bottom: 25%;
+        bottom: 35%;
       }
       &.correct-5 {
         bottom: 28%;

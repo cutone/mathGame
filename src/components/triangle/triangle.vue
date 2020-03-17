@@ -2,7 +2,7 @@
     <div class="triangle-container" >
         <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="right_music" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="finish_five" src="static/audio/common/bottom_finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
+        <audio id="finish_five" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="select_triangle" src="static/audio/triangle/select_triangle.wav">您的浏览器不支持 audio 标签。</audio>
         <audio id="select_rect" src="static/audio/triangle/select_rect.wav">您的浏览器不支持 audio 标签。</audio>
@@ -201,7 +201,6 @@ export default {
                 _this.playAudio(_this.gameList[_this.currentIndex].audioType)
                 _this.currentItem = _this.gameList[_this.currentIndex];
                 _this.musicActive = true;
-                _this.canChoose = true;
             }
         })
         please_think.addEventListener("ended", function(){

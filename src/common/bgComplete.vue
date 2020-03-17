@@ -1,6 +1,5 @@
 <template>
    <div class="finish-wrapper" :style="{'background-image': 'url('+background+')'}">
-      <!-- <img class="finish-img" :src="img" alt /> -->
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
         <span class="restart-btn" @click="initiate()">重做</span>
@@ -46,6 +45,8 @@ export default {
       margin: 0 auto;
     }
     .oprate-wrapper {
+      display: flex;
+      align-items: center;
       .complete-btn {
         display: inline-block;
         width: 80px;

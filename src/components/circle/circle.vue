@@ -2,17 +2,17 @@
     <div class="circle-container" >
         <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="right_music" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
-        <audio id="finish_five" src="static/audio/common/bottom_finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
+        <audio id="finish_five" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="stem_music" src="static/audio/circle/stem_music.wav">您的浏览器不支持 audio 标签。</audio>
-
-        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/bottom_music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/bottom_music_active.gif">
-        <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
-        <div>
-            
-        </div> 
-        <div class="game-list" v-if="!isFinish">
+        <audio id="first_page" src="static/audio/circle/first_page.wav">您的浏览器不支持 audio 标签。</audio>
+        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish && !isFirstPage" src="static/images/common/bottom_music.png"> 
+        <img class="music-img" v-if="musicActive && !isFinish && !isFirstPage" src="static/images/common/bottom_music_active.gif">
+        <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish && !isFirstPage"></common-header>
+        <div class="first-page" v-if="isFirstPage && !isFinish">
+            <img class="shake-opacity" src="static/images/circle/tip.png" alt="">
+        </div>
+        <div class="game-list" v-if="!isFinish && !isFirstPage">
             <div class="game-item">
                 <div class="game-title">
                     <img class="game-title-img" src="static/images/circle/title.png" alt="">
@@ -33,13 +33,12 @@
                 </div>
             </div>
         </div>
-        <bottom-class-complete 
-            v-if="isFinish" 
-            @goBack="goBack" 
-            @initiate="initiate"
-            :leftImg="leftImg" 
-            :rightImg="rightImg">
-        </bottom-class-complete>
+        <div class="finish-wrapper" v-if="isFinish">
+            <div class="oprate-wrapper">
+                <span class="complete-btn" @click="goBack()">完成</span>
+                <span class="restart-btn" @click="initiate()">重做</span>
+            </div> 
+        </div>
     </div>
 </template>
 
@@ -50,8 +49,7 @@ export default {
   name: 'circle',
   data(){
     return {
-        leftImg: 'static/images/beforeAndAfter/minnie-2.png',
-        rightImg: 'static/images/beforeAndAfter/minnie-1.png',
+        isFirstPage: true,
         currentIndex: 0,
         currentItem: {},
         isFinish: true,
@@ -113,12 +111,17 @@ export default {
         let finish_five = document.getElementById('finish_five');
         let please_think = document.getElementById('please_think');
         let stem_music = document.getElementById('stem_music');
+        let first_page = document.getElementById('first_page');
         bg_music.addEventListener("canplaythrough",function(){
             bg_music.play();
         });
-        stem_music.addEventListener("canplaythrough",function(){
-            stem_music.play();
+        first_page.addEventListener("canplaythrough",function(){
+            first_page.play();
         });
+        first_page.addEventListener("ended", function(){
+            _this.isFirstPage = false;
+            _this.playAudio('stem_music');
+        })
         stem_music.addEventListener("ended", function(){
             _this.musicActive = false;
             _this.canChoose = true;
@@ -181,27 +184,28 @@ export default {
         let _this = this;
         _this.musicActive = true;
         _this.canChoose = false;
-        _this.playAudio(_this.gameList[_this.currentIndex].audioType)
+        _this.playAudio('stem_music')
     },
     
     //重做
     initiate(){
         let _this = this;
         _this.isFinish = false;
+        _this.isFirstPage = true;
         _this.currentIndex = 0;
         for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isRight = false;
             _this.gameList[i].isWrong = false;
         }
         _this.currentItem = _this.gameList[_this.currentIndex];
-        _this.playAudio(_this.gameList[_this.currentIndex].audioType)
+        _this.playAudio('first_page')
         _this.musicActive = true;
     }
   }
 }
 </script>
 
-<style scoped lang='less'>
+<style scoped lang='less' scoped>
 @headerHeight: 30px;
 @bodyHeight: calc(~"100% - 30px");
 .circle-container{
@@ -213,12 +217,23 @@ export default {
         left: 50px; 
         width: 100px;
     }
+    .first-page{
+        background-image: url("../../../static/images/circle/firstPage.png");
+        background-size: 100% 100%;
+        height: 100%;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+        padding-top: 7%;
+        .shake-opacity{
+            width: 30%;
+        }
+    }
     .game-list{
         height: @bodyHeight;
         background-image: url('../../../static/images/circle/background.png');
         background-size: 100% 100%;
         padding-top: 20px;
-        box-sizing: border;
+        box-sizing: border-box;
         .game-item{
             height: 100%;
         }
@@ -264,6 +279,36 @@ export default {
                     min-height: 23vh;
                     max-height: 23vh;
                 }
+            }
+        }
+    }
+    .finish-wrapper{
+        height: 100%;
+        background-image: url('../../../static/images/circle/finish.png');
+        background-size: 100% 100%;
+        padding-top: 20%;
+        padding-left: 10%;
+        box-sizing: border-box;
+        .oprate-wrapper {
+            display: flex;
+            width: 50%;
+            justify-content: space-around;
+            transform: rotate(-5deg);
+            .complete-btn {
+                display: block;
+                width: 80px;
+                height: 40px;
+                background: #fdf731;
+                border-radius: 5px;
+                line-height: 40px;
+            }
+            .restart-btn {
+                display: block;
+                width: 80px;
+                height: 40px;
+                background: #47b1f0;
+                border-radius: 5px;
+                line-height: 40px;
             }
         }
     }

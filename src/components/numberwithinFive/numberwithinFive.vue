@@ -6,7 +6,7 @@
     <audio id="right_music" src="static/audio/common/bottom_right.mp3">
       您的浏览器不支持 audio 标签。
     </audio>
-    <audio id="complete" src="static/audio/sequenceFive/bottom_complete.mp3">
+    <audio id="complete" src="static/audio/common/bottom_complete.mp3">
       您的浏览器不支持 audio 标签。
     </audio>
     <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">

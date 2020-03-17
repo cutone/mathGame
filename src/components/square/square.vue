@@ -262,7 +262,7 @@ export default {
     //第一次初始化
     initiate(){
         let _this = this;
-        _this.isFinish = false;
+        _this.isFinish = true;
         _this.isFirstPage = true;
         _this.currentIndex = 0;
         for(let i = 0, len = _this.gameList.length; i < len; i++){

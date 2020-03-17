@@ -12,7 +12,7 @@
     <audio class="stem" id="two" src="static/audio/numberWithinThree/two.wav">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem" id="three" src="static/audio/numberWithinThree/three.wav">您的浏览器不支持 audio 标签。</audio>
     <div class="first" v-if="isFirstPage">
-      <img src="/static/images/numberWithinThree/tips2.png" class="shake-opacity" />
+      <img src="static/images/numberWithinThree/tips2.png" class="shake-opacity" />
     </div>
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish&&!isFirstPage"></common-header>
     <div v-if="!isFinish&&!isFirstPage" class="body" :style="currentItem.backImg">

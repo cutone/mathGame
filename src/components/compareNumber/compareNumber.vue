@@ -6,8 +6,8 @@
         <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
         <audio id="stem_music" src="static/audio/compareNumber/stem_music.wav">您的浏览器不支持 audio 标签。</audio>
 
-        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/top_music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/top_music_active.gif">
+        <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/bottom_music.png"> 
+        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/bottom_music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
         <div class="game-list" v-if="!isFinish">
             <div class="game-title">
@@ -129,7 +129,6 @@ export default {
             }else{
                 //修改题目下标，播放题目
                 _this.currentItem = _this.gameList[_this.currentIndex];
-                _this.musicActive = true;
                 _this.canChoose = true;
             }
         })
@@ -221,7 +220,7 @@ export default {
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             .game-title-img{
                 display: block;

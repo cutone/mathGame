@@ -1,9 +1,9 @@
 <template>
   <div class="one-and-many-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/sequenceFive/complete.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="please_think" src="static/audio/common/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio
       id="select_one"
       class="stem-music"
@@ -31,7 +31,7 @@
         :src="currentItem.one"
         alt
         class="one-img choose-img"
-        :class="'one-img-' + [currentIndex+1]"
+        :class="'one-img-' + [currentItem.id]"
         @click="choose('one')"
       />
 
@@ -42,7 +42,7 @@
         v-if="currentItem.other"
       />
 
-      <div class="many-wrap" :class="'many-wrap-' + [currentIndex+1]">
+      <div class="many-wrap" :class="'many-wrap-' + [currentItem.id]">
         <img
           v-for="(animal, index) in currentItem.manyList"
           :key="index"
@@ -84,6 +84,7 @@ export default {
       isFinish: false,
       gameList: [
         {
+          id: 1,
           isRight: false,
           many: "static/images/oneAndMany/flower.png",
           one: "static/images/oneAndMany/bird1.png",
@@ -93,6 +94,7 @@ export default {
           manyList: ["many-1", "many-2", "many-3", "many-4", "many-5", "many-6"]
         },
         {
+          id: 2,
           isRight: false,
           many: "static/images/oneAndMany/pomegranate.png",
           one: "static/images/oneAndMany/bird2.png",
@@ -102,6 +104,7 @@ export default {
           manyList: ["many-1", "many-2", "many-3", "many-4", "many-5"]
         },
         {
+          id: 3,
           isRight: false,
           many: "static/images/oneAndMany/bee1.png",
           one: "static/images/oneAndMany/sunflower.png",
@@ -111,6 +114,7 @@ export default {
           manyList: ["many-1", "many-2", "many-3", "many-4", "many-5"]
         },
         {
+          id: 4,
           isRight: false,
           many: "static/images/oneAndMany/wood.png",
           one: "static/images/oneAndMany/rabbit.png",
@@ -120,6 +124,7 @@ export default {
           manyList: ["many-1", "many-2", "many-3", "many-4", "many-5"]
         },
         {
+          id: 5,
           isRight: false,
           many: "static/images/oneAndMany/chick1.png",
           one: "static/images/oneAndMany/mashroom.png",
@@ -141,7 +146,7 @@ export default {
     this.$nextTick(() => {
       let bg_music = document.getElementById("bg_music");
       let right_music = document.getElementById("right_music");
-      let finish_five = document.getElementById("finish_five");
+      let complete = document.getElementById("complete");
       let please_think = document.getElementById("please_think");
       let select_one = document.getElementById("select_one");
       let select_many = document.getElementById("select_many");
@@ -161,7 +166,6 @@ export default {
       });
       //正确提示mp3播放后
       right_music.addEventListener("ended", function() {
-        _this.currentIndex++;
         if (_this.currentIndex == _this.gameList.length) {
           _this.isFinish = true;
           _this.playAudio("complete");
@@ -174,7 +178,6 @@ export default {
           }
           _this.playAudio(_this.gameList[_this.currentIndex].audioType);
           _this.musicActive = true;
-          _this.canChoose = true;
         }
       });
       please_think.addEventListener("ended", function() {
@@ -210,13 +213,9 @@ export default {
         imgList[i].style.border = "none";
       }
       event.target.style.border = "1px dotted red";
-      console.log(event.target);
-
       if (choiceItem == _this.currentItem.rightChoice) {
-        console.log("对了");
         _this.currentItem.isRight = true;
       } else {
-        console.log("错了");
         _this.currentItem.isRight = false;
       }
     },
@@ -224,6 +223,7 @@ export default {
       let _this = this;
       _this.canChoose = false;
       if (_this.currentItem.isRight) {
+        _this.currentIndex++;
         _this.playAudio("right_music");
       } else {
         _this.playAudio("please_think");
@@ -304,7 +304,7 @@ export default {
       left: 20%;
     }
     &.one-img-5 {
-      width: 40%;
+      width: 35%;
       bottom: 29%;
       left: 28%;
     }

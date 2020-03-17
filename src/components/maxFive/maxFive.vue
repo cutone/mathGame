@@ -9,8 +9,8 @@
       <img v-if="step == 1" class="bee" src="static/images/maxFive/bee.png" alt="">
       <img v-if="step == 1" class="snail" src="static/images/maxFive/snail.png" alt="">
       <div class="tree" v-for="(tree,index) in treeList" :key="index" :style="{top: tree.style.top, left: tree.style.left}">
-        <img class="fruit" 
-          :id="tree.type + fruit.type + index" 
+        <img class="fruit"
+          :id="tree.type + fruit.type + index"
           @touchmove="touchMove(tree.type + fruit.type + index)" 
           @touchstart="down(tree.type + fruit.type + index)"
           v-for="(fruit,index) in tree.fruitList" 

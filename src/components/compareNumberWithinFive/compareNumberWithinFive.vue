@@ -339,7 +339,10 @@ export default {
 							_this.currentItem.basketList[i].currentList.length <
 							_this.currentItem.basketList[i].need
 						) {
-							_this.currentItem.basketList[i].currentList.push(moveDiv);
+              //判断是否已经是对的，如果是不用处理，如果不是就push
+              if(_this.currentItem.basketList[i].currentList.indexOf(moveDiv) == -1){
+                _this.currentItem.basketList[i].currentList.push(moveDiv);
+              }
 						} else {
 							moveDiv.style.left = "0px";
 							moveDiv.style.top = "0px";
