@@ -116,14 +116,16 @@ export default {
       _this.currentIndex + 2
     );
   },
+  activated(){
+    let middle_class_BGM = document.getElementById("middle_class_BGM");
+    middle_class_BGM.play();
+  },
   mounted() {
     let _this = this;
-    _this.$nextTick(() => {
       let middle_class_BGM = document.getElementById("middle_class_BGM");
       middle_class_BGM.addEventListener("canplaythrough", function() {
         middle_class_BGM.play();
       });
-    });
   },
   methods: {
     toGamePage(path) {

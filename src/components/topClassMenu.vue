@@ -158,6 +158,10 @@ export default {
     let _this = this;
     _this.showList = _this.menuList.slice(_this.currentIndex-1,_this.currentIndex+2)
   },
+  activated(){
+    let middle_class_BGM = document.getElementById("middle_class_BGM");
+    middle_class_BGM.play();
+  },
   mounted(){
     let _this = this;
     _this.$nextTick(()=>{
