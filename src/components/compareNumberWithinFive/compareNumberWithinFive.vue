@@ -2,7 +2,7 @@
   <div class="compare-number-within-five-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio
       id="stem_music_1"
@@ -62,9 +62,9 @@
         <div class="bottom-container">
           <div class="basket-wrapper">
             <div v-for="(item, index) in currentItem.basketList"
-                @touchmove="touchMove('extra_flower')"
-                @touchstart="down('extra_flower')"
-                @touchend="check()"
+                @touchmove="touchMove('extra_flower',index)"
+                @touchstart="down('extra_flower',index)"
+                @touchend="check('extra_flower',index)"
                 :key="index" class="basket-item-wrapper">
               <img
                 class="basket-item"
@@ -74,7 +74,7 @@
               />
               <img 
                 id="extra_flower"
-                v-if="(currentIndex>2)&&index==1" 
+                v-if="currentItem.hasExtra&&index==currentItem.extraInBasket"
                 src="static/images/compareNumberWithinFive/flower.png" alt="">
             </div>
           </div>
@@ -131,6 +131,8 @@ export default {
           flowerNumber: 5
         },
         {
+          hasExtra: true,
+          extraInBasket: 1,
           type: "basketToBox",
           basketList: [
             { img: "basket2_complete", currentList: [], need: 1 },
@@ -141,6 +143,8 @@ export default {
           flowerNumber: 0
         },
         {
+          hasExtra: true,
+          extraInBasket: 0,
           type: "basketToBox",
           basketList: [
             { img: "basket3_complete", currentList: [], need: 1 },
@@ -202,7 +206,6 @@ export default {
           extraFlower.style.left = '43%'
         }
         _this.musicActive = true;
-        _this.canDrag = true;
       }
     });
     please_think.addEventListener("ended", function() {
@@ -212,7 +215,13 @@ export default {
   },
   methods: {
     //鼠标按下触发
-    down(el) {
+    down(el,index) {
+      let _this = this;
+      if(el == 'extra_flower'){
+        if(index !== _this.currentItem.extraInBasket){
+          return
+        }
+      }
       let moveDiv = document.getElementById(el);
       this.flags = true;
       var touch;
@@ -227,8 +236,16 @@ export default {
       this.dy = moveDiv.offsetTop;
     },
     //拖动事件
-    touchMove(el) {
+    touchMove(el,index) {
       const _this = this;
+      
+      if(el == 'extra_flower'){
+        console.log('拖动')
+        console.log(index+'',_this.currentItem.extraInBasket+'')
+        if(index != _this.currentItem.extraInBasket){
+          return
+        }
+      }
       let moveDiv = document.getElementById(el);
       console.log(_this.canDrag);
       if (!_this.canDrag) {
@@ -281,7 +298,7 @@ export default {
     broadcast() {
       let _this = this;
       _this.musicActive = true;
-      _this.canDrag = true;
+      _this.canDrag = false;
       _this.playAudio("stem_music_" + (_this.currentIndex + 1));
     },
     //返回上一级
@@ -304,7 +321,7 @@ export default {
       }
       _this.playAudio("stem_music_" + (_this.currentIndex + 1));
     },
-    check() {
+    check(el,index) {
       let _this = this;
       if (!_this.canDrag) {
         return;
@@ -335,20 +352,21 @@ export default {
 						mouseY > basketDivTop &&
 						mouseY < basketDivBottom
 					) {
-						if (
-							_this.currentItem.basketList[i].currentList.length <
-							_this.currentItem.basketList[i].need
-						) {
-              //判断是否已经是对的，如果是不用处理，如果不是就push
-              if(_this.currentItem.basketList[i].currentList.indexOf(moveDiv) == -1){
-                _this.currentItem.basketList[i].currentList.push(moveDiv);
+            console.log(_this.currentItem.basketList[i].currentList)
+            if(_this.currentItem.basketList[i].currentList.indexOf(moveDiv) == -1){
+              if (
+                _this.currentItem.basketList[i].currentList.length <
+                _this.currentItem.basketList[i].need
+              ) {
+                //判断是否已经是对的，如果是不用处理，如果不是就push
+                  _this.currentItem.basketList[i].currentList.push(moveDiv);
+              } else {
+                moveDiv.style.left = "0px";
+                moveDiv.style.top = "0px";
+                _this.canDrag = false;
+                _this.playAudio("please_think");
               }
-						} else {
-							moveDiv.style.left = "0px";
-							moveDiv.style.top = "0px";
-							_this.canDrag = false;
-							_this.playAudio("please_think");
-						}
+            }
 					} else {
 						let index = _this.currentItem.basketList[i].currentList.indexOf(
 							moveDiv
@@ -369,6 +387,11 @@ export default {
 				_this.playAudio("right_music");
 				_this.canDrag = false;
 			}else{
+        if(el == 'extra_flower'){
+          if(index !== _this.currentItem.extraInBasket){
+            return
+          }
+        }
         let boxDiv = document.getElementById('box')
         let boxDivLeft = boxDiv.offsetLeft;
         let boxDivRight = boxDivLeft + boxDiv.offsetWidth;
@@ -381,6 +404,7 @@ export default {
 						mouseY < boxDivBottom
 					) {
             _this.currentIndex++;
+            _this.canDrag = false;
             _this.playAudio("right_music");
           }
 			}

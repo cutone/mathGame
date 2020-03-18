@@ -263,7 +263,7 @@ export default {
         _this.isFinish = true;
         _this.playAudio("complete");
       } else {
-        _this.canDrag = true;
+        _this.musicActive = true;
         _this.currentItem = _this.gameList[_this.currentIndex];
         _this.playAudio(_this.currentItem.audio)
       }
@@ -388,6 +388,7 @@ export default {
           }
       }
       _this.currentIndex++;
+      _this.canDrag = false
       _this.playAudio('right_music')
     },
     //播放mp3
@@ -401,7 +402,7 @@ export default {
       let _this = this;
       _this.musicActive = true;
       _this.canDrag = false;
-      _this.playAudio("regular");
+      _this.playAudio(_this.currentItem.audio)
     },
     //返回上一级
     goBack() {

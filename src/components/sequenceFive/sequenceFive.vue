@@ -2,7 +2,7 @@
   <div class="sequence-five-container">
     <audio id="bg_music" loop="loop" src="static/audio/trapezoid/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/trapezoid/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="finish_five" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="finish_five" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/trapezoid/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="dog_music" class="stem-music" src="static/audio/sequenceFive/dog.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="elephant_music" class="stem-music" src="static/audio/sequenceFive/elephant.mp3">您的浏览器不支持 audio 标签。</audio>

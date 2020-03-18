@@ -3,7 +3,7 @@
     <audio id="bg_music" loop="loop" src="static/audio/splitAndCombination/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/splitAndCombination/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/splitAndCombination/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="bottom_right" src="static/audio/common/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="selt_keystone" class="stem-music" src="static/audio/splitAndCombination/selt_keystone.mp3">您的浏览器不支持 audio
       标签。</audio>
     <audio id="selt_rectangular" class="stem-music" src="static/audio/splitAndCombination/selt_rectangular.mp3">您的浏览器不支持
@@ -480,7 +480,7 @@ export default {
       let bg_music = document.getElementById('bg_music');
       let right_music = document.getElementById('right_music');
       let please_think = document.getElementById('please_think');
-      let bottom_right = document.getElementById('bottom_right');
+      let complete = document.getElementById('complete');
       let stemMusicList = document.getElementsByClassName("stem-music");
       for (let i = 0, len = stemMusicList.length; i < len; i++) {
         eval("let " + stemMusicList[i].id + "=document.getElementById('" + stemMusicList.id + "');");
@@ -500,7 +500,7 @@ export default {
         _this.currentIndex++;
         if (_this.currentIndex == _this.gameList.length) {
           //播放答对五道题的mp3
-          _this.playAudio('bottom_right');
+          _this.playAudio('complete');
           _this.isFinish = true;
         } else {
           //修改题目下标，播放题目

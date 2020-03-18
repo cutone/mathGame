@@ -2,7 +2,7 @@
   <div class="ring-counting-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music" src="static/audio/ringCounting/stem_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <img

@@ -1,9 +1,9 @@
 <template>
   <div class="compare-size-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/compareSize/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="please_think" src="static/audio/compareSize/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/compareSize/bottom_right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/bottom_complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="please_think" src="static/audio/compareSize/bottom_please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem_music" id="stem_music_1" src="static/audio/compareSize/stem_music_1.wav">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem_music" id="stem_music_2" src="static/audio/compareSize/stem_music_2.wav">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem_music" id="stem_music_3" src="static/audio/compareSize/stem_music_3.wav">您的浏览器不支持 audio 标签。</audio>

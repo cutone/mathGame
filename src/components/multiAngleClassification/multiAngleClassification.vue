@@ -100,7 +100,7 @@ export default {
     right_music.addEventListener("ended", function() {
       if(_this.currentIndex == _this.gameList.length){
         _this.isFinish = true;
-        _this.playAudio('complete')
+        // _this.playAudio('complete')
       }else{
           for(let i = 0; i < imgList.length; i++){
               imgList[i].style.display = 'block';

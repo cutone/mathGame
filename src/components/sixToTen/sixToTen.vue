@@ -2,7 +2,7 @@
   <div class="sixToTen-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music_1" class="stem-music" src="static/audio/sixToTen/stem_music_1.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music_2" class="stem-music" src="static/audio/sixToTen/stem_music_2.mp3">您的浏览器不支持 audio 标签。</audio>
@@ -44,6 +44,7 @@
 <script>
 import commonHeader from "@/common/commonHeader";
 import complete from "@/common/complete";
+import {getElementToPageLeft,getElementToPageTop} from '@/common/js/common'
 export default {
   name: 'HelloWorld',
   data () {
@@ -132,7 +133,7 @@ export default {
       let _this = this;
       _this.musicActive = true;
       _this.canDrag = false;
-      _this.playAudio('stem_music');
+      _this.playAudio('stem_music_'+(_this.currentIndex+1));
     },
     //返回上一级
     goBack() {
@@ -147,8 +148,7 @@ export default {
       _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
-        _this.gameList[i].isRight = false;
-        _this.gameList[i].isWrong = false;
+        _this.gameList[i].current = 0;
       }
       _this.playAudio('stem_music_'+(_this.currentIndex+1));
     },
@@ -167,14 +167,18 @@ export default {
       let mouseY = event.changedTouches[0].pageY
       //获取三个div的元素
       let catDiv = document.getElementById('cat');
-      let catDivLeft = catDiv.x;
+      let catDivLeft = getElementToPageLeft(catDiv);
       let catDivRight = catDivLeft + catDiv.clientWidth;
-      let catDivTop = catDiv.y;
+      let catDivTop = getElementToPageTop(catDiv) - 30;
       let catDivBottom = catDivTop + catDiv.clientHeight;
       _this.draging = false;
       _this.canDrag = false;
-      console.log(mouseX,mouseY)
-      console.log(catDivLeft,catDivRight,catDivTop,catDivBottom)
+      console.log(mouseX+'')
+      console.log(mouseY+'')
+      console.log(catDivLeft+'')
+      console.log(catDivRight+'')
+      console.log(catDivTop+'')
+      console.log(catDivBottom+'')
         if(mouseX > catDivLeft && mouseX < catDivRight && mouseY > catDivTop && mouseY < catDivBottom){
             _this.currentItem.current++
             if(_this.currentItem.current == _this.currentItem.need){
@@ -243,7 +247,7 @@ export default {
     background-size: 100% 100%;
     .fish{
         position: absolute;
-        width: 20px;
+        width: 30px;
         z-index:999;
     }
     .body{
