@@ -2,6 +2,7 @@
   <div class="compare-six-to-ten-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="finish_five" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="question1" src="static/audio/compareSixToTen/question1.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="question2" src="static/audio/compareSixToTen/question2.mp3">您的浏览器不支持 audio 标签。</audio>
@@ -53,6 +54,7 @@
 <script>
 import commonHeader from "@/common/commonHeader";
 import commonComplete from "@/common/commonComplete";
+import {getElementToPageLeft} from '@/common/js/common'
 export default {
   name: 'compareSixToTen',
   data () {
@@ -105,7 +107,6 @@ export default {
           leftGCss: {
             top: "2%",
             left: "25%",
-            height: "42%",
           },
           rightCss: {
             width: "120%",
@@ -115,7 +116,6 @@ export default {
           rightGCss: {
             top: "4%",
             left: "55%",
-            height: "48%"
           },
           isWrong: false,
           rightChoice: 'left',
@@ -138,7 +138,6 @@ export default {
           leftGCss: {
             top: "28%",
             left: "118%",
-            height: "42%",
           },
           rightCss: {
             width: "140%",
@@ -148,7 +147,6 @@ export default {
           rightGCss: {
             top: "15%",
             left: "78%",
-            height: "45%"
           },
           isWrong: false,
           rightChoice: 'left',
@@ -171,7 +169,6 @@ export default {
           leftGCss: {
             top: "25%",
             left: "105%",
-            height: "40%",
           },
           rightCss: {
             width: "130%",
@@ -181,7 +178,6 @@ export default {
           rightGCss: {
             top: "20%",
             left: "70%",
-            height: "40%"
           },
           isWrong: false,
           rightChoice: 'left',
@@ -204,7 +200,6 @@ export default {
           leftGCss: {
             top: "10%",
             left: "125%",
-            height: "40%",
           },
           rightCss: {
             width: "130%",
@@ -214,7 +209,6 @@ export default {
           rightGCss: {
             top: "28%",
             left: "65%",
-            height: "40%"
           },
           isWrong: false,
           rightChoice: 'left',
@@ -249,6 +243,7 @@ export default {
       stemMusicList[i].addEventListener("ended", function () {
         if (_this.currentIndex == _this.gameList.length) {
           _this.isFinish = true;
+          _this.playAudio('finish_five')
         } else {
           _this.currentItem = _this.gameList[_this.currentIndex];
           _this.currentItem.isWrong = false;
@@ -335,29 +330,33 @@ export default {
       let mouseY = event.changedTouches[0].pageY
       // 获取当前糖葫芦的位置
       let thlDiv = document.getElementById('thl');
-      let thlDivLeft = thlDiv.x;
-      let thlDivRight = thlDiv.x + thlDiv.clientHeight;
+      let thlDivLeft = thlDiv.offsetLeft;
+      let thlDivRight = thlDivLeft + thlDiv.clientHeight;
       // 糖葫芦棍的位置
       let thlGDiv = document.getElementsByClassName('thlGImg');
       for (let i = 0; i < thlGDiv.length; i++) {
-        let thlGDivLeft = thlGDiv[i].x;
+        let thlGDivLeft = getElementToPageLeft(thlGDiv[i]);
         let thlGDivRight = thlGDivLeft + thlGDiv[i].clientWidth;
-        let thlGDivTop = thlGDiv[i].y;
+        let thlGDivTop = thlGDiv[i].offsetTop + 30;
         let thlGDivBottom = thlGDivTop + thlGDiv[i].clientHeight;
         _this.draging = false;
         _this.canDrag = false;
+        console.log(thlDivLeft+'')
+        console.log(thlGDivLeft+'')
         if (thlDivLeft < thlGDivLeft && thlDivRight > thlGDivRight && mouseY > thlGDivTop && mouseY < thlGDivBottom) {
           // 判断移动到哪一个糖葫芦棍
           if (thlGDiv[i].id == 'left') {
             _this.currentItem.leftCurrent++;
             if (_this.currentItem.leftCurrent > _this.currentItem.leftNeed) {
               _this.currentItem.leftCurrent--;
+              _this.canDrag = false;
               _this.playAudio('please_think');
             }
           } else {
             _this.currentItem.rightCurrent++;
             if (_this.currentItem.rightCurrent > _this.currentItem.rightNeed) {
               _this.currentItem.rightCurrent--;
+              _this.canDrag = false;
               _this.playAudio('please_think');
             }
           }
@@ -389,7 +388,6 @@ export default {
       this.position.y = touch.clientY;
       this.dx = moveDiv.offsetLeft;
       this.dy = moveDiv.offsetTop;
-      console.log()
     },
     //拖动事件
     touchMove (el) {
@@ -430,7 +428,7 @@ export default {
   background-size: 100% 100%;
   .thlImg {
     position: absolute;
-    width: 15px;
+    width: 30px;
     z-index: 999;
   }
   .body {
@@ -456,12 +454,12 @@ export default {
       .stickImg {
         position: absolute;
         width: 3%;
-        height: 40%;
+        height: 50%;
       }
       .thlGImg {
         position: absolute;
         width: 3%;
-        height: 40%;
+        height: 50%;
       }
       .rThlImg {
         width: 400%;

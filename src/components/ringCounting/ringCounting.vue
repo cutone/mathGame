@@ -25,7 +25,7 @@
         </div>
         <div class="flex-wrapper">
           <div class="answer-item-wrapper" @click="check(answer)"  v-for="(answer, index) in currentItem.answerList" :key="index">
-            <img class="answer-item" :src="'static/images/common/'+ answer + '.png'" alt="">
+            <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="answer-item" :src="'static/images/common/'+ answer + '.png'" alt="">
             <img v-if="currentItem.isRight && currentItem.answer == answer" class="right-img" src="static/images/common/right.png" alt=""> 
           </div>
         </div>
@@ -51,26 +51,31 @@ export default {
       isFinish: false,
       gameList: [{
         isRight: false,
+        isWrong: false,
         img: 'static/images/ringCounting/flower_green.png',
         answer: 3,
         answerList: [2,3,4]
       },{
         isRight: false,
+        isWrong: false,
         img: 'static/images/ringCounting/flower_pink.png',
         answer: 7,
         answerList: [7,8,9]
       },{
         isRight: false,
+        isWrong: false,
         img: 'static/images/ringCounting/flower_blue.png',
         answer: 5,
         answerList: [5,6,7]
       },{
         isRight: false,
+        isWrong: false,
         img: 'static/images/ringCounting/flower_red.png',
         answer: 11,
         answerList: [9,10,11]
       },{
         isRight: false,
+        isWrong: false,
         img: 'static/images/ringCounting/flower_yellow.png',
         answer: 6,
         answerList: [5,6,7]
@@ -109,6 +114,7 @@ export default {
     })
     please_think.addEventListener("ended", function() {
       _this.canChoose = true
+      _this.currentItem.isWrong = false;
     })
     _this.initiate();
   },
@@ -124,6 +130,7 @@ export default {
         _this.currentIndex++;
         _this.playAudio('right_music')
       }else{
+        _this.currentItem.isWrong = true;
         _this.playAudio('please_think')
       }
     },

@@ -70,7 +70,7 @@ export default {
             },
             {
                 title: '请选9的组合',
-                leftImg: 'static/images/nineAndTen/perple_nine.jpg',
+                leftImg: 'static/images/nineAndTen/people_nine.jpg',
                 rightImg: 'static/images/nineAndTen/people_seven.jpg',
                 rightChoice: 'left',
                 isRight: false,

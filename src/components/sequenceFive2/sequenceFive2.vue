@@ -5,7 +5,7 @@
     <audio id="complete" src="static/audio/common/finish_five.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music" class="stem-music" src="static/audio/sequenceFive2/stem_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <img
+    <!-- <img
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
@@ -15,7 +15,7 @@
       class="music-img"
       v-if="musicActive && !isFinish"
       src="static/images/common/music_active.gif"
-    />
+    /> -->
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
         <div class="animal-img-wrapper">
@@ -162,14 +162,10 @@ export default {
         _this.isFinish = true;
         _this.playAudio('complete')
       }else{
-          console.log('下一题')
-          console.log(animalImg)
-          
-          console.log(animalImg)
-           _this.currentItem = _this.gameList[_this.currentIndex];
-              animalImg.style.left = '0px';
-            animalImg.style.top = '0px';
-            console.log(_this.$refs)
+        _this.canDrag = true;
+        _this.currentItem = _this.gameList[_this.currentIndex];
+          animalImg.style.left = '0px';
+        animalImg.style.top = '0px';
         _this.$forceUpdate()
       }
     });
@@ -410,6 +406,7 @@ export default {
         padding: 0 10%;
         .number-img{
             width: 25%;
+            height: 15vh;
         }
         .number-2{
             margin-left: 15%;

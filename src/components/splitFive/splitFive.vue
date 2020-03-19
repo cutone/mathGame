@@ -164,7 +164,6 @@ export default {
           cakeEleList[i].style.left = '0px';
           cakeEleList[i].style.top = '0px';
         }
-        _this.musicActive = true
         _this.canDrag = true;
       }
     });

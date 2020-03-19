@@ -39,7 +39,7 @@
   /* 动画等待时间		 */
   animation-delay: 0s;
   /* 动画执行次数，infinite为一直执行	*/
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
   /* 动画执行速度 */
   animation-timing-function: ease-in-out;
   /* 动画延时时间 */

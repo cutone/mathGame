@@ -112,7 +112,6 @@ export default {
         _this.playAudio('complete')
       }else{
         _this.currentItem = _this.gameList[_this.currentIndex];
-        _this.musicActive = true;
         for(let i = 0; i < shapeList.length; i++){
             shapeList[i].style.display = 'inline-block';
             shapeList[i].style.left = '0px';
@@ -174,7 +173,6 @@ export default {
       }
       let mouseX = event.changedTouches[0].pageX;
       let mouseY = event.changedTouches[0].pageY;
-      console.log(mouseX,mouseY)
       let moveDiv = event.target;
       let LightList = document.getElementsByClassName("target-ele");
       for (let i = 0; i < LightList.length; i++) {
@@ -183,15 +181,12 @@ export default {
             // let imgTop = getElementToPageTop(LightList[i]);
             let imgTop = LightList[i].offsetTop;
             let imgBottom = imgTop + LightList[i].clientHeight;
-            console.log(imgLeft, imgRight, imgTop, imgBottom);
             if (
               mouseX > imgLeft &&
               mouseX < imgRight &&
               mouseY > imgTop &&
               mouseY < imgBottom
             ) {
-                console.log(_this.currentItem.type+'_'+_this.colorList[i].color)
-                console.log()
               if (_this.currentItem.type+'_'+_this.colorList[i].color == moveDiv.id) {
                 console.log("对了");
                 moveDiv.style.display = 'none';

@@ -16,7 +16,7 @@
     <audio class="number-audio" id="number8" src="static/audio/sequenceTen/8.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio class="number-audio" id="number9" src="static/audio/sequenceTen/9.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio class="number-audio" id="number10" src="static/audio/sequenceTen/10.mp3">您的浏览器不支持 audio 标签。</audio>
-    <img
+    <!-- <img
       id="music-img"
       class="music-img"
       @click="broadcast()"
@@ -32,7 +32,7 @@
       @touchstart="down('music-active-img')"
       v-if="musicActive && !isFinish"
       src="static/images/trapezoid/music_active.gif"
-    />
+    /> -->
     <common-header :game-list="gameList" v-if="!isFinish"></common-header>
     <div class="body" v-if="!isFinish">
       <div class="box-wrapper" id="boxWrapper">
@@ -58,7 +58,6 @@
             :src="item.path" alt=""
             >
         </div>
-          <!-- :style="{left: (10 + cardWidth) * index + 'px'}"  -->
       </div>
       <div class="cry-wrapper">
         <img v-show="musicActive" src="static/images/sequenceTen/cry.gif" alt="">
@@ -123,7 +122,18 @@ export default {
           _this.canDrag = true;
           return;
         }
-        _this.playAudio('right_music')
+        _this.canDrag = true;
+          let count = 0;
+          for(let i = 0, len = _this.oriCardList.length; i < len; i++){
+            if(_this.oriCardList[i].isRight){
+              count++
+            }
+          }
+          if(count == 10){
+            _this.isFinish = true;
+            complete_music.play();
+          }
+        // _this.playAudio('right_music')
       });
     }
     bg_music.addEventListener("canplaythrough", function() {
@@ -148,19 +158,19 @@ export default {
         number1.play();
       },2000);
     });
-    right_music.addEventListener("ended", function() {
-      _this.canDrag = true;
-      let count = 0;
-      for(let i = 0, len = _this.oriCardList.length; i < len; i++){
-        if(_this.oriCardList[i].isRight){
-          count++
-        }
-      }
-      if(count == 10){
-        _this.isFinish = true;
-        complete_music.play();
-      }
-    });
+    // right_music.addEventListener("ended", function() {
+    //   _this.canDrag = true;
+    //   let count = 0;
+    //   for(let i = 0, len = _this.oriCardList.length; i < len; i++){
+    //     if(_this.oriCardList[i].isRight){
+    //       count++
+    //     }
+    //   }
+    //   if(count == 10){
+    //     _this.isFinish = true;
+    //     complete_music.play();
+    //   }
+    // });
     please_think.addEventListener("ended", function() {
       _this.canDrag = true;
     });
@@ -185,6 +195,7 @@ export default {
       audioBtn.play();
     },
     broadcast(){
+      this.canDrag = false;
       this.musicActive = true;
       this.playAudio('stem');
     },

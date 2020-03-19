@@ -23,12 +23,12 @@
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
+      src="static/images/common/top_music.png"
     />
     <img
       class="music-img"
       v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
+      src="static/images/common/top_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">

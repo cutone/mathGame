@@ -129,9 +129,7 @@ export default {
             }else{
                 //修改题目下标，播放题目
                 _this.currentItem = _this.gameList[_this.currentIndex];
-                _this.playAudio('stem_music')
-                _this.musicActive = true;
-                _this.canChoose = false;
+                _this.canChoose = true;
             }
         })
         please_think.addEventListener("ended", function(){
@@ -226,7 +224,7 @@ export default {
                 position: absolute;
                 display: block;
                 width: 100%;
-                height: 130px;
+                height: 100px;
             }
             .game-title-text{
                 position: absolute;
@@ -234,13 +232,13 @@ export default {
                 z-index: 2;
                 width: 100%;
                 text-align: center;
-                line-height: 120px;
+                line-height: 100px;
                 color: #69473d;
                 font-size: 11px;
             }
         }
         .choose-item-wrapper{
-            height: 75%;
+            height: 81%;
             .floor{
                 width: 100%;
                 height: 20px;

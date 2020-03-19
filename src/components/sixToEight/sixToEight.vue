@@ -336,8 +336,10 @@ export default {
       _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
-        for(let j = 0; j < _this.gameList[i].questionList.length; j++){
-          _this.gameList[i].questionList[j].isRight = false;
+        if(_this.gameList[i].questionList){
+          for(let j = 0; j < _this.gameList[i].questionList.length; j++){
+            _this.gameList[i].questionList[j].isRight = false;
+          }
         }
         _this.gameList[i].currentRight = 0;
       }

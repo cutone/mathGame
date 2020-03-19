@@ -24,7 +24,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .common-finish-wrapper {
   height: 100%;
   background-image: url("../../static/images/numberWithinThree/background6.png");
