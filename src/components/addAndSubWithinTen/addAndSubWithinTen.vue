@@ -4,11 +4,9 @@
         <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
         <audio id="finish_five" src="static/audio/common/top_finish_five.m4a">您的浏览器不支持 audio 标签。</audio>
         <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_globe" src="static/audio/cylinder/select_globe.m4a">您的浏览器不支持 audio 标签。</audio>
-        <audio id="select_cylinder" src="static/audio/cylinder/select_cylinder.m4a">您的浏览器不支持 audio 标签。</audio>
 
-        <img class="music-img" v-if="!musicActive && !isFinish" src="static/images/common/top_music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/top_music_active.gif">
+        <!-- <img class="music-img" v-if="!musicActive && !isFinish" src="static/images/common/top_music.png"> 
+        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/top_music_active.gif"> -->
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
         <div class="game-list" v-if="!isFinish">
             <div class="game-item">
@@ -131,15 +129,16 @@ export default {
         _this.initiate()
       })
   },
-  beforeDestroy(){
-      let _this = this;
-      _this.isFinish = false;
-        _this.currentIndex = 0;
-        _this.currentItem = _this.gameList[_this.currentIndex];
-  },
+//   beforeDestroy(){
+//       let _this = this;
+//       _this.isFinish = false;
+//         _this.currentIndex = 0;
+//         _this.currentItem = _this.gameList[_this.currentIndex];
+//   },
   methods: {
     //播放游戏规则
     playAudio(id){
+        console.log(id)
       let audioBtn = document.getElementById(id);
       audioBtn.currentTime = 0;
       audioBtn.play();
@@ -179,6 +178,7 @@ export default {
         _this.canChoose = true;
         for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isRight = false;
+            _this.gameList[i].isWrong = false;
         }
         _this.currentItem = _this.gameList[_this.currentIndex];
         // _this.playAudio(_this.gameList[_this.currentIndex].audioType)
@@ -252,6 +252,7 @@ export default {
                     font-size: 25px;
                     font-weight: bolder;
                     width: 60%;
+                    display: inline-block;
                 }
                 
             }

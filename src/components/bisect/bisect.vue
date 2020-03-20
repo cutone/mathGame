@@ -130,7 +130,6 @@ export default {
             }else{
                 //修改题目下标，播放题目
                 _this.currentItem = _this.gameList[_this.currentIndex];
-                _this.musicActive = true;
                 _this.canChoose = true;
             }
         })

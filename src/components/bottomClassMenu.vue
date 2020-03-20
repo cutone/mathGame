@@ -96,14 +96,12 @@ export default {
         loop: true,
         loopedSlides: 7,
         on: {
-          // click: function(e){
-          //   console.log(''+e.target.name)
-          //   _this.toGamePage(e.target.name)
-          // }
-          tap: function(e) {
-            // console.log(''+e.target.name)
-            _this.toGamePage(e.target.name);
+          click: function(e){
+            _this.toGamePage(e.target.name)
           }
+          // tap: function(e) {
+          //   _this.toGamePage(e.target.name);
+          // }
         }
       },
       showList: []

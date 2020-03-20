@@ -1,9 +1,9 @@
 <template>
   <div class="multi-angle-classification-container">
     <audio id="bg_music" loop="loop" src="static/audio/common/bg_music.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="complete" src="static/audio/common/complete.mp3">您的浏览器不支持 audio 标签。</audio>
-    <audio id="please_think" src="static/audio/common/please_think.mp3">您的浏览器不支持 audio 标签。</audio>
+    <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
     <!-- <img
       class="music-img"
       @click="broadcast()"
@@ -100,7 +100,6 @@ export default {
     right_music.addEventListener("ended", function() {
       if(_this.currentIndex == _this.gameList.length){
         _this.isFinish = true;
-        // _this.playAudio('complete')
       }else{
           for(let i = 0; i < imgList.length; i++){
               imgList[i].style.display = 'block';

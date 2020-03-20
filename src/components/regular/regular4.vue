@@ -12,12 +12,12 @@
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
+      src="static/images/common/top_music.png"
     />
     <img
       class="music-img"
       v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
+      src="static/images/common/top_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
@@ -229,7 +229,6 @@ export default {
         }else{
             console.log(_this.currentIndex)
             _this.currentItem = _this.gameList[_this.currentIndex];
-            _this.musicActive = true;
             _this.canChoose = true;
         }
       });
@@ -241,8 +240,9 @@ export default {
     stem_music.addEventListener("canplaythrough", function() {
       stem_music.play();
     });
-    stem_music.addEventListener("canplaythrough", function() {
+    stem_music.addEventListener("ended", function() {
       _this.canChoose = true;
+      _this.musicActive = false;
     });
     please_think.addEventListener("ended", function() {
       _this.canChoose = true

@@ -51,7 +51,7 @@ export default {
         canChoose: false,
         gameList: [
             {
-                title: '请选正方体',
+                title: '请选出正方体',
                 leftImg: 'static/images/cube/rect.jpg',
                 rightImg: 'static/images/cube/cube.jpg',
                 rightChoice: 'right',
@@ -60,7 +60,7 @@ export default {
                 audioType: 'select_cube'
             },
             {
-                title: '请选长方体',
+                title: '请选出长方体',
                 leftImg: 'static/images/cube/cuboid.jpg',
                 rightImg: 'static/images/cube/rect2.jpg',
                 rightChoice: 'left',
@@ -69,7 +69,7 @@ export default {
                 audioType: 'select_cuboid'
             },
             {
-                title: '请选正方体',
+                title: '请选出正方体',
                 leftImg: 'static/images/cube/cube2.jpg',
                 rightImg: 'static/images/cube/cuboid2.jpg',
                 rightChoice: 'left',
@@ -78,7 +78,7 @@ export default {
                 audioType: 'select_cube'
             },
             {
-                title: '请选长方体',
+                title: '请选出长方体',
                 leftImg: 'static/images/cube/cuboid3.jpg',
                 rightImg: 'static/images/cube/cube3.jpg',
                 rightChoice: 'left',
@@ -87,7 +87,7 @@ export default {
                 audioType: 'select_cuboid'
             },
             {
-                title: '请选正方体',
+                title: '请选出正方体',
                 leftImg: 'static/images/cube/cube4.jpg',
                 rightImg: 'static/images/cube/cuboid4.jpg',
                 rightChoice: 'left',

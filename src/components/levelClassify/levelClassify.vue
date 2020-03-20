@@ -75,6 +75,7 @@
 <script>
 import commonHeader from "@/common/commonHeader";
 import topClassComplete from "@/common/topClassComplete";
+import {disOrderArr} from "@/common/js/common"
 export default {
   name: 'levelClassify',
   data () {
@@ -245,7 +246,11 @@ export default {
           dragList[i].style.left = 'auto'
           dragList[i].style.top = 'auto'
         }
+        
         _this.currentItem = _this.gameList[_this.currentIndex];
+        for(let j = 0; j < _this.currentItem.topImgList.length; j++){
+          _this.currentItem.topImgList[j].imgList = disOrderArr(_this.currentItem.topImgList[j].imgList)
+        }
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
       }
@@ -335,6 +340,9 @@ export default {
         _this.gameList[i].currentNumber = 0;
         for(let j = 0; j < _this.gameList[i].targetList.length; j++){
           _this.gameList[i].targetList[j].currentList = []
+        }
+        for(let j = 0; j < _this.gameList[i].topImgList.length; j++){
+          _this.gameList[i].topImgList[j].imgList = disOrderArr(_this.gameList[i].topImgList[j].imgList)
         }
       }
       _this.playAudio('stem_music_'+(_this.currentIndex+1));

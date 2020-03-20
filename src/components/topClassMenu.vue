@@ -66,23 +66,19 @@ export default {
         img: 'static/images/topClassMenu/levelClassify.png'
       },
       {
-        title: '层级分类',
+        title: '自编10以内减法应用题',
         url: '/selfSubQuestionWithinTen',
         img: 'static/images/topClassMenu/selfSubQuestionWithinTen.png'
       },
       {
-        title: '学习自编应用题',
-        url: '/selfMadeQuestion',
-        img: 'static/images/topClassMenu/selfMadeQuestion.png'
+        title: '按规律排序（四）',
+        url: '/regular4',
+        img: 'static/images/topClassMenu/regular4.png'
       },
       {
         title: '认识圆柱体和球体',
         url: '/cylinder',
         img: 'static/images/topClassMenu/cylinder.png'
-      },{
-        title: '按规律排序（四）',
-        url: '/regular4',
-        img: 'static/images/topClassMenu/regular4.png'
       },
       {
         title: '多角度分类',
@@ -99,7 +95,11 @@ export default {
         url: '/addAndSubWithinTen',
         img: 'static/images/topClassMenu/addAndSubWithinTen.png'
       },
-      
+      {
+        title: '学习自编应用题',
+        url: '/selfMadeQuestion',
+        img: 'static/images/topClassMenu/selfMadeQuestion.png'
+      },      
       {
         title: '认识正方体与长方体',
         url: '/cube',
@@ -141,14 +141,14 @@ export default {
         loop:true,
         loopedSlides: 7,
         on: {
-          // click: function(e){
-          //   console.log(''+e.target.name)
+          click: function(e){
+            _this.toGamePage(e.target.name)
+          },
+          //用tap会导致，进入页面后再此点击
+          // tap: function(e){
+          //   // console.log(''+e.target.name)
           //   _this.toGamePage(e.target.name)
           // }
-          tap: function(e){
-            // console.log(''+e.target.name)
-            _this.toGamePage(e.target.name)
-          }
         }
       },
       showList: []
