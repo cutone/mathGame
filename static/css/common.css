@@ -1,9 +1,9 @@
 /* 小黄人样式 */
 .music-img {
   position: absolute;
-  top: 30px;
-  left: 20px;
-  width: 100px;
+  top: 50px;
+  left: 50px;
+  width: 15vw;
   z-index: 999;
 }
 /* 自适应flex */

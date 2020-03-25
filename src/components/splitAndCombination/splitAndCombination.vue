@@ -734,12 +734,6 @@ export default {
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  .music-img {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    width: 100px;
-  }
   .game-list {
     height: 100%;
     .game-item {

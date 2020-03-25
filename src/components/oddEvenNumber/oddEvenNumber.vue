@@ -115,8 +115,8 @@ export default {
         bg_music.addEventListener("canplaythrough",function(){
             bg_music.play();
         });
-        select_even.addEventListener("canplaythrough",function(){
-            select_even.play();
+        select_odd.addEventListener("canplaythrough",function(){
+            select_odd.play();
         });
         select_even.addEventListener("ended", function(){
             _this.musicActive = false;
@@ -213,12 +213,6 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .header{
         display: block;
         width: 100%;

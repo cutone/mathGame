@@ -81,8 +81,8 @@ export default {
   data () {
     return {
         position: {x:0,y:0},
-    currentIndex: 0,
-    currentItem: {},
+      currentIndex: 0,
+      currentItem: {},
       musicActive: true,
       canDrag: false,
       isFinish: false,

@@ -260,7 +260,7 @@ export default {
   height: 100%;
   .body {
     height: calc(100% - 30px);
-    background: url("../../../static/images/oneAndMany/background.jpg")
+    background: url("../../../static/images/oneAndMany/background.png")
       no-repeat;
     background-size: 100% 100%;
     background-position: center;
@@ -291,7 +291,7 @@ export default {
     &.one-img-2 {
       width: 21%;
       top: 15%;
-      left: 19%;
+      left: 22%;
     }
     &.one-img-3 {
       width: 20%;
@@ -299,7 +299,7 @@ export default {
       left: 36%;
     }
     &.one-img-4 {
-      width: 15%;
+      width: 11%;
       bottom: 33%;
       left: 20%;
     }

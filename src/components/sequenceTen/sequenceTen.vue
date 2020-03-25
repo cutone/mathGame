@@ -327,12 +327,6 @@ export default {
 }
   .sequence-ten-container{
     height: 100%;
-    .music-img {
-      position: absolute;
-      top: 30px;
-      left: 20px;
-      width: 100px;
-    }
     .body{
       height: 100%;
     }

@@ -1,11 +1,11 @@
 <template>
    <div class="bottom-class-finish-wrapper" :style="{'background-image': 'url('+background+')'}">
-      <img class="left-img" :src="leftImg"/>
+      <img :style="imgStyle" class="left-img" :src="leftImg"/>
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
         <span class="restart-btn" @click="initiate()">重做</span>
       </div>
-      <img class="right-img" :src="rightImg" alt="">
+      <img :style="imgStyle" class="right-img" :src="rightImg" alt="">
     </div> 
 </template>
 <script>
@@ -17,6 +17,10 @@ export default {
       }
   },
   props:{
+      imgStyle: {
+        type: Object,
+        default: {}
+      },
       background: String,
       leftImg: String,
       rightImg: String

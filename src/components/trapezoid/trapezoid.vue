@@ -225,12 +225,6 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .game-list{
         height: @bodyHeight;
         .game-item{

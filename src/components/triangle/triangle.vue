@@ -28,13 +28,15 @@
                 </div>
             </div>
         </div>
-        <complete 
+        <div class="complete-wrapper"
             v-if="isFinish" 
-            @goBack="goBack" 
-            @initiate="restart"
-            :img="completeImg"
-            background="#fef987">
-        </complete>
+            >
+            <img class="complete-img" src="static/images/triangle/complete.png" alt="">
+            <div class="oprate-wrapper">
+                <span class="complete-btn" @click="goBack()">完成</span>
+                <span class="restart-btn" @click="initiate()">重做</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -45,7 +47,6 @@ export default {
   name: 'triangle',
   data(){
     return {
-        completeImg: 'static/images/triangle/complete.png',
         currentIndex: 0,
         currentItem: {},
         isFinish: true,
@@ -301,12 +302,6 @@ export default {
 .triangle-container{
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .first-page{
         background-image: url('../../../static/images/triangle/firstPage.png');
         background-size: 100% 100%;
@@ -330,7 +325,7 @@ export default {
             margin: 0 auto;
             .game-title-img{
                 display: block;
-                height: 100px;
+                height: 13vw;
             }
             .game-title-text{
                 position: absolute;
@@ -359,11 +354,43 @@ export default {
             .choose-item{
                 padding: 15% 0 0;
                 background-size: 100% 100%;
-                
                 .choice-img{
-                    width: 60%;
-                    max-height: 23vh;
+                    width: 100%;
+                    max-height: 28vh;
                 }
+            }
+        }
+        
+    }
+    .complete-wrapper{
+        height: 100%;
+        background: #fef987;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .complete-img{
+            width: 50%;
+        }
+        .oprate-wrapper{
+            display: flex;
+            justify-content: space-between;
+            width: 50%;
+            .complete-btn {
+                display: block;
+                width: 80px;
+                height: 40px;
+                background: #fdf731;
+                border-radius: 5px;
+                line-height: 40px;
+            }
+            .restart-btn {
+                display: block;
+                width: 80px;
+                height: 40px;
+                background: #47b1f0;
+                border-radius: 5px;
+                line-height: 40px;
             }
         }
     }

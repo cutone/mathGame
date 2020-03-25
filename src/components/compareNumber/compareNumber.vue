@@ -128,8 +128,9 @@ export default {
                 _this.isFinish = true;
             }else{
                 //修改题目下标，播放题目
+                 _this.playAudio('stem_music')
                 _this.currentItem = _this.gameList[_this.currentIndex];
-                _this.canChoose = true;
+                _this.musicActive = true;
             }
         })
         please_think.addEventListener("ended", function(){
@@ -200,12 +201,6 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .game-list{
         display: flex;
         height: @bodyHeight;

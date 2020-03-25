@@ -294,10 +294,9 @@ export default {
         left: 56%;
       }
       &.reference-2 {
-        width: 40%;
-        bottom: 14%;
+        width: 26%;
+        bottom: 10%;
         left: 51%;
-        height: 72%;
       }
       &.reference-3 {
         width: 15%;
@@ -330,7 +329,7 @@ export default {
       }
       &.correct-2 {
         bottom: 2%;
-        width: 42%;
+        width: 28%;
         height: 240px;
       }
       &.correct-3 {

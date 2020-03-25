@@ -5,6 +5,7 @@ import Home from "@/components/home";
 import bottomClassMenu from "@/components/bottomClassMenu";
 import middleClassMenu from "@/components/middleClassMenu";
 import topClassMenu from "@/components/topClassMenu";
+import lessonPlan from "@/components/lessonPlan"; //教案
 import trapezoid from "@/components/trapezoid/trapezoid";
 //小班
 import compareSize from "@/components/compareSize/compareSize";
@@ -67,6 +68,11 @@ export default new Router({
       path: "/",
       name: "Home",
       component: Home
+    },
+    {
+      path: "/lessonPlan",
+      name: "lessonPlan",
+      component: lessonPlan,
     },
     {
       path: "/bottomClassMenu",

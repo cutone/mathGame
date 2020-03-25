@@ -15,9 +15,6 @@ export default {
   methods: {
     toOtherPage(path){
       this.$router.push(path);
-    },
-    sorry(){
-      alert('敬请期待')
     }
   }
 }

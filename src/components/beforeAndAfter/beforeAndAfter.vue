@@ -47,6 +47,7 @@
         :leftImg="leftImg" 
         :rightImg="rightImg"
         @goBack="goBack" 
+        :imgStyle="imgStyle"
         @initiate="initiate"
     >
     </bottom-class-complete>
@@ -61,6 +62,10 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      imgStyle: {          
+        'align-self': 'flex-end',
+        'margin-bottom': '8vh'
+      },
       background: 'static/images/beforeAndAfter/background.jpg',
       leftImg: 'static/images/beforeAndAfter/minnie-2.png',
       rightImg: 'static/images/beforeAndAfter/minnie-1.png',
@@ -137,7 +142,7 @@ export default {
         currentAnimal.style.right = 'auto'
         currentAnimal.style.bottom = 'auto'
         currentAnimal.style.left = '79%';
-        currentAnimal.style.top = '62%';
+        currentAnimal.style.top = '74%';
         //播放下一题的音频
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
@@ -263,7 +268,7 @@ export default {
           }else{
             console.log(222);
             moveDiv.style.left = '79%';
-            moveDiv.style.top = '62%';
+            moveDiv.style.top = '74%';
             _this.playAudio('please_think')
           }
       }
@@ -275,13 +280,13 @@ export default {
             _this.playAudio('right_music')
           }else{
             moveDiv.style.left = '79%';
-            moveDiv.style.top = '62%';
+            moveDiv.style.top = '74%';
             _this.playAudio('please_think');
           }
       }
       else {
         moveDiv.style.left = '79%';
-        moveDiv.style.top = '62%';
+        moveDiv.style.top = '74%';
         _this.canDrag = false;
         _this.playAudio('please_think');
       }
@@ -328,9 +333,9 @@ export default {
     }
     .animal-item {
       display: block;
-      width: 14.5%;
+      width: 10%;
       position: absolute;
-      top: 62%;
+      bottom: 9%;
       left: 79%;
       z-index: 2;
     }

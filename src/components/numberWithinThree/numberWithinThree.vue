@@ -52,10 +52,10 @@ export default {
       gameList2: [],
       gameList: [
         {
-          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background2.png')" },
+          backImg: { backgroundImage: "url('static/images/numberWithinThree/background2.png')" },
           img: [
             {
-              imgSrc: '/static/images/numberWithinThree/pT.png',
+              imgSrc: 'static/images/numberWithinThree/pT.png',
               numSrc: '',
               style: { top: "2%", left: "44%", width: "25%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
@@ -70,7 +70,7 @@ export default {
           currentImg: 0,
         },
         {
-          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background3.png')" },
+          backImg: { backgroundImage: "url('static/images/numberWithinThree/background3.png')" },
           img: [
             {
               imgSrc: '/static/images/numberWithinThree/pFLeft.png',

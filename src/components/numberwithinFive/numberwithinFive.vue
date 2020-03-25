@@ -255,7 +255,7 @@ export default {
       let _this = this;
       _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
-      _this.isFinish = false;
+      _this.isFinish = true;
       _this.isFirstPage = true;
       _this.canDrag = false;
       _this.musicActive = true;

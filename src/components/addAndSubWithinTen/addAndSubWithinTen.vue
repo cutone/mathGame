@@ -195,12 +195,6 @@ export default {
 .middle-class-menu-container{
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .game-list{
         height: @bodyHeight;
         background-image: url('../../../static/images/common/background.png');

@@ -22,13 +22,13 @@
                         <div class="choose-item left-item" @click="choose('left', currentItem)">
                             <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.leftImg" alt="">
                         </div>
-                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'left'" class="right-img" src="static/images/common/right.png" alt="">
+                        <img v-show="currentItem.isRight && currentItem.rightChoice == 'left'" class="right-img" src="static/images/common/right.png" alt="">
                     </div> 
                     <div class="item-wrapper">
                         <div class="choose-item right-item" @click="choose('right', currentItem)">
                             <img :class="currentItem.isWrong ? 'shake-animation' : ''" class="choice-img" :src="currentItem.rightImg" alt="">
                         </div>
-                        <img v-if="currentItem.isRight && currentItem.rightChoice == 'right'" class="right-img" src="static/images/common/right.png" alt="">
+                        <img v-show="currentItem.isRight && currentItem.rightChoice == 'right'" class="right-img" src="static/images/common/right.png" alt="">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,6 @@
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import bottomClassComplete from "@/common/bottomClassComplete";
 export default {
   name: 'circle',
   data(){
@@ -100,7 +99,6 @@ export default {
   },
   components: {
       commonHeader,
-      bottomClassComplete
   },
   mounted(){
       let _this = this;
@@ -136,8 +134,8 @@ export default {
             }else{
                 //修改题目下标，播放题目
                 _this.currentItem = _this.gameList[_this.currentIndex];
+                _this.playAudio('stem_music')
                 _this.musicActive = true;
-                _this.canChoose = true;
             }
         })
         please_think.addEventListener("ended", function(){
@@ -211,12 +209,6 @@ export default {
 .circle-container{
     height: 100%;
     box-sizing: border-box;
-    .music-img{
-        position: absolute;
-        top: 50px;
-        left: 50px; 
-        width: 100px;
-    }
     .first-page{
         background-image: url("../../../static/images/circle/firstPage.png");
         background-size: 100% 100%;
@@ -261,13 +253,12 @@ export default {
             height: 70%;
             .item-wrapper{
                 display: inline-block;
-                
                 box-sizing: border-box;
                 margin: 0 30px;
-                width: 20%;
+                width: 30%;
                 vertical-align: top;
                 .right-img{
-                    width: 50%;
+                    width: 35%;
                 }
             }
             .choose-item{
@@ -276,8 +267,6 @@ export default {
                 
                 .choice-img{
                     width: 60%;
-                    min-height: 23vh;
-                    max-height: 23vh;
                 }
             }
         }

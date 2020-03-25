@@ -28,7 +28,7 @@ export default {
         url: '/twoDimensionClassify',
         img: 'static/images/topClassMenu/twoDimensionClassify.png'
       },{
-        title: '10以内的相邻数',
+        title: '相邻数',
         url: '/adjoinNumber',
         img: 'static/images/topClassMenu/adjoinNumber.png'
       },{
