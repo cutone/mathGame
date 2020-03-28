@@ -111,7 +111,6 @@ export default {
   mounted(){
       let _this = this;
       _this.currentIndex = 0;
-      this.$nextTick(()=>{
         let bg_music = document.getElementById('bg_music');
         let right_music = document.getElementById('right_music');
         let finish_five = document.getElementById('finish_five');
@@ -158,7 +157,7 @@ export default {
             _this.canChoose = true;
             _this.currentItem.isWrong = false
         })
-      })
+        _this.initiate();
   },
   beforeDestroy(){
       let _this = this;

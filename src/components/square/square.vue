@@ -45,7 +45,7 @@ export default {
   name: 'square',
   data () {
     return {
-        background: '../../../static/images/square/complete.png',
+        background: 'static/images/square/complete.png',
     currentIndex: 0,
     currentItem: {},
       musicActive: true,

@@ -22,11 +22,11 @@ export default {
     return {
       currentIndex: 1,
       menuList:[
-        {
-          title: '认识5以内的整数',
-          url: '/maxFive',
-          img: 'static/images/middleClassMenu/maxFive.png'
-        },
+        // {
+        //   title: '认识5以内的整数',
+        //   url: '/maxFive',
+        //   img: 'static/images/middleClassMenu/maxFive.png'
+        // },
         //上学期
         {
           title: '认识长方形',
@@ -123,10 +123,10 @@ export default {
         on: {
           click: function(e){
             _this.toGamePage(e.target.name)
+          },
+          tap: function(e){
+            _this.toGamePage(e.target.name)
           }
-          // tap: function(e){
-          //   _this.toGamePage(e.target.name)
-          // }
         }
       },
       showList: []

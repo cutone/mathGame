@@ -17,18 +17,18 @@
     <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif" />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <!-- 一个糖葫芦 -->
-    <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="thlImg" id="thl" v-show="draging">
+    <img src="static/images/compareSixToTen/tanghulu.png" alt="" class="thlImg" id="thl" v-show="draging">
     <div v-if="!isFinish" class="body">
       <!-- 篮子 -->
-      <img src="/static/images/compareSixToTen/basket.png" alt="" class="bask" @touchmove="touchMove('thl')"
+      <img src="static/images/compareSixToTen/basket.png" alt="" class="bask" @touchmove="touchMove('thl')"
         @touchstart="down('thl')" @touchend="check()">
       <!-- 左边人物 -->
       <div class="left-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'left')">
-        <img :src="'/static/images/compareSixToTen/'+currentItem.leftImg+'.png'" alt="" :style="currentItem.leftCss"
+        <img :src="'static/images/compareSixToTen/'+currentItem.leftImg+'.png'" alt="" :style="currentItem.leftCss"
           class="personImg">
-        <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.leftGCss" class="thlGImg" id="left" />
+        <img src="static/images/compareSixToTen/stick.png" :style="currentItem.leftGCss" class="thlGImg" id="left" />
         <div :style="currentItem.leftGCss" class="stickImg">
-          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" v-for="item in currentItem.leftNeed" :key="item"
+          <img src="static/images/compareSixToTen/tanghulu.png" alt="" v-for="item in currentItem.leftNeed" :key="item"
             v-show="item<=currentItem.leftCurrent"
             :class="(item==1)&&(currentItem.animation=='left')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''"
             class="rThlImg">
@@ -36,11 +36,11 @@
       </div>
       <!-- 右边人物 -->
       <div class="right-wrapper" @click="clickCompare(currentItem.canChoice,currentItem.rightChoice,'right')">
-        <img :src="'/static/images/compareSixToTen/'+currentItem.rightImg+'.png'" alt="" :style="currentItem.rightCss"
+        <img :src="'static/images/compareSixToTen/'+currentItem.rightImg+'.png'" alt="" :style="currentItem.rightCss"
           class="personImg">
-        <img src="/static/images/compareSixToTen/stick.png" :style="currentItem.rightGCss" class="thlGImg" id="right" />
+        <img src="static/images/compareSixToTen/stick.png" :style="currentItem.rightGCss" class="thlGImg" id="right" />
         <div :style="currentItem.rightGCss" class="stickImg">
-          <img src="/static/images/compareSixToTen/tanghulu.png" alt="" class="rThlImg"
+          <img src="static/images/compareSixToTen/tanghulu.png" alt="" class="rThlImg"
             v-for="item in currentItem.rightNeed" :key="item" v-show="item<=currentItem.rightCurrent"
             :class="(item==1)&&(currentItem.animation=='right')&&(currentItem.isWrong)? 'shake-ampliflvation' : ''">
         </div>

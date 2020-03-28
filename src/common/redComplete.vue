@@ -40,6 +40,7 @@ export default {
         }
         .oprate-wrapper{
             margin-top: -5%;
+            text-align: center;
             .complete-btn{
                 display: inline-block;
                 width: 80px;

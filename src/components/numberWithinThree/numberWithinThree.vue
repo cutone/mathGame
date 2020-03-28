@@ -73,7 +73,7 @@ export default {
           backImg: { backgroundImage: "url('static/images/numberWithinThree/background3.png')" },
           img: [
             {
-              imgSrc: '/static/images/numberWithinThree/pFLeft.png',
+              imgSrc: 'static/images/numberWithinThree/pFLeft.png',
               numSrc: '',
               style: { top: "2%", left: "40%", width: "24%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
@@ -84,7 +84,7 @@ export default {
               id: 'pthree',
             },
             {
-              imgSrc: '/static/images/numberWithinThree/pFRight.png',
+              imgSrc: 'static/images/numberWithinThree/pFRight.png',
               numSrc: '',
               style: { top: "6.5%", left: "73%", width: "24%", height: "32%", transform: "rotate(-11deg)" },
               rotate: { transform: "rotate(9deg)" },
@@ -97,10 +97,10 @@ export default {
           currentImg: 0,
         },
         {
-          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background4.png')" },
+          backImg: { backgroundImage: "url('static/images/numberWithinThree/background4.png')" },
           img: [
             {
-              imgSrc: '/static/images/numberWithinThree/pFvLeft.png',
+              imgSrc: 'static/images/numberWithinThree/pFvLeft.png',
               numSrc: '',
               style: { top: "19%", left: "5.5%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
@@ -110,7 +110,7 @@ export default {
               id: 'pthree',
             },
             {
-              imgSrc: '/static/images/numberWithinThree/pFvRight.png',
+              imgSrc: 'static/images/numberWithinThree/pFvRight.png',
               numSrc: '',
               style: { top: "8.5%", left: "29%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
@@ -124,10 +124,10 @@ export default {
           currentImg: 0,
         },
         {
-          backImg: { backgroundImage: "url('../../../static/images/numberWithinThree/background5.png')" },
+          backImg: { backgroundImage: "url('static/images/numberWithinThree/background5.png')" },
           img: [
             {
-              imgSrc: '/static/images/numberWithinThree/pSLeft.png',
+              imgSrc: 'static/images/numberWithinThree/pSLeft.png',
               numSrc: '',
               style: { top: "10%", left: "18%", width: "21%", height: "37%", transform: "rotate(13deg)" },
               rotate: { transform: "rotate(-10deg)" },
@@ -136,7 +136,7 @@ export default {
               id: 'pthree',
             },
             {
-              imgSrc: '/static/images/numberWithinThree/pSCenter.png',
+              imgSrc: 'static/images/numberWithinThree/pSCenter.png',
               numSrc: '',
               style: { top: "2%", left: "47%", width: "21.5%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(4deg)" },
@@ -145,7 +145,7 @@ export default {
               id: 'pthree1',
             },
             {
-              imgSrc: '/static/images/numberWithinThree/pSRight.png',
+              imgSrc: 'static/images/numberWithinThree/pSRight.png',
               numSrc: '/',
               style: { top: "7%", left: "76.5%", width: "21.5%", height: "32%", transform: "rotate(-10deg)" },
               rotate: { transform: "rotate(9deg)" },
@@ -271,13 +271,13 @@ export default {
         item.pthree = false;
         this.currentItem.currentImg++;
         if (this.currentItem.currentImg == 1) {
-          item.numSrc = "/static/images/numberWithinThree/1.png";
+          item.numSrc = "static/images/numberWithinThree/1.png";
           _this.playAudio("one");
         } else if (this.currentItem.currentImg == 2) {
-          item.numSrc = "/static/images/numberWithinThree/2.png";
+          item.numSrc = "static/images/numberWithinThree/2.png";
           _this.playAudio("two");
         } else if (this.currentItem.currentImg == 3) {
-          item.numSrc = "/static/images/numberWithinThree/3.png";
+          item.numSrc = "static/images/numberWithinThree/3.png";
           _this.playAudio("three");
         }
         if (this.currentItem.currentImg == this.currentItem.choiceImg) {
