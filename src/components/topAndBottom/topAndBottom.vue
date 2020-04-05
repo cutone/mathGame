@@ -17,7 +17,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish"
+      v-show="musicActive && !isFinish"
       src="static/images/common/bottom_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
@@ -294,14 +294,14 @@ export default {
         left: 56%;
       }
       &.reference-2 {
-        width: 26%;
+        width: 23%;
         bottom: 10%;
         left: 51%;
       }
       &.reference-3 {
-        width: 15%;
-        bottom: 63%;
-        left: 61%;
+        width: 22%;
+        bottom: 58%;
+        left: 58%;
       }
       &.reference-4 {
         width: 44%;

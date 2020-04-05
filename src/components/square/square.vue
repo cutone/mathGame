@@ -15,7 +15,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish && !isFirstPage"
+      v-show="musicActive && !isFinish && !isFirstPage"
       src="static/images/common/bottom_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>

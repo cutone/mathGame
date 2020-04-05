@@ -145,10 +145,9 @@ export default {
             _this.toGamePage(e.target.name)
           },
           //用tap会导致，进入页面后再此点击
-          // tap: function(e){
-          //   // console.log(''+e.target.name)
-          //   _this.toGamePage(e.target.name)
-          // }
+          tap: function(e){
+            _this.toGamePage(e.target.name)
+          }
         }
       },
       showList: []

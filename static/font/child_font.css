@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "child_font";
+    src: url("child_font.eot"); /* IE9 */
+    src: url("child_font.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("child_font.woff") format("woff"), /* chrome, firefox */
+    url("child_font.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("child_font.svg#child_font") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+

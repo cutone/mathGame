@@ -23,7 +23,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish"
+      v-show="musicActive && !isFinish"
       src="static/images/common/music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
@@ -451,7 +451,8 @@ export default {
         align-items: center;
       }
       .corner {
-        height: 100%;
+        height: 70%;
+        margin-bottom: 3vw;
       }
       .choice-item-wrapper {
         position: relative;

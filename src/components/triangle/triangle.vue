@@ -12,6 +12,8 @@
         <img v-if="!isFirstPage && musicActive && !isFinish" class="music-img" src="static/images/common/bottom_music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
         <div class="first-page" v-if="isFirstPage && !isFinish">
+            <img class="first-page-img" src="static/images/triangle/firstPage.png" />
+            <img class="first-page-alert" src="static/images/triangle/firstPageAlert.png" />
         </div> 
         <div class="body" v-if="!isFinish">
             <div class="game-item">
@@ -303,10 +305,20 @@ export default {
     height: 100%;
     box-sizing: border-box;
     .first-page{
-        background-image: url('../../../static/images/triangle/firstPage.png');
-        background-size: 100% 100%;
+        display: flex;
+        justify-content: center;
         height: @bodyHeight;
-        margin-bottom: 30px;
+        .first-page-img{
+            margin-top: 20px;
+            width: 40%;
+            align-self: flex-start;
+        }
+        .first-page-alert{
+            margin-bottom: 20px;
+            margin-left: -5vw;
+            width: 30%;
+            align-self: flex-end;
+        }
     }
     .body{
         background-image: url('../../../static/images/triangle/background.png');

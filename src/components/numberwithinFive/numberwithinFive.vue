@@ -27,7 +27,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish && !isFirstPage"
+      v-show="musicActive && !isFinish && !isFirstPage"
       src="static/images/common/bottom_music_active.gif"
     />
     <common-header
@@ -255,7 +255,7 @@ export default {
       let _this = this;
       _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
-      _this.isFinish = true;
+      _this.isFinish = false;
       _this.isFirstPage = true;
       _this.canDrag = false;
       _this.musicActive = true;

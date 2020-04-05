@@ -61,7 +61,18 @@ var webpackConfig = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        // use: [
+        //   {
+        //     loader: 'awesome-fontmin-loader',
+        //     options: {
+        //       limit: 1000,
+        //       name: 'assets/fonts/[name].[hash].[ext]',
+        //       text: '策划：陈淑文、林丽芳、张晓钰、孔宾、陈宝育、陈坊钦、林帆 顾问：黄海霞、王欢' // 使用到的字符
+        //     }
+        //   }
+        // ]
         loader: 'url-loader',
+        loader: 'awesome-fontmin-loader',
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')

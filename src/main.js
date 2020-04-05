@@ -6,7 +6,7 @@ import router from './router'
 
 import '../static/css/doudong.css';
 import '../static/css/common.css';
-
+import '../static/font/child_font.css'
 Vue.config.productionTip = false
 
 //引入手势插件

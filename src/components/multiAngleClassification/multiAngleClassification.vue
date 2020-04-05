@@ -4,17 +4,18 @@
     <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
-    <!-- <img
+    <audio id="stem_music" src="static/audio/multiAngleClassification/stem_music.mp3"></audio>
+    <img
       class="music-img"
       @click="broadcast()"
       v-if="!musicActive && !isFinish"
-      src="static/images/common/music.png"
+      src="static/images/common/top_music.png"
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish"
-      src="static/images/common/music_active.gif"
-    /> -->
+      v-show="musicActive && !isFinish"
+      src="static/images/common/top_music_active.gif"
+    />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
         <p class="title">多角度分类</p>
@@ -93,9 +94,17 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
+    let stem_music = document.getElementById("stem_music");
     let imgList = document.getElementsByClassName('choice-item');
     bg_music.addEventListener("canplaythrough", function() {
       bg_music.play();
+    });
+    stem_music.addEventListener("canplaythrough", function() {
+      stem_music.play();
+    });
+    stem_music.addEventListener("ended", function() {
+        _this.canDrag = true;
+        _this.musicActive = false;
     });
     right_music.addEventListener("ended", function() {
       if(_this.currentIndex == _this.gameList.length){
@@ -107,7 +116,6 @@ export default {
               imgList[i].style.top = 'auto';
           }
         _this.currentItem = _this.gameList[_this.currentIndex];
-        _this.musicActive = true;
       }
     });
     please_think.addEventListener("ended", function() {
@@ -139,12 +147,13 @@ export default {
       _this.currentIndex = 0;
       _this.currentItem = _this.gameList[_this.currentIndex];
       _this.isFinish = false;
-      _this.canDrag = true;
+      _this.canDrag = false;
       _this.musicActive = true;
       for (let i = 0, len = _this.gameList.length; i < len; i++) {
         _this.gameList[i].isRight = false;
         _this.gameList[i].isWrong = false;
       }
+      _this.playAudio('stem_music');
     },
     check(item) {
       let _this = this;

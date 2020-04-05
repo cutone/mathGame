@@ -98,10 +98,10 @@ export default {
         on: {
           click: function(e){
             _this.toGamePage(e.target.name)
+          },
+          tap: function(e) {
+            _this.toGamePage(e.target.name);
           }
-          // tap: function(e) {
-          //   _this.toGamePage(e.target.name);
-          // }
         }
       },
       showList: []

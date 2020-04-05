@@ -23,15 +23,15 @@
       @touchmove="touchMove('music-img')" 
       @touchstart="down('music-img')"
       v-if="!musicActive && !isFinish"
-      src="static/images/trapezoid/music.png"
+      src="static/images/common/music.png"
     />
     <img
       id="music-active-img"
       class="music-img"
       @touchmove="touchMove('music-active-img')" 
       @touchstart="down('music-active-img')"
-      v-if="musicActive && !isFinish"
-      src="static/images/trapezoid/music_active.gif"
+      v-show="musicActive && !isFinish"
+      src="static/images/common/music_active.gif"
     /> -->
     <common-header :game-list="gameList" v-if="!isFinish"></common-header>
     <div class="body" v-if="!isFinish">

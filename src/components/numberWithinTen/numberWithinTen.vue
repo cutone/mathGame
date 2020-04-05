@@ -4,7 +4,19 @@
     <audio id="right_music" src="static/audio/common/top_right.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music" src="static/audio/numberWithinTen/stem_music.mp3"></audio>
     <common-header :game-list="[]" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
+    <img
+      class="music-img"
+      @click="broadcast()"
+      v-if="!musicActive && !isFinish"
+      src="static/images/common/top_music.png"
+    />
+    <img
+      class="music-img"
+      v-show="musicActive && !isFinish"
+      src="static/images/common/top_music_active.gif"
+    />
     <div v-if="!isFinish" class="body">
         <div class="target-wrapper"> 
             <div class="target-item-wrapper" :class="draging?'border-style':''" :title="index+1" v-for="(item, index) in gameList" :key="index" :style="{'top':item.top,'left':item.left}">
@@ -39,7 +51,7 @@ import { disOrderArr } from '@/common/js/common'
 import commonHeader from "@/common/commonHeader";
 import topClassComplete from "@/common/topClassComplete";
 export default {
-  name: 'HelloWorld',
+  name: 'numberWithinTen',
   data () {
     return {
         draging: false,
@@ -109,9 +121,16 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
-
+    let stem_music = document.getElementById("stem_music");
     bg_music.addEventListener("canplaythrough", function() {
       bg_music.play();
+    });
+    stem_music.addEventListener("canplaythrough", function() {
+      stem_music.play();
+    });
+    stem_music.addEventListener("ended", function() {
+        _this.canDrag = true;
+        _this.musicActive = false;
     });
     please_think.addEventListener("ended", function() {
       _this.canDrag = true
@@ -122,6 +141,13 @@ export default {
     _this.initiate();
   },
   methods: {
+    //播放当前题目
+    broadcast() {
+      let _this = this;
+      _this.musicActive = true;
+      _this.canDrag = false;
+      _this.playAudio('stem_music');
+    },
     //播放mp3
     playAudio(id) {
       let audioBtn = document.getElementById(id);
@@ -137,12 +163,13 @@ export default {
       let _this = this;
       _this.currentIndex = 0;
       _this.isFinish = false;
-      _this.canDrag = true;
+      _this.canDrag = false;
       _this.musicActive = true;
       for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isRight = false
         }
         _this.answerList = disOrderArr(_this.oriAnswerList)
+        _this.playAudio('stem_music');
     },
     //检查是否正确
     check(item){
@@ -169,8 +196,6 @@ export default {
             let targetRight = targetLeft + targetList[i].clientWidth;
             let targetTop = targetList[i].offsetTop+30;
             let targetBottom = targetTop + targetList[i].clientHeight;
-            console.log(i)
-            console.log(targetLeft,targetRight,targetTop,targetBottom)
             if(mouseX > targetLeft && mouseX < targetRight && mouseY > targetTop && mouseY < targetBottom){
                 console.log(item)
                 console.log(targetList[i].title,item.img)
@@ -188,6 +213,7 @@ export default {
         }
         for(let i = 0, len = _this.gameList.length; i < len; i++){
             if(!_this.gameList[i].isRight){
+                console.log(_this.gameList[i])
                 return
             }
         }
@@ -248,6 +274,9 @@ export default {
 @import "../../../static/css/common.css";
 .number-within-ten-container{
     height: 100%;
+    .music-img{
+        left: 10vw;
+    }
     .body{
         position: relative;
         height: 100%;

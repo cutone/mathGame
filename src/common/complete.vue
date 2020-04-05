@@ -1,5 +1,5 @@
 <template>
-   <div class="complete-finish-wrapper" :style="{'background': background}">
+   <div class="complete-finish-wrapper" :style="{'background': background,'background-size': '100% 100%'}">
       <img class="finish-img" :src="img" alt />
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
@@ -41,6 +41,7 @@ export default {
     justify-content: space-around;
     padding: 20px 0;
     box-sizing: border-box;
+    background-size: 100% 100%;
     .finish-img {
       display: block;
       width: 30%;

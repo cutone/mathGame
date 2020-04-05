@@ -21,8 +21,8 @@
     <audio id="selt_car" class="stem-music" src="static/audio/splitAndCombination/selt_car.mp3">您的浏览器不支持 audio
       标签。</audio>
     <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish"
-      src="static/images/trapezoid/music.png">
-    <img class="music-img" v-if="musicActive && !isFinish" src="static/images/trapezoid/music_active.gif">
+      src="static/images/common/music.png">
+    <img class="music-img" v-show="musicActive && !isFinish" src="static/images/common/music_active.gif">
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div class="game-list" v-if="!isFinish">
       <div class="game-item">
@@ -747,7 +747,6 @@ export default {
       justify-content: center;
       &-left {
         height: 100%;
-        width: 40%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -761,7 +760,6 @@ export default {
         height: 100%;
         width: 50%;
         position: relative;
-        margin: 0 auto;
         .game-title-img {
           position: absolute;
           display: block;

@@ -4,6 +4,18 @@
     <audio id="right_music" src="static/audio/common/right.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="complete" src="static/audio/common/top_complete.m4a">您的浏览器不支持 audio 标签。</audio>
     <audio id="please_think" src="static/audio/common/top_please_think.m4a">您的浏览器不支持 audio 标签。</audio>
+    <audio id="stem_music" src="static/audio/numberInLife/stem_music.mp3"></audio>
+    <img
+      class="music-img"
+      @click="broadcast()"
+      v-if="!musicActive && !isFinish"
+      src="static/images/common/top_music.png"
+    />
+    <img
+      class="music-img"
+      v-show="musicActive && !isFinish"
+      src="static/images/common/top_music_active.gif"
+    />
     <common-header :game-list="[]" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <div v-if="!isFinish" class="body">
         <div class="target-wrapper"> 
@@ -34,7 +46,7 @@
 import commonHeader from "@/common/commonHeader";
 import topClassComplete from "@/common/topClassComplete";
 export default {
-  name: 'HelloWorld',
+  name: 'numberInLife',
   data () {
     return {
         position: {
@@ -94,9 +106,16 @@ export default {
     let right_music = document.getElementById("right_music");
     let complete = document.getElementById("complete");
     let please_think = document.getElementById("please_think");
-
+    let stem_music = document.getElementById("stem_music");
     bg_music.addEventListener("canplaythrough", function() {
       bg_music.play();
+    });
+    stem_music.addEventListener("canplaythrough", function() {
+      stem_music.play();
+    });
+    stem_music.addEventListener("ended", function() {
+        _this.canDrag = true;
+        _this.musicActive = false;
     });
     please_think.addEventListener("ended", function() {
       _this.canDrag = true
@@ -104,6 +123,13 @@ export default {
     _this.initiate();
   },
   methods: {
+    //播放当前题目
+    broadcast() {
+      let _this = this;
+      _this.musicActive = true;
+      _this.canDrag = false;
+      _this.playAudio('stem_music');
+    },
     //播放mp3
     playAudio(id) {
       let audioBtn = document.getElementById(id);
@@ -119,11 +145,12 @@ export default {
       let _this = this;
       _this.currentIndex = 0;
       _this.isFinish = false;
-      _this.canDrag = true;
+      _this.canDrag = false;
       _this.musicActive = true;
       for(let i = 0, len = _this.gameList.length; i < len; i++){
             _this.gameList[i].isRight = false
         }
+        _this.playAudio('stem_music');
     },
     //检查是否正确
     check(item){
@@ -227,11 +254,12 @@ export default {
         .target-wrapper{
             display: flex;
             flex-wrap: wrap;
+            justify-content: flex-end;
             .target-item-wrapper{
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-                width: 50%;
+                width: 45%;
                 height: 22vh;
                 img{
                     width: 20%;
@@ -259,7 +287,7 @@ export default {
         .drag-container{
             // display: flex;
             .drag-item-wrapper{
-                width: 17%;
+                width: 16%;
                 height: 1vh;
                 display: inline-block;
                 position: relative;

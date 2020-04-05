@@ -1,3 +1,4 @@
+<!-- 适合整个图片最为背景的 -->
 <template>
   <div class="finish-wrapper">
     <img class="finish-img" :src="background" alt="">
@@ -40,6 +41,8 @@ export default {
   }
   .oprate-wrapper {
     margin-top: 2%;
+    display: flex;
+    justify-content: center;
     .complete-btn {
       display: inline-block;
       width: 80px;

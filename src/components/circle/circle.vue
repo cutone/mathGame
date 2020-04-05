@@ -7,7 +7,7 @@
         <audio id="stem_music" src="static/audio/circle/stem_music.wav">您的浏览器不支持 audio 标签。</audio>
         <audio id="first_page" src="static/audio/circle/first_page.wav">您的浏览器不支持 audio 标签。</audio>
         <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish && !isFirstPage" src="static/images/common/bottom_music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish && !isFirstPage" src="static/images/common/bottom_music_active.gif">
+        <img class="music-img" v-show="musicActive && !isFinish && !isFirstPage" src="static/images/common/bottom_music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish && !isFirstPage"></common-header>
         <div class="first-page" v-if="isFirstPage && !isFinish">
             <img class="shake-opacity" src="static/images/circle/tip.png" alt="">

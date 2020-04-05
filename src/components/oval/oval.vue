@@ -9,7 +9,7 @@
         <audio id="select_rectangle" class="stem-music" src="static/audio/oval/select_rectangle.mp3">您的浏览器不支持 audio 标签。</audio>
 
         <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/music.png"> 
-        <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif">
+        <img class="music-img" v-show="musicActive && !isFinish" src="static/images/common/music_active.gif">
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
         <div class="game-list" v-if="!isFinish">
             <div class="game-item">

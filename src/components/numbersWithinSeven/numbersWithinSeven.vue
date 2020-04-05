@@ -37,7 +37,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish"
+      v-show="musicActive && !isFinish"
       src="static/images/common/music_active.gif"
     />
 
@@ -59,11 +59,12 @@
       </div>
       <img class="dingdang" src="static/images/numbersWithinSeven/dingdang.png" />
       <div class="table-wrapper" id="table_wrapper">
-        <div class="circle-wrapper" v-for="(item, index) in currentItem.circleWrapper" :key="index">
-            <img v-if="item.isRight" class="stick" src="static/images/numbersWithinSeven/stick.png" alt="" />
+        <div class="circle-wrapper" v-for="(item1, index) in currentItem.circleWrapper" :key="index">
+            <img v-if="item1.isRight" class="stick" src="static/images/numbersWithinSeven/stick.png" alt="" />
                 <img
+                :class="`circle-${item1.size}`"
                 class="circle-img"
-                v-for="(item, index) in item.length"
+                v-for="(item, index) in item1.length"
                 :key="index"
                 src="static/images/numbersWithinSeven/circle.png"
                 alt=""
@@ -86,16 +87,16 @@ export default {
         completeImg: 'static/images/common/middle_complete.gif',
       position: { x: 0, y: 0 },
       currentIndex: 0,
-      currentItem: {rightNumber: 0, circleWrapper: [{length: 4, need: false, isRight: false},{length: 3, need: true,isRight: false},{length: 3, need: true,isRight: false}]},
+      currentItem: {rightNumber: 0, circleWrapper: [{length: 4, need: false, isRight: false, size: 'big'},{length: 3, need: true,isRight: false,size: 'small'},{length: 3, need: true,isRight: false,size: 'middle'}]},
       musicActive: true,
       canDrag: false,
       isFinish: false,
       gameList: [
-        {rightNumber: 0, circleWrapper: [{length: 4, need: false, isRight: false},{length: 3, need: true,isRight: false},{length: 3, need: true,isRight: false}]},
-        {rightNumber: 0, circleWrapper: [{length: 4, need: true, isRight: false},{length: 5, need: false,isRight: false},{length: 4, need: true,isRight: false}]},
-        {rightNumber: 0, circleWrapper: [{length: 5, need: true, isRight: false},{length: 5, need: true,isRight: false},{length: 6, need: false,isRight: false}]},
-        {rightNumber: 0, circleWrapper: [{length: 7, need: false, isRight: false},{length: 6, need: true,isRight: false},{length: 6, need: true,isRight: false}]},
-        {rightNumber: 0, circleWrapper: [{length: 7, need: true, isRight: false},{length: 6, need: false,isRight: false},{length: 7, need: true,isRight: false}]}
+        {rightNumber: 0, circleWrapper: [{length: 4, need: false, isRight: false, size: 'big'},{length: 3, need: true,isRight: false,size: 'small'},{length: 3, need: true,isRight: false,size: 'middle'}]},
+        {rightNumber: 0, circleWrapper: [{length: 4, need: true, isRight: false,size: 'middle'},{length: 5, need: false,isRight: false,size: 'big'},{length: 4, need: true,isRight: false,size: 'small'}]},
+        {rightNumber: 0, circleWrapper: [{length: 5, need: true, isRight: false,size: 'small'},{length: 5, need: true,isRight: false,size: 'middle'},{length: 6, need: false,isRight: false,size: 'big'}]},
+        {rightNumber: 0, circleWrapper: [{length: 7, need: false, isRight: false,size: 'big'},{length: 6, need: true,isRight: false,size: 'small'},{length: 6, need: true,isRight: false,size: 'middle'}]},
+        {rightNumber: 0, circleWrapper: [{length: 7, need: true, isRight: false,size: 'small'},{length: 6, need: false,isRight: false,size: 'big'},{length: 7, need: true,isRight: false,size: 'middle'}]}
       ]
     };
   },
@@ -377,8 +378,16 @@ export default {
               left: 5%
           }
         .circle-img {
-          width: 7%;
           margin: 15px 10px;
+        }
+        .circle-small{
+          width: 6%;
+        }
+        .circle-middle{
+          width: 8%;
+        }
+        .circle-big{
+          width: 9%;
         }
       }
     }

@@ -19,7 +19,7 @@
       class="music-img"
       @touchmove="touchMove('music_active')"
         @touchstart="down('music_active')"
-      v-if="musicActive && !isFinish"
+      v-show="musicActive && !isFinish"
       src="static/images/common/top_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>

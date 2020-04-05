@@ -14,7 +14,7 @@
     <audio id="eightNine" class="stem-music" src="static/audio/compareSixToTen/89.mp3">您的浏览器不支持 audio 标签。</audio>
     <audio id="nineTen" class="stem-music" src="static/audio/compareSixToTen/910.mp3">您的浏览器不支持 audio 标签。</audio>
     <img class="music-img" @click="broadcast()" v-if="!musicActive && !isFinish" src="static/images/common/music.png" />
-    <img class="music-img" v-if="musicActive && !isFinish" src="static/images/common/music_active.gif" />
+    <img class="music-img" v-show="musicActive && !isFinish" src="static/images/common/music_active.gif" />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
     <!-- 一个糖葫芦 -->
     <img src="static/images/compareSixToTen/tanghulu.png" alt="" class="thlImg" id="thl" v-show="draging">

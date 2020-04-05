@@ -37,7 +37,7 @@
     />
     <img
       class="music-img"
-      v-if="musicActive && !isFinish"
+      v-show="musicActive && !isFinish"
       src="static/images/common/music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
@@ -81,18 +81,20 @@
         </div>
       </div>
     </div>
-    <red-complete v-if="isFinish" @goBack="goBack" @initiate="initiate"></red-complete>
+    <complete :img="completeImg" :background="background" v-if="isFinish" @goBack="goBack" @initiate="initiate"></complete>
   </div>
 </template>
 
 <script>
 import commonHeader from "@/common/commonHeader";
-import redComplete from "@/common/redComplete";
+import complete from "@/common/complete";
 import { getElementToPageTop, getElementToPageLeft } from "@/common/js/common";
 export default {
   name: "HelloWorld",
   data() {
     return {
+      background: 'url(static/images/compareNumberWithinFive/background.png)',
+      completeImg: 'static/images/common/middle_complete.gif',
       position: { x: 0, y: 0 },
       currentIndex: 0,
       currentItem: {},
@@ -159,7 +161,7 @@ export default {
   },
   components: {
     commonHeader,
-    redComplete
+    complete
   },
   mounted() {
     let _this = this;
