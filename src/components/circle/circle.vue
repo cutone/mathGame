@@ -11,6 +11,7 @@
         <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish && !isFirstPage"></common-header>
         <div class="first-page" v-if="isFirstPage && !isFinish">
             <img class="shake-opacity" src="static/images/circle/tip.png" alt="">
+            <img class="first-page-img" src="static/images/circle/first_img.png" alt="">
         </div>
         <div class="game-list" v-if="!isFinish && !isFirstPage">
             <div class="game-item">
@@ -38,6 +39,7 @@
                 <span class="complete-btn" @click="goBack()">完成</span>
                 <span class="restart-btn" @click="initiate()">重做</span>
             </div> 
+            <img class="finish-img" src="static/images/circle/finish-img.png" alt="">
         </div>
     </div>
 </template>
@@ -216,8 +218,15 @@ export default {
         margin-bottom: 30px;
         box-sizing: border-box;
         padding-top: 7%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
         .shake-opacity{
             width: 30%;
+        }
+        .first-page-img{
+            width: 19%;
+            margin-right: 15%;
         }
     }
     .game-list{
@@ -234,19 +243,11 @@ export default {
             width: 25%;
             height: 30%;
             line-height: 140px;
-            margin: 0 auto;
+            margin: 10px auto 0;
             .game-title-img{
                 display: block;
-                height: 100px;
-            }
-            .game-title-text{
-                position: absolute;
-                left: 0;
-                z-index: 2;
-                width: 100%;
-                text-align: center;
-                line-height: 120px;
-                color: #69473d;
+                height: 90px;
+                margin: 0 auto
             }
         }
         .choose-item-wrapper{
@@ -262,7 +263,7 @@ export default {
                 }
             }
             .choose-item{
-                padding: 15% 0 0;
+                padding: 5% 0 0;
                 background-size: 100% 100%;
                 
                 .choice-img{
@@ -276,8 +277,14 @@ export default {
         background-image: url('../../../static/images/circle/finish.png');
         background-size: 100% 100%;
         padding-top: 20%;
-        padding-left: 10%;
+        padding-left: 12%;
         box-sizing: border-box;
+        .finish-img{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 27%;
+        }
         .oprate-wrapper {
             display: flex;
             width: 50%;

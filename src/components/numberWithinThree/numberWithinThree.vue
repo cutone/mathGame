@@ -12,10 +12,16 @@
     <audio class="stem" id="two" src="static/audio/numberWithinThree/two.wav">您的浏览器不支持 audio 标签。</audio>
     <audio class="stem" id="three" src="static/audio/numberWithinThree/three.wav">您的浏览器不支持 audio 标签。</audio>
     <div class="first" v-if="isFirstPage">
+      <img class="fist-img-1" src="static/images/numberWithinThree/fistPage-img.png" alt="">
       <img src="static/images/numberWithinThree/tips2.png" class="shake-opacity" />
+      <img class="fist-img-2" src="static/images/numberWithinThree/corner-img-1.png"/>
     </div>
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish&&!isFirstPage"></common-header>
     <div v-if="!isFinish&&!isFirstPage" class="body" :style="currentItem.backImg">
+      <img :class="{'left-corner-img-1': currentItem.id < 3, 'right-corner-img-1': currentItem.id >= 3}" v-show="currentItem.id <= 3" src="static/images/numberWithinThree/corner-img-1.png" alt="">
+      <img :class="{'left-corner-alert-1': currentItem.id < 3, 'right-corner-alert-1': currentItem.id >= 3}" v-show="currentItem.id <= 3" src="static/images/numberWithinThree/corner-alert-1.png" alt="">
+      <img class="corner-img-2" v-show="currentItem.id == 4" src="static/images/numberWithinThree/corner-img-2.png" alt="">
+      <img class="corner-alert-2" v-show="currentItem.id == 4" src="static/images/numberWithinThree/corner-alert-2.png" alt="">
       <div class="content">
         <div v-for="(item,index) in currentItem.img" :key="index" :style="item.style" class="pst" :class="item.id">
           <img :src="item.imgSrc" v-if="!item.pthree" class="picture" :style="item.rotate" />
@@ -49,15 +55,15 @@ export default {
       isFirstPage: true,
       currentItem: {},
       initialPosition: [],
-      gameList2: [],
       gameList: [
         {
+          id: 1,
           backImg: { backgroundImage: "url('static/images/numberWithinThree/background2.png')" },
           img: [
             {
               imgSrc: 'static/images/numberWithinThree/pT.png',
               numSrc: '',
-              style: { top: "2%", left: "44%", width: "25%", height: "40%", transform: "rotate(-3deg)" },
+              style: { top: "18%", left: "44%", width: "25%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
               choiceStyle: {
                 width: "25%", height: "40%", top: "45%", left: "70%"
@@ -70,12 +76,13 @@ export default {
           currentImg: 0,
         },
         {
+          id: 2,
           backImg: { backgroundImage: "url('static/images/numberWithinThree/background3.png')" },
           img: [
             {
               imgSrc: 'static/images/numberWithinThree/pFLeft.png',
               numSrc: '',
-              style: { top: "2%", left: "40%", width: "24%", height: "40%", transform: "rotate(-3deg)" },
+              style: { top: "18%", left: "40%", width: "24%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(3deg)" },
               choiceStyle: {
                 width: "24%", height: "40%", top: "50%", left: "40%"
@@ -86,7 +93,7 @@ export default {
             {
               imgSrc: 'static/images/numberWithinThree/pFRight.png',
               numSrc: '',
-              style: { top: "6.5%", left: "73%", width: "24%", height: "32%", transform: "rotate(-11deg)" },
+              style: { top: "23%", left: "73%", width: "24%", height: "32%", transform: "rotate(-11deg)" },
               rotate: { transform: "rotate(9deg)" },
               choiceStyle: { width: "24%", height: "32%", top: "50%", left: "70%" },
               pthree: true,
@@ -97,14 +104,15 @@ export default {
           currentImg: 0,
         },
         {
+          id: 3,
           backImg: { backgroundImage: "url('static/images/numberWithinThree/background4.png')" },
           img: [
             {
               imgSrc: 'static/images/numberWithinThree/pFvLeft.png',
               numSrc: '',
-              style: { top: "19%", left: "5.5%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
+              style: { top: "35%", left: "5.5%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
-              numStyle: { height: "30%", marginTop: "12%" },
+              numStyle: { height: "30%", marginTop: "0" },
               choiceStyle: { width: "22%", height: "52%", top: "40%", left: "40%", transform: "rotate(-2deg)" },
               pthree: true,
               id: 'pthree',
@@ -112,9 +120,9 @@ export default {
             {
               imgSrc: 'static/images/numberWithinThree/pFvRight.png',
               numSrc: '',
-              style: { top: "8.5%", left: "29%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
+              style: { top: "23%", left: "29%", width: "22%", height: "52%", transform: "rotate(-14.8deg)" },
               rotate: { transform: "rotate(16deg)" },
-              numStyle: { height: "30%", marginTop: "12%" },
+              numStyle: { height: "30%", marginTop: "10%" },
               choiceStyle: { width: "22%", height: "52%", top: "35%", left: "60%", transform: "rotate(-2deg)" },
               pthree: true,
               id: 'pthree1',
@@ -124,12 +132,13 @@ export default {
           currentImg: 0,
         },
         {
+          id: 4,
           backImg: { backgroundImage: "url('static/images/numberWithinThree/background5.png')" },
           img: [
             {
               imgSrc: 'static/images/numberWithinThree/pSLeft.png',
               numSrc: '',
-              style: { top: "10%", left: "18%", width: "21%", height: "37%", transform: "rotate(13deg)" },
+              style: { top: "25%", left: "18%", width: "21%", height: "37%", transform: "rotate(13deg)" },
               rotate: { transform: "rotate(-10deg)" },
               choiceStyle: { width: "22%", height: "37%", top: "50%", left: "20%", transform: "rotate(-4deg)" },
               pthree: true,
@@ -138,7 +147,7 @@ export default {
             {
               imgSrc: 'static/images/numberWithinThree/pSCenter.png',
               numSrc: '',
-              style: { top: "2%", left: "47%", width: "21.5%", height: "40%", transform: "rotate(-3deg)" },
+              style: { top: "18%", left: "47%", width: "21.5%", height: "40%", transform: "rotate(-3deg)" },
               rotate: { transform: "rotate(4deg)" },
               choiceStyle: { width: "21.5%", height: "40%", top: "50%", left: "50%", transform: "rotate(-2deg)" },
               pthree: true,
@@ -147,7 +156,7 @@ export default {
             {
               imgSrc: 'static/images/numberWithinThree/pSRight.png',
               numSrc: '/',
-              style: { top: "7%", left: "76.5%", width: "21.5%", height: "32%", transform: "rotate(-10deg)" },
+              style: { top: "21%", left: "76.5%", width: "21.5%", height: "32%", transform: "rotate(-10deg)" },
               rotate: { transform: "rotate(9deg)" },
               choiceStyle: { width: "21.5%", height: "32%", top: "50%", left: "80%", transform: "rotate(-0deg)" },
               pthree: true,
@@ -208,7 +217,6 @@ export default {
       _this.canDrag = true;
     })
     right_music.addEventListener("ended", function () {
-      _this.currentIndex++;
       if (_this.currentIndex == _this.gameList.length) {
         _this.isFinish = true;
       } else {
@@ -232,7 +240,6 @@ export default {
     //游戏初始化
     initiate () {
       let _this = this;
-      _this.gameList2 = _this.gameList;
       _this.currentIndex = 0;
       _this.isFirstPage = true;
       _this.currentItem = _this.gameList[_this.currentIndex];
@@ -281,6 +288,7 @@ export default {
           _this.playAudio("three");
         }
         if (this.currentItem.currentImg == this.currentItem.choiceImg) {
+          _this.currentIndex++
           _this.playAudio("right_music");
         }
       } else {
@@ -370,6 +378,7 @@ export default {
 
 <style scoped lang='less'>
 @import "../../../static/css/common.css";
+@bodyHeight: calc(~"100% - 30px");
 .number-within-ten-container {
   height: 100%;
   .first {
@@ -378,7 +387,19 @@ export default {
     background-image: url("../../../static/images/numberWithinThree/background1.png");
     background-size: 100% 100%;
     background-position: 0 150%;
-    img {
+    .fist-img-1{
+      width: 25%;
+      left: 5%;
+      position: absolute;
+      top: 20px;
+    }
+    .fist-img-2{
+      width: 22%;
+      position: absolute;
+      right: 5%;
+      bottom: 0%;
+    }
+    .shake-opacity {
       position: absolute;
       display: flex;
       width: 30%;
@@ -388,9 +409,44 @@ export default {
   }
   .body {
     position: relative;
-    height: 100%;
+    height: @bodyHeight;
     background-size: 100% 110%;
-    background-position: 0 150%;
+    .left-corner-img-1{
+      width: 16%;
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+    }
+    .left-corner-alert-1{
+      width: 20%;
+      position: absolute;
+      left: 8%;
+      top: 15%;
+    }
+    .right-corner-img-1{
+      width: 16%;
+      position: absolute;
+      bottom: 0;
+      right: 5%;
+    }
+    .right-corner-alert-1{
+      width: 20%;
+      position: absolute;
+      right: 5%;
+      top: 2%;
+    }
+    .corner-img-2{
+      position: absolute;
+      left: 1%;
+      width: 15%;
+      bottom: 0;
+    }
+    .corner-alert-2{
+      position: absolute;
+      left: 1%;
+      width: 15%;
+      top: 25%;
+    }
     .content {
       position: absolute;
       height: 100%;

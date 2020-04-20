@@ -5,7 +5,7 @@
                 <img class="yellow-grograss" v-show="index1 < currentIndex" v-for="(item, index1) in gameList" src="static/images/trapezoid/grograss_yellow.png">
                 <img class="grograss" v-show="currentIndex < index2 + 1" v-for="(item, index2) in gameList" src="static/images/trapezoid/prograss.png" >
             </div>
-            <span class="lesson-plan" @click="toLessonPlan()">教案</span>    
+            <img v-show="$route.name != 'lessonPlan'" class="lesson-plan" src="static/images/common/lessonPlan.png" @click="toLessonPlan()">    
         </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     },
   data () {
     return {
-      
+      showLessPlan: true
     }
   },
   methods: {

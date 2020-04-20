@@ -31,6 +31,7 @@
         @touchstart="down('currentAnimal')"
         @touchend="check('currentAnimal')" 
         id="currentAnimal"
+        :style="currentItem.imgStyle"
         :src="'static/images/beforeAndAfter/' + currentItem.animal+ '.png'" 
         alt="">
 
@@ -78,26 +79,31 @@ export default {
       gameList: [
         {
           animal: 'animal-1',
+          imgStyle: {'width': '17%'},
           isRight: false,
           direction: 'left'
         },
         {
           animal: 'animal-2',
+          imgStyle: {'width': '17%'},
           isRight: false,
           direction: 'right'
         },
         {
           animal: 'animal-3',
+          imgStyle: {'width': '11%'},
           isRight: false,
           direction: 'right'
         },
         {
           animal: 'animal-4',
+          imgStyle: {'width': '10%'},
           isRight: false,
           direction: 'left'
         },
         {
           animal: 'animal-5',
+          imgStyle: {'width': '16%'},
           isRight: false,
           direction: 'right'
         }
@@ -140,9 +146,9 @@ export default {
         let currentAnimal = document.getElementById("currentAnimal");
         //重置被拖动元素的定位
         currentAnimal.style.right = 'auto'
-        currentAnimal.style.bottom = 'auto'
+        currentAnimal.style.bottom = '8%'
         currentAnimal.style.left = '79%';
-        currentAnimal.style.top = '74%';
+        currentAnimal.style.top = 'auto';
         //播放下一题的音频
         _this.playAudio('stem_music_'+(_this.currentIndex+1));
         _this.musicActive = true;
@@ -266,9 +272,8 @@ export default {
             _this.currentIndex++
             _this.playAudio('right_music')
           }else{
-            console.log(222);
             moveDiv.style.left = '79%';
-            moveDiv.style.top = '74%';
+            moveDiv.style.top = 'auto';
             _this.playAudio('please_think')
           }
       }
@@ -280,13 +285,13 @@ export default {
             _this.playAudio('right_music')
           }else{
             moveDiv.style.left = '79%';
-            moveDiv.style.top = '74%';
+            moveDiv.style.top = 'auto';
             _this.playAudio('please_think');
           }
       }
       else {
         moveDiv.style.left = '79%';
-        moveDiv.style.top = '74%';
+        moveDiv.style.top = 'auto';
         _this.canDrag = false;
         _this.playAudio('please_think');
       }
@@ -328,14 +333,14 @@ export default {
         width: 30%;
       }
       .minnie-img {
-        width: 34%;
+        width: 30%;
       }
     }
     .animal-item {
       display: block;
       width: 10%;
       position: absolute;
-      bottom: 9%;
+      bottom: 8%;
       left: 79%;
       z-index: 2;
     }

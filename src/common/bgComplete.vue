@@ -1,5 +1,5 @@
 <template>
-   <div class="finish-wrapper" :style="{'background-image': 'url('+background+')'}">
+   <div class="bg-complete-wrapper" :style="{'background-image': 'url('+background+')'}">
       <div class="oprate-wrapper">
         <span class="complete-btn" @click="goBack()">完成</span>
         <span class="restart-btn" @click="initiate()">重做</span>
@@ -31,7 +31,7 @@ export default {
 }
 </script>
 <style lang="less">
-.finish-wrapper {
+.bg-complete-wrapper {
     background-size: 100% 100%;
     height: 100%;
     display: flex;

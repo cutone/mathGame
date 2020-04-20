@@ -19,8 +19,12 @@
       src="static/images/common/bottom_music_active.gif"
     />
     <common-header :game-list="gameList" :currentIndex="currentIndex" v-if="!isFinish"></common-header>
-    <div class="first-page" v-if="isFirstPage && !isFinish"></div> 
+    <div class="first-page" v-if="isFirstPage && !isFinish">
+        <img class="first-page-img" src="static/images/square/first_img.png" alt="">
+        <img class="first-page-alert" src="static/images/square/first_alert.png" alt="">
+    </div> 
     <div v-if="!isFinish && !isFirstPage" class="body" :class="currentItem.bgImg">
+      <img :class="currentItem.cornerImg" :src="'static/images/square/'+currentItem.cornerImg+'.png'" alt="">
         <img class="title-img" :src="'static/images/square/'+currentItem.titleImg+'.png'" alt="">
         <!-- 显示图片 -->
         <img class="top-img" :class="currentItem.isWrong ? 'shake-animation' : ''" @click="choose('top')" :src="'static/images/square/'+currentItem.top.img+'.png'" alt="">
@@ -34,7 +38,9 @@
         <img v-show="currentItem.right.currentRight" class="right-right right-mask" :src="'static/images/common/right.png'" alt="">
     </div>
     <bg-complete :background="background" v-if="isFinish" @goBack="goBack" @initiate="restart">
+
     </bg-complete>
+    <img class="complete-img" v-if="isFinish" src="static/images/square/complete_img.png" alt="">
   </div>
 </template>
 
@@ -57,6 +63,7 @@ export default {
           isWrong: false,
           isRight: false,
           bgImg: 'bg_1',
+          cornerImg: 'bg_1_img',
           titleImg: 'select_circle',
           audioType: 'select_circle',
           rightChoice: ['bottom'],
@@ -80,6 +87,7 @@ export default {
           isWrong: false,
           isRight: false,
           bgImg: 'bg_1',
+          cornerImg: 'bg_1_img',
           audioType: 'select_square',
           titleImg: 'select_square',
           rightChoice: ['bottom'],
@@ -103,6 +111,7 @@ export default {
           isWrong: false,
           isRight: false,
           bgImg: 'bg_1',
+          cornerImg: 'bg_1_img',
           titleImg: 'select_circle',
           audioType: 'select_circle',
           rightChoice: ['top'],
@@ -126,6 +135,7 @@ export default {
           isWrong: false,
           isRight: false,
           bgImg: 'bg_2',
+          cornerImg: 'bg_2_img',
           audioType: 'select_square',
           titleImg: 'select_square',
           rightChoice: ['top','bottom'],
@@ -149,6 +159,7 @@ export default {
           isWrong: false,
           isRight: false,
           bgImg: 'bg_2',
+          cornerImg: 'bg_2_img',
           audioType: 'select_square',
           titleImg: 'select_square',
           rightChoice: ['top','right'],
@@ -307,11 +318,36 @@ export default {
         background-size: 100% 100%;
         height: @bodyHeight;
         margin-bottom: 30px;
+        display: flex;
+        justify-content: flex-start;
+        .first-page-img{
+          align-self: flex-end;
+          width: 30%;
+          margin-left: 9%;
+        }
+        .first-page-alert{
+          align-self: flex-start;
+          width: 30%;
+          margin-top: 20px;
+          margin-left: 20px;
+        }
     }
   .body{
       position: relative;
     height: @bodyHeight;
     background-size: 100% 100%;
+    .bg_1_img{    
+      width: 32%;
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+    }
+    .bg_2_img{    
+      width: 25%;
+      position: absolute;
+      bottom: 0;
+      left: 14%;
+    }
     .title-img{
         position: absolute;
         bottom: 1%;
@@ -367,6 +403,12 @@ export default {
   }
   .bg_2{
       background-image: url('../../../static/images/square/bg_2.png')
+  }
+  .complete-img{
+    position: absolute;
+    right: 2%;
+    bottom: 4%;
+    width: 23%;
   }
 }
 </style>

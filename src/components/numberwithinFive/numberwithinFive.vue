@@ -13,12 +13,17 @@
       您的浏览器不支持 audio 标签。
     </audio>
     <audio id="first_page" src="static/audio/numberWithinFive/first_page.wav">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_1" class="stem-music" src="static/audio/numberWithinFive/stem_music_1.wav">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_2" class="stem-music" src="static/audio/numberWithinFive/stem_music_2.wav">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_3" class="stem-music" src="static/audio/numberWithinFive/stem_music_3.wav">您的浏览器不支持 audio 标签。</audio>
-    <audio id="stem_music_4" class="stem-music" src="static/audio/numberWithinFive/stem_music_4.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="number_1" class="number-music" src="static/audio/numberWithinFive/1.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="number_2" class="number-music" src="static/audio/numberWithinFive/2.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="number_3" class="number-music" src="static/audio/numberWithinFive/3.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="number_4" class="number-music" src="static/audio/numberWithinFive/4.wav">您的浏览器不支持 audio 标签。</audio>
+    <audio id="number_5" class="number-music" src="static/audio/numberWithinFive/5.wav">您的浏览器不支持 audio 标签。</audio>
+  
+   <audio id="stem_music_1" class="stem-music" src="static/audio/numberWithinFive/stem_music_1.wav">您的浏览器不支持 audio 标签。</audio>
+   <audio id="stem_music_2" class="stem-music" src="static/audio/numberWithinFive/stem_music_2.wav">您的浏览器不支持 audio 标签。</audio>
+   <audio id="stem_music_3" class="stem-music" src="static/audio/numberWithinFive/stem_music_3.wav">您的浏览器不支持 audio 标签。</audio>
+   <audio id="stem_music_4" class="stem-music" src="static/audio/numberWithinFive/stem_music_4.wav">您的浏览器不支持 audio 标签。</audio>
     <audio id="stem_music_5" class="stem-music" src="static/audio/numberWithinFive/stem_music_5.wav">您的浏览器不支持 audio 标签。</audio>
-
     <img
       class="music-img"
       @click="broadcast()"
@@ -35,7 +40,16 @@
       :currentIndex="currentIndex"
       v-if="!isFinish"
     ></common-header>
-    <div class="first-page" v-if="isFirstPage && !isFinish"></div>
+    <div class="first-page" v-if="isFirstPage && !isFinish">
+      <img class="first-img"  src="static/images/numberWithinFive/first_img.png" alt="">
+      <img class="first-alret" src="static/images/numberWithinFive/first_alert.png" alt="">
+      <img class="first-rule-img" src="static/images/numberWithinFive/rule.png" alt="">
+      <img class="first-eraser-img" src="static/images/numberWithinFive/eraser.png" alt="">
+      <img class="first-eraser-img-2" src="static/images/numberWithinFive/eraser.png" alt="">
+      <img class="first-pencil-img" src="static/images/numberWithinFive/pencil.png" alt="">
+      <img class="first-book-img" src="static/images/numberWithinFive/book.png" alt="">
+      <img class="first-bag-img" src="static/images/numberWithinFive/bag.png" alt="">
+    </div>
     <div v-if="!isFinish && !isFirstPage" class="body">
         <div class="target-wrapper">
             <div class="shadow-wrapper" :class="currentItem.shadowImg" v-for="item in currentItem.shadowList">
@@ -132,6 +146,7 @@ export default {
     let first_page = document.getElementById("first_page");
     let dragList = document.getElementsByClassName("drag-item");
     let stemMusicList = document.getElementsByClassName("stem-music");
+    let numberMusicList = document.getElementsByClassName("number-music");
     for (let i = 0, len = stemMusicList.length; i < len; i++) {
       eval(
         "let " +
@@ -143,6 +158,28 @@ export default {
       stemMusicList[i].addEventListener("ended", function() {
         _this.canDrag = true;
         _this.musicActive = false;
+      });
+    }
+    //数字播放
+    for (let i = 0, len = numberMusicList.length; i < len; i++) {
+      eval(
+        "let " +
+          numberMusicList[i].id +
+          "=document.getElementById('" +
+          numberMusicList.id +
+          "');"
+      );
+      numberMusicList[i].addEventListener("ended", function() {
+        _this.canDrag = true;
+          for(let i = 0; i < _this.currentItem.shadowList.length; i++){
+            if(_this.currentItem.shadowList[i].isRight == false){
+              _this.canDrag = true;
+              return
+            }
+        }
+        _this.currentIndex++;
+        _this.canDrag = false;
+        _this.playAudio('right_music')
       });
     }
     bg_music.addEventListener("canplaythrough", function() {
@@ -209,12 +246,14 @@ export default {
               mouseY < imgBottom
             ) {
                 let moveContent = (moveDiv.id.split('_'))[0]
-              if (_this.currentItem.rightImg == moveContent) {
+              if (_this.currentItem.rightImg == moveContent && _this.currentItem.shadowList[i].isRight == false){
                 console.log("对了");
                 moveDiv.style.display = 'none';
                 _this.currentItem.currentNumber++
                 _this.currentItem.shadowList[i].numberImg = 'static/images/numberWithinFive/' + _this.currentItem.currentNumber+'.png'
                 _this.currentItem.shadowList[i].isRight = true;
+                _this.playAudio('number_'+_this.currentItem.currentNumber);
+                _this.canDrag = false;
               } else {
                 console.log("错了");
                 moveDiv.style.top = 'auto';
@@ -224,14 +263,6 @@ export default {
               }
             }
       }
-      for(let i = 0; i < _this.currentItem.shadowList.length; i++){
-          if(_this.currentItem.shadowList[i].isRight == false){
-              return
-          }
-      }
-      _this.currentIndex++;
-      _this.canDrag = false;
-      _this.playAudio('right_music')
     },
     //播放mp3
     playAudio(id) {
@@ -362,6 +393,53 @@ export default {
     background-size: 100% 100%;
     height: @bodyHeight;
     margin-bottom: 30px;
+    .first-img{
+      width: 30%;
+      position: absolute;
+      top: 30%;
+      left: 10%;
+    }
+    .first-alret{
+      width: 30%;
+      position: absolute;
+      top: 15%;
+      right: 25%;
+    }
+    .first-rule-img{
+      position: absolute;
+      width: 10%;
+      bottom: 10%;
+    }
+    .first-eraser-img{
+      position: absolute;
+      width: 4%;
+      bottom: 20%;
+      right: 30%;
+    }
+    .first-eraser-img-2{
+      position: absolute;
+      width: 4%;
+      bottom: 23%;
+      right: 55%;
+    }
+    .first-pencil-img{
+      position: absolute;
+      width: 4%;
+      bottom: 5%;
+      right: 15%;
+    }
+    .first-book-img{
+      position: absolute;
+      width: 9%;
+      top: 62%;
+      left: 52%;
+    }
+    .first-bag-img{
+      position: absolute;
+      width: 12%;
+      right: 9%;
+      top: 55%;
+    }
   }
   .body {
     height: @bodyHeight;
@@ -416,7 +494,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 10px;
+            margin: 0 5px;
             .drag-item{
                 position: absolute;
                 width: 100%;
@@ -425,7 +503,7 @@ export default {
     }
     .bag_shadow,
         .bag{
-            width: 10%;
+            width: 13%;
         }
         .book_shadow,
         .book{
@@ -433,7 +511,7 @@ export default {
         }
         .box_shadow,
         .box{
-            width: 5%;
+            width: 4%;
         }
         .eraser_shadow,
         .eraser{

@@ -1,6 +1,6 @@
 <!-- 适合整个图片最为背景的 -->
 <template>
-  <div class="finish-wrapper">
+  <div class="middle-finish-wrapper">
     <img class="finish-img" :src="background" alt="">
     <div class="oprate-wrapper">
       <span class="complete-btn" @click="goBack()">完成</span>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.finish-wrapper {
+.middle-finish-wrapper {
   width: 100%;
   height: 100%;
   display: block;

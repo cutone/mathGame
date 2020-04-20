@@ -1,5 +1,5 @@
 <template>
-    <div class="finish-wrapper">
+    <div class="red-finish-wrapper">
         <img class="finish-img" src="static/images/common/success.gif" alt="">
         <div class="oprate-wrapper">
             <span class="complete-btn" @click="goBack()">完成</span>
@@ -27,7 +27,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.finish-wrapper{
+.red-finish-wrapper{
         width: 100%;
         height: 100%;
         display: block;

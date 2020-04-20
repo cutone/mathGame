@@ -34,6 +34,7 @@
             v-if="isFinish" 
             >
             <img class="complete-img" src="static/images/triangle/complete.png" alt="">
+            <img class="corner-img" src="static/images/triangle/complete-img.png" alt="">
             <div class="oprate-wrapper">
                 <span class="complete-btn" @click="goBack()">完成</span>
                 <span class="restart-btn" @click="initiate()">重做</span>
@@ -368,7 +369,6 @@ export default {
                 background-size: 100% 100%;
                 .choice-img{
                     width: 100%;
-                    max-height: 28vh;
                 }
             }
         }
@@ -382,12 +382,19 @@ export default {
         align-items: center;
         flex-direction: column;
         .complete-img{
-            width: 50%;
+            width: 40%;
+        }
+        .corner-img{
+            position: absolute;
+            bottom: 0;
+            right: 5px;
+            width: 10%;
         }
         .oprate-wrapper{
             display: flex;
             justify-content: space-between;
-            width: 50%;
+            width: 40%;
+            margin-top: 20px;
             .complete-btn {
                 display: block;
                 width: 80px;
